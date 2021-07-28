@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.book">
+
+	<!-- 도서등록 -->
+	<insert id="book_insert" parameterType="com.mybook.vo.BookVO">
+		insert into mybook_book values('b_'||sequ_mybook_book.nextval,#{bname}, #{bauthor}, #{bpublish}, #{bdate}, #{bcontent}, 0, #{bfile}, #{bsfile}, 0)
+	</insert>
+	
+	<!-- 관리자 - 도서리스트 -->
+	<select id="book_list" parameterType="hashmap" resultType="com.mybook.vo.BookVO">
+		select rno, bid, bname, bauthor, bpublish, bdate, bheart, status
+			from (select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart, status
+				from (select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart, status from mybook_book order by bname))
+				where rno between (#{page}-1)*#{perPageNum}+1 and (#{page}*#{perPageNum})
+	</select>	
+	
+	<!-- 도서갯수 -->
+	<select id="book_count" resultType="java.lang.Integer">
+		select count(*) from mybook_book
+	</select>
+	
+	<!-- 사용자 - 도서리스트 -->
+	<select id="book_user_list" resultType="com.mybook.vo.BookVO">
+		select bid, bname, bauthor, bpublish, bdate, bfile, bsfile, status from mybook_book order by bname
+	</select>
+	
+	<!-- 도서리스트 - 검색 -->
+	<select id="book_search_list" parameterType="java.lang.String" resultType="com.mybook.vo.BookVO">		
+			select bid, bname, bauthor, bpublish, bdate, bfile, bsfile, status
+				from(select bid, bname, bauthor, bpublish, bdate, bfile, bsfile, status
+    			from(select bid, bname, bauthor, bpublish, bdate, bfile, bsfile, status from mybook_book order by bname)
+    			where bname like '%'||#{search}||'%') 
+	</select>
+	
+	<!-- 도서상세정보 -->
+	<select id="book_content" parameterType="java.lang.String" resultType="com.mybook.vo.BookVO">
+		select bid, bname, bauthor, bpublish, bdate, bfile, bsfile, bcontent, bheart, status from mybook_book where bid=#{bid}
+	</select>
+	
+	<!-- 도서 대여하기 -->
+	<insert id="book_rental" parameterType="com.mybook.vo.BookVO" >
+		insert into mybook_rental values(#{id}, #{bid}, sysdate, #{endday}, 1)
+	</insert>
+	
+	<!-- 대여상태바꾸기 -->
+	<update id="book_status" parameterType="java.lang.String">
+		update mybook_book set status=1 where bid=#{bid}
+	</update>
+	
+	<!-- 도서정보 로그인 회원 -->
+	<select id="member_book_list" parameterType="java.lang.String" resultType="com.mybook.vo.BookVO">
+		select id, bid, to_char(startday, 'yyyy-mm-dd') startday, endday from mybook_rental where id=#{id} and status=1 order by startday
+	</select>
+	
+	<!-- 도서 반납하기 -->
+	<update id="book_return" parameterType="com.mybook.vo.BookVO" >
+		update mybook_rental set status=0 where id=#{id} and bid=#{bid}
+	</update>
+	
+	<!-- 대여상태바꾸기 -->
+	<update id="book_return_status" parameterType="java.lang.String">
+		update mybook_book set status=0 where bid=#{bid}
+	</update>
+	
+	<!-- 파일찾기 -->
+	<select id="oldfile" parameterType="java.lang.String" resultType="java.lang.String">
+		select bsfile from mybook_book where bid=#{bid}
+	</select>
+	
+	<!-- 도서삭제 -->
+	<delete id="book_delete" parameterType="java.lang.String">
+		delete from mybook_book where bid=#{bid}
+	</delete>
+	
+	<!-- 도서 하트 + -->
+	<update id="book_heart_plus" parameterType="java.lang.String">
+		update mybook_book set bheart = bheart+1 where bid=#{bid}
+	</update>
+	
+	<!-- 하트 테이블 + -->
+	<insert id="heart_plus" parameterType="com.mybook.vo.BookVO">
+		insert into mybook_heart values(#{id}, #{bid})
+	</insert>
+	
+	<!-- 좋아요 여부 확인하기 -->
+	<select id="heart_result" parameterType="com.mybook.vo.BookVO" resultType="java.lang.Integer">
+		select count(*) from mybook_heart where id=#{id} and bid=#{bid}
+	</select>
+	
+	<!-- 도서 하트 - -->
+	<update id="book_heart_minus" parameterType="java.lang.String">
+		update mybook_book set bheart = bheart-1 where bid=#{bid}
+	</update>
+	
+	<!-- 하트 테이블 - -->
+	<insert id="heart_minus" parameterType="com.mybook.vo.BookVO">
+		delete mybook_heart where id=#{id} and bid=#{bid}
+	</insert>
+	
+	<!-- 대여여부확인하기 -->
+	<select id="rental_result" parameterType="com.mybook.vo.BookVO" resultType="java.lang.Integer">
+		select count(*) from mybook_rental where id=#{id} and bid=#{bid}
+	</select>
+	
+	<!-- 리뷰업로드 -->
+	<insert id="review_upload" parameterType="com.mybook.vo.ReviewVO" >
+		insert into mybook_review values(#{id}, #{bid}, 'r_'||sequ_mybook_review.nextval, #{content}, #{star}, sysdate)
+	</insert>
+	
+	<!-- 리뷰 가져오기 -->
+	<select id="review_list" parameterType="java.lang.String" resultType="com.mybook.vo.ReviewVO">
+		select id, bid, content, star, rdate, rid from mybook_review where bid=#{bid} order by rdate desc
+	</select>
+	
+	<!-- 리뷰 여부 -->
+	<select id="review_result" parameterType="com.mybook.vo.BookVO" resultType="java.lang.Integer">
+		select count(*) from mybook_review where id=#{id} and bid=#{bid}
+	</select>
+	
+	<!-- 리뷰 카운트 -->
+	<select id="review_count" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from mybook_review where bid=#{bid}
+	</select>
+	
+	<!-- 별점 합계 -->
+	<select id="review_sum" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sum(star) from mybook_review where bid=#{bid}
+	</select>
+	
+	<!-- 파일 포함 업데이트 -->
+	<update id="yes_update" parameterType="com.mybook.vo.BookVO">
+		update mybook_book set bname=#{bname}, bauthor=#{bauthor}, bcontent=#{bcontent}, bpublish=#{bpublish}, bdate=#{bdate}, bfile=#{bfile}, bsfile=#{bsfile} where bid=#{bid}
+	</update>
+	
+	<!-- 파일 미포함 업데이트 -->
+	<update id="no_update" parameterType="com.mybook.vo.BookVO">
+		update mybook_book set bname=#{bname}, bauthor=#{bauthor}, bcontent=#{bcontent}, bpublish=#{bpublish}, bdate=#{bdate} where bid=#{bid}
+	</update>
+	
+	<!-- 로그인 회원 리뷰가져오기 -->
+	<select id="user_review" parameterType="com.mybook.vo.BookVO" resultType="com.mybook.vo.ReviewVO">
+		select id, bid, content, star from mybook_review where id=#{id} and bid=#{bid}
+	</select>
+	
+	<!-- 리뷰 업데이트 -->
+	<update id="review_update" parameterType="com.mybook.vo.ReviewVO">
+		update mybook_review set content=#{content}, star=#{star} where id=#{id} and bid=#{bid}
+	</update>
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="review_delete" parameterType="java.lang.String">
+		delete from mybook_review where rid=#{rid}
+	</delete>
+
+</mapper>

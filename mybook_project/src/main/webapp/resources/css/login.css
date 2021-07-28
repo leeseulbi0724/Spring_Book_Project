@@ -1,0 +1,64 @@
+@charset "UTF-8";
+.home, .book, .com { color:rgb(162,162,162); }
+	section { height:600px; text-align:center; }	
+	.login_box { 
+		width:800px; height:300px; 
+		display:inline-block; 
+		text-align:center;
+		margin:150px 0 0 0;
+		border:1px solid lightgray; 
+	}
+	.login_box ul { list-style:none; }
+	
+	.input { 
+		display:inline-block; 
+		width:400px; height:150px;
+		 float:left; 
+		 margin-left:100px;
+		 text-align:right;
+		 margin-top:35px;
+	}
+	.btn_login { 
+		display:inline-block; 
+		width:200px; height:150px; 
+		float:left; 
+		text-align:center;
+		margin-top:35px;
+	}
+	.btn_login button {
+		background-color:rgb(43,129,199);
+		color:white;
+		width:100px; height:85px;
+		font-size:25px;
+		border:none;
+		margin-top:50px;
+		margin-left:10px;
+		float:left;
+	}	
+	.btn_find { 
+		display:inline-block; 
+		width:410px; 
+		height:100px; 
+		float:left; 
+		margin-left:200px;
+		text-align:left;
+	}	
+	.form-control { 
+		display:inline-block; width:300px; border-radius:0px;
+		margin-bottom:10px;
+	 }
+	 .form-control:first-child { margin-top:50px; }
+	 #find { float:right; border:none; background-color:white; }
+	 #find:last-child { padding-right:10px; border-right:1px solid gray; }
+	 #find:nth-child(3) { padding-left:10px; }
+	
+	section>p { margin-bottom:20px; }
+	.join { 
+		background-color:black; 
+		color:white;
+		 border:none;
+		 text-decoration:none;
+		 font-size:20px; 
+		 padding:10px 100px;
+	}
+	.join:hover { color:white; }

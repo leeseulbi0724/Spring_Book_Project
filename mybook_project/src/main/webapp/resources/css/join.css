@@ -1,0 +1,59 @@
+@charset "UTF-8";
+.home, .book, .com { color:rgb(162,162,162); }
+	body { text-align:center; }
+	section { height:800px; text-align:center; }
+	.join_box { 
+		display:inline-block; 
+		text-aling:center;
+		margin:50px 0;
+	}
+	.join_box p { 
+		font-size:30px;
+		font-weight:bold;
+		margin:0 0 20px 20px;
+	}	
+	 
+	.center { margin-top:80px; }
+	h3 { 
+		border-bottom:5px solid #4fa9de; 
+		font-size:20px; 
+		font-weight:bold; 
+		float:left;
+	}		
+	
+	.table { border-top:1px solid; border-bottom:1px solid lightgray; font-size:15px; width:600px; margin-bottom:40px; }
+	.table th { font-weight:normal; text-align:left; vertical-align:middle; }
+	.table th a, .table th button { padding:1px 10px; font-size:14px; }
+	.table th:first-child {
+		 font-weight:normal; 
+		 width:150px; 
+		 margin-bottom:10px; 		 
+		 background-color:rgb(247,248,249); 
+		 vertical-align:middle;
+	}
+	.form-select { width:100px; display:inline-block; height:25px; padding:0 5px; font-size:14px;  }
+	
+	.form-control { 
+		display:inline-block; width:300px; height:30px; border-radius:0px;
+		margin-bottom:10px;		
+	 }
+	 tr:nth-child(6) .form-control { width:125px; }
+	 tr:nth-child(7) .form-control { width:100px; }
+	
+	#id_check, .check { border:1px solid lightgray; background-color:white; margin-left:5px; }
+	.addr { width:400px; margin-bottom:5px; }
+		
+	.cancle, .join { 
+		border:none;
+		padding:5px 10px;
+		margin-right:5px;
+		margin-top:10px;
+		text-decoration:none;
+	}	
+	.cancle { border:1px solid lightgray; color:black; }
+	.cancle:hover { color:black; }
+	.join { 
+		background-color:rgb(43,129,199);
+		color:white;
+	}
+	.join:hover { color:white; }

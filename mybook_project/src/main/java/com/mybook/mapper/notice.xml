@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.notice">
+	
+	<!-- 공지사항 글쓰기 -->
+	<insert id="notice_insert" parameterType="com.mybook.vo.NoticeVO">	
+		<choose>
+			<when test = "nfile == null">
+				insert into mybook_notice values('n_'||sequ_mybook_notice.nextval, #{ncategory}, #{ntitle}, #{ncontent}, sysdate, 0, null, null)			
+			</when>
+			<otherwise>
+				insert into mybook_notice values('n_'||sequ_mybook_notice.nextval, #{ncategory}, #{ntitle}, #{ncontent}, sysdate, 0, #{nfile}, #{nsfile})	
+			</otherwise>
+		</choose>			
+	</insert>
+	
+	<!-- 공지사항 리스트 -->
+	<select id="notice_list" parameterType="hashmap" resultType="com.mybook.vo.NoticeVO">
+		     select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, to_char(ndate, 'yyyy-mm-dd') ndate
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+				from (select nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate from mybook_notice order by ndate desc) order by ndate)
+				where rno between (#{page}-1)*#{perPageNum}+1 and (#{page}*#{perPageNum}) order by rno desc
+	</select>
+	
+	<!-- 공지사항 rno 가져오기 -->
+	<select id="notice_rno" resultType="com.mybook.vo.NoticeVO">
+		   select rownum rno
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+				from (select nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, to_char(ndate, 'yyyy-mm-dd') ndate from mybook_notice order by ndate desc) order by rno)
+				order by rno desc
+	</select>
+	
+	<!-- 공지사항 전체갯수 -->
+	<select id="count" resultType="java.lang.Integer">
+		select count(*) from mybook_notice
+	</select>
+	
+	<!-- 공지사항 상세보기  -->
+	<select id="notice_content" parameterType="java.lang.String" resultType="com.mybook.vo.NoticeVO">
+		select nid, ncategory, ntitle, ncontent, nfile, nsfile, ndate from mybook_notice where nid=#{nid}
+	</select>
+	
+	<!-- 공지사항 파일찾기 -->
+	<select id="oldfile" parameterType="java.lang.String" resultType="java.lang.String">
+		select nsfile from mybook_notice where nid=#{nid}
+	</select>
+	
+	<!-- 파일 포함 업데이트 -->
+	<update id="yes_update" parameterType="com.mybook.vo.NoticeVO">
+		update mybook_notice set ntitle=#{ntitle}, ncategory=#{ncategory}, ncontent=#{ncontent}, nfile=#{nfile}, nsfile=#{nsfile} where nid=#{nid}
+	</update>
+	
+	<!-- 파일 미포함 업데이트 -->
+	<update id="no_update" parameterType="com.mybook.vo.NoticeVO">
+		update mybook_notice set ntitle=#{ntitle}, ncategory=#{ncategory}, ncontent=#{ncontent} where nid=#{nid}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id ="notice_delete" parameterType="java.lang.String">
+		delete from mybook_notice where nid=#{nid}
+	</delete>
+	
+	<!-- 공지사항 spcl-->
+	<select id="spcl_list" resultType="com.mybook.vo.NoticeVO">
+		    select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, to_char(ndate, 'yyyy-mm-dd') ndate
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+				from (select nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate from mybook_notice order by ndate desc) order by ndate) 
+					where ncategory='spcl' order by rno desc
+	</select>
+	
+	<!-- 공지사항 - 일반 -->
+	<select id="normal_list" parameterType="hashmap" resultType="com.mybook.vo.NoticeVO">
+		     select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, to_char(ndate, 'yyyy-mm-dd') ndate
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+				from (select nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate from mybook_notice where ncategory='normal' order by ndate desc) order by ndate)
+				where rno between (#{page}-1)*#{perPageNum}+1 and (#{page}*#{perPageNum}) order by rno desc
+	</select>
+	
+	<!-- 공지사항 일반 전체갯수 -->
+	<select id="normal_count" resultType="java.lang.Integer">
+		select count(*) from mybook_notice where ncategory='normal'
+	</select>
+	
+	<!-- 공지사항 조회수 업 -->
+	<update id="notice_hit" parameterType="java.lang.String">
+		update mybook_notice set ncount=ncount+1 where nid=#{nid}
+	</update>
+	
+	<!-- 공지사항 이전글 -->
+	<select id="notice_prev_normal" parameterType="java.lang.String" resultType="com.mybook.vo.NoticeVO">
+		select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+				from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+					from (select * from mybook_notice where ncategory='normal' order by ndate desc) order by ndate) order by rno desc) where rno=#{rno}-1
+	</select>
+	
+	<!-- 공지사항 다음글 -->
+	<select id="notice_next_normal" parameterType="java.lang.String" resultType="com.mybook.vo.NoticeVO">
+		select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+				from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+					from (select * from mybook_notice where ncategory='normal' order by ndate desc) order by ndate) order by rno desc) where rno=#{rno}+1
+	</select>
+	
+	<!-- 공지사항 이전글 -->
+	<select id="notice_prev_spcl" parameterType="java.lang.String" resultType="com.mybook.vo.NoticeVO">
+		select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+				from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+					from (select * from mybook_notice where ncategory='spcl' order by ndate desc) order by ndate) order by rno desc) where rno=#{rno}-1
+	</select>
+	
+	<!-- 공지사항 다음글 -->
+	<select id="notice_next_spcl" parameterType="java.lang.String" resultType="com.mybook.vo.NoticeVO">
+		select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+				from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
+					from (select * from mybook_notice where ncategory='spcl' order by ndate desc) order by ndate) order by rno desc) where rno=#{rno}+1
+	</select>
+	
+</mapper>
