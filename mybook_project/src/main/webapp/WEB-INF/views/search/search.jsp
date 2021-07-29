@@ -176,7 +176,7 @@
 		 <div class="left">
 		 	<ul>
 		 		<li><a href="search.do">도서 검색</a></li>
-		 		<li><a href="room.do">열람실 신청</a></li>
+		 		<li><a href="room.do">열람실 예약</a></li>
 		 	</ul>
 		 </div>
 		 <div class="center">

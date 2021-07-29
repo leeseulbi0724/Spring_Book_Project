@@ -37,7 +37,7 @@
  		<button class="one" onClick="location.href='mypage.do'">My 정보</button>
  		<button class="two" onClick="location.href='mypage_info.do'">정보수정</button>
  		<button class="three" onClick="location.href='mypage_pass.do'">비밀번호 변경</button>
- 		<button class="four" onClick="location.href='mypage_book.do'">대여 내역</button>
+ 		<button class="four" onClick="location.href='mypage_book.do'">나의 내역</button>
  	</div>
  </div>
  

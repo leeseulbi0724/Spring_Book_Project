@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.mybook.dao.MypageDAO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.ReviewVO;
+import com.mybook.vo.RoomVO;
 
 @Service("MypageService")
 public class MypageServiceImpl implements MypageService {
@@ -23,6 +24,11 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public ArrayList<ReviewVO> getReviewList(String id) {
 		return mypageDAO.getReviewList(id);
+	}
+	
+	@Override
+	public  RoomVO getRoomResult(String id) {
+		return mypageDAO.getRoomResult(id);
 	}
 
 }

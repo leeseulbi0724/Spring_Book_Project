@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mybook.vo.BookVO;
 import com.mybook.vo.ReviewVO;
+import com.mybook.vo.RoomVO;
 
 @Repository
 public class MypageDAO {
@@ -26,6 +27,10 @@ public class MypageDAO {
 	public ArrayList<ReviewVO> getReviewList(String id) {
 		List<ReviewVO> list = sqlSession.selectList(namespace+".review_list", id);		
 		return (ArrayList<ReviewVO>)list;
+	}
+	
+	public RoomVO getRoomResult(String id) {
+		return sqlSession.selectOne(namespace+".room_result", id);
 	}
 
 }

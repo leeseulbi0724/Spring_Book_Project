@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mybook.service.BookService;
 import com.mybook.service.MemberService;
 import com.mybook.service.MypageService;
+import com.mybook.service.RoomService;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.ReviewVO;
+import com.mybook.vo.RoomVO;
 import com.mybook.vo.SessionVO;
 
 @Controller
@@ -28,6 +30,8 @@ public class MypageController {
 	private BookService BookService;
 	@Autowired
 	private MypageService MypageService;
+	@Autowired
+	private RoomService RoomService;
 	
 	/**
 	 * 마이페이지 메인
@@ -101,7 +105,15 @@ public class MypageController {
 			list.get(i).setBfile(vo.getBfile());
 			list.get(i).setBsfile(vo.getBsfile());
 		}
+		//열람실예약정보
+		RoomVO vo = new RoomVO();
+		boolean result = RoomService.getRoomUserResult(id);
+		if (!result) {
+			vo = MypageService.getRoomResult(id);
+		}
+		mv.addObject("result", result);
 		mv.addObject("list", list);
+		mv.addObject("vo", vo);
 		mv.setViewName("mypage/mypage_book");
 		return mv;
 	}

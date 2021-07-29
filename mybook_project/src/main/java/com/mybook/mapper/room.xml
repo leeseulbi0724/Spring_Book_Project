@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.room">
+
+	<!-- 등록 -->
+	<insert id="room_insert" parameterType="com.mybook.vo.RoomVO">
+		insert into mybook_room values(#{id}, #{seat_number}, #{start_time}, #{end_time}, sysdate)
+	</insert>
+	
+	<!-- 리스트 -->
+	<select id="room_list" resultType="com.mybook.vo.RoomVO">
+		select * from mybook_room_list
+	</select>
+	
+	<!-- 상태 변경 -->
+	<update id="room_update" parameterType="java.lang.String">
+		update mybook_room_list set status=1 where seat_number=#{seat_number}
+	</update>
+	
+	<!-- 좌석 사용 카운트 -->
+	<select id="room_count" resultType="java.lang.Integer">
+		select count(*) from mybook_room_list where status=1
+	</select>
+	
+	<!-- 사용자 열람실 사용현황 -->
+	<select id="room_user_result" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from mybook_room where id=#{id}
+	</select>
+	
+	<!-- 열람실 취소 -->
+	<delete id="room_cancle" parameterType="java.lang.String">
+		delete from mybook_room where id=#{id}
+	</delete>
+	
+	<!-- 상태 변경 -->
+	<update id="room_update2" parameterType="java.lang.String">
+		update mybook_room_list set status=0 where seat_number=#{seat_number}
+	</update>
+
+</mapper>

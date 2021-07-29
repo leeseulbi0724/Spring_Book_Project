@@ -14,4 +14,8 @@
 		select id, bid, rid, content, star, rdate from mybook_review where id=#{id}
 	</select>
 	
+	<select id="room_result" parameterType="java.lang.String" resultType="com.mybook.vo.RoomVO">
+		select * from mybook_room where id=#{id}
+	</select>
+	
 </mapper>
