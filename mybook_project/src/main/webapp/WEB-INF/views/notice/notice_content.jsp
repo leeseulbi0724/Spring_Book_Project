@@ -47,8 +47,6 @@
 	}
 	.title img { float:right; }	
 	
-	.btn { font-size:14px; padding:2px 5px; }
-	
 	.table { margin-top:30px; }
 	.table tr { border-bottom:1px solid lightgray; }
 	.button tr { border-top:1px solid lightgray; }
@@ -86,7 +84,7 @@
 		 	<ul>
 		 		<li><a href="notice.do">공지사항</a></li>
 		 		<li><a href="board.do">자유 게시판</a></li>
-		 		<li><a href="request.do">도서요청</a></li>
+		 		<li><a href="request.do">희망도서 신청</a></li>
 		 		<li><a href="online.do">온라인 토론</a></li>
 		 	</ul>
 		 </div>

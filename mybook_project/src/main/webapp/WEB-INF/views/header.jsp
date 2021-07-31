@@ -16,14 +16,14 @@
 	    vertical-align: baseline;
 	    background: transparent;
 	}
-	body { font-family:LG PC; padding-top:105px; }
+	body { font-family:LG PC; padding-top:115px; }
 	header { 
 		width:100%;
 		text-align:center; 
 		background-color:white;
 		top:0; left:0; right:0;
 		position:fixed; 
-		z-index:998;
+		z-index:999;
 		border-bottom:1px solid rgb(228,230,230);
 	}
 	header>div { display:inline-block; width:1550px; }
@@ -94,7 +94,7 @@
 	
 	.dropmenu>div { width:1550px; height:150px; display:inline-block; }
 	.dropmenu ul { float:left; }
-	.dropmenu ul:first-child { margin-left:400px; margin-right:5px; }
+	.dropmenu ul:first-child { margin-left:410px; margin-right:5px; }
 	.dropmenu a:hover { text-decoration:underline; }
 	
 	.modal { background-color : rgba(0,0,0, .7); }
@@ -103,13 +103,20 @@
 	.bell_box { 
 		background-color:white; 
 		border:1px solid lightgray; 
-		width:400px; height:200px;
-		margin-left:1080px; margin-top:30px;
+		width:400px; height:200px;		
 		display:none;
 	}
 	.bell_box>p { font-weight:bold; float:left; font-size:20px; margin:10px; }
-	.bell_div { position:absolute; width:400px; height:200px; }
-	.x { float:right; cursor:pointer; background-color:rgb(240,242,244); padding:5px 10px; }
+	.bell_div { width:400px; height:200px; position:absolute; margin-left:1080px; margin-top:30px; }
+	.x { float:right; cursor:pointer; background-color:rgb(240,242,244); padding:5px 10px; border:1px solid lightgray; }
+	
+	.scroll_box {
+		margin-top:50px; 
+		overflow:auto;
+		overflow-x:hidden;
+		width:400px; height:150px;
+	}
+	.scroll_box>div { text-align:left; padding:10px; border-bottom:1px solid lightgray; font-size:17px; }
 	
 </style>
 <script>
@@ -160,8 +167,13 @@
 						<div class="bell_box">
 							<div class="x">X</div>
 							<p>알림</p>
+							<div class="scroll_box" >
+								<div>회원님의 게시글에 댓글이 달렸습니다</div>
+								<div>회원님의 게시글에 댓글이 달렸습니다</div>
+								<div>회원님의 게시글에 댓글이 달렸습니다</div>
+							</div>
 						</div>
-					</div>				
+					</div>
 				</li>
 				<li><a href="mypage.do">마이페이지</a></li>
 				<li><a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="logout">로그아웃</a></li>
@@ -175,7 +187,7 @@
 			<p><a href="index.do">라온 도서관</a></p>
 			<ul>
 				<li><a href="index.do" class="home">홈</a></li>
-				<li class="m_book"><a class="book">이용안내</a>
+				<li class="m_book"><a class="book">도서관 이용</a>
 					<div class="dropmenu">
 						<div>
 						<ul class="drop_book">												
@@ -185,7 +197,7 @@
 						<ul class="drop_com">
 							<li><a href="notice.do">공지사항</a></li>
 							<li><a href="board.do">자유 게시판</a></li>
-							<li><a href="request.do">도서요청</a></li>
+							<li><a href="request.do">희망도서 신청</a></li>
 							<li><a href="online.do">온라인 토론</a></li>
 						</ul>
 						</div>
@@ -201,7 +213,7 @@
 						<ul class="drop_com">
 							<li><a href="notice.do">공지사항</a></li>
 							<li><a href="board.do">자유 게시판</a></li>
-							<li><a href="request.do">도서요청</a></li>
+							<li><a href="request.do">희망도서 신청</a></li>
 							<li><a href="online.do">온라인 토론</a></li>
 						</ul>
 						</div>

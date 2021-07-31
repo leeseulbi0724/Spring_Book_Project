@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="https://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
-<title>희망도서 신청 | 라온 도서관</title>
+<title>자유 게시판 | 라온 도서관</title>
 <style>
 	.menu_div {
 		background-color:rgb(251,251,251);
@@ -34,7 +35,7 @@
 	.left ul a { text-decoration:none; color:black; }
 	.left ul li:hover { text-decoration:underline; cursor:pointer; }
 	.left ul li:last-child { border-bottom:none; }
-	.left ul li:nth-child(3) a { color:rgb(43,129,199); font-weight:bold; }
+	.left ul li:nth-child(2) a { color:rgb(43,129,199); font-weight:bold; }
 	
 	.center { display:inline-block; width:1000px; height:500px; }
 	.title { height:100px; border-bottom:1px solid lightgray;}
@@ -44,31 +45,44 @@
 		float:left;
 		margin:30px 15px;
 	}
-	.title img { float:right; }	
+	.title img { float:right; }		
+
+	.sub { text-align:left; }
+	.first { border-bottom:1px solid lightgray; text-align:center; }
+	.p_title { font-size:23px; padding:10px; }
+	.p_id { font-weight:bold; margin-left:10px; text-align:right; }
+	.p_date { color:gray; margin-left:10px; margin-bottom:5px; text-align:right; }	
+	.sub textarea { background-color:white; width:100%; border:none; }
 	
-	.search { margin:10px 0; text-align:right; }
-	.search p { float:left; }
-	.search span { color:rgb(170,93,11); }
-	.form-select { 
-		width:100px; height:30px;
-		 display:inline-block; 
-		 border-radius:10px; 
-		 padding:0 10px; margin:0;
-		 font-size:14px;
+	.comment { border-top:1px solid lightgray; width:100%; padding:10px 0; margin-top:70px; }
+	.comment>p { font-weight:bold; font-size:20px; float:left; }
+	.comment>textarea { border:1px solid lightgray; margin-top:30px; width:900px; display:inline-block; float:left; }
+	.comment>button { 
+		display:inline-block; 
+		color:white;
+		border:none;
+		float:left; 
+		margin-top:45px; margin-left:10px;
+		background-color:rgb(109,171,239);
+		padding:5px 10px;
 	}
-	.form-control {
-		width:200px; height:30px;
-		display:inline-block; font-size:14px;
-	}
-	.btn_search, .btn_write { font-size:14px; padding:2px 5px; }
-	.write { background-color:rgb(109,171,239); color:white; float:left; }
 	
-	.table tr:first-child th { background-color:rgb(248,248,248); border-top:1px solid lightgray; border-bottom:1px solid lightgray; }
-	.table tr:first-child th:nth-child(2) { width:600px; }
-	.table td:nth-child(2) { text-align:left; }
-	.table td img { margin-left:5px; }
+	.list, .update, .delete {
+		background-color:rgb(43,129,199); 
+		color:white;
+		float:right;
+		text-decoration:none;
+		margin-left:5px;
+	}
 </style>
 </head>
+<script src="http://rawgit.com/jackmoored/autosize/master/dist/autosize.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$("textarea").css("height", $("textarea").prop('scrollHeight')+5);		
+	});
+
+</script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 
@@ -76,7 +90,7 @@
 	 <div class="menu_div">
 		 <div>
 		 	<a href="index.do"><img src="http://localhost:9000/mybook/images/home_icon.png" width=15 height=15></a>>
-		 	<a href="request.do">커뮤니티</a>><a href="request.do">희망도서 신청</a>
+		 	<a href="board.do">커뮤니티</a>><a href="board.do">자유 게시판</a>
 		 </div>
 	 </div>
 	 <div class="content">
@@ -90,55 +104,27 @@
 		 </div>
 		 <div class="center">
 		 	<div class="title">
-		 		<h3>희망도서 신청</h3>
+		 		<h3>자유 게시판</h3>
 		 		<img src="http://localhost:9000/mybook/images/title.gif" height=100% >
 		 	</div>
-		 	<div class="search">
-		 		<a href="request_write.do" class="btn write btn_write">등록</a>		 	
-		 		<select class="form-select">
-		 			<option>제목
-		 			<option>아이디
-		 		</select>
-		 		<input type="text" class="form-control">
-		 		<button class="btn btn-secondary btn_search">검색</button>
-		 	</div>
-		 	<table class="table">
-		 		<tr>
-		 			<th>번호</th>
-		 			<th>제목</th>
-		 			<th>작성자</th>
-		 			<th>날짜</th>
-		 			<th>조회수</th>
-		 		</tr>		 		
-		 		<tr>
-		 			<td>1</td>
-		 			<td>요청합니다!<img src="http://localhost:9000/mybook/images/lock_yellow.png" width=15 height=15></td>
-		 			<td>이*비(tmfql4428)</td>
-		 			<td>2021-07-06</td>
-		 			<td>15</td>
-		 		</tr>		
-		 		<tr>
-		 			<td>1</td>
-		 			<td>요청합니다!<img src="http://localhost:9000/mybook/images/lock_yellow.png" width=15 height=15></td>
-		 			<td>이*비(tmfql4428)</td>
-		 			<td>2021-07-06</td>
-		 			<td>15</td>
-		 		</tr>		
-		 		<tr>
-		 			<td>1</td>
-		 			<td>요청합니다!<img src="http://localhost:9000/mybook/images/lock_yellow.png" width=15 height=15></td>
-		 			<td>이*비(tmfql4428)</td>
-		 			<td>2021-07-06</td>
-		 			<td>15</td>
-		 		</tr>		
-		 		<tr>
-		 			<td>1</td>
-		 			<td>요청합니다!<img src="http://localhost:9000/mybook/images/lock_yellow.png" width=15 height=15></td>
-		 			<td>이*비(tmfql4428)</td>
-		 			<td>2021-07-06</td>
-		 			<td>15</td>
-		 		</tr>		 		
-		 	</table>
+			<div class="sub">
+				<div class="first">
+					<p class="p_title">${vo.btitle }</p>
+					<p class="p_id">${vo.name }**(${vo.id })</p>
+					<p class="p_date">${vo.bdate } 조회 ${vo.bhit }</p>					
+				</div>
+				<textarea disabled style="resize: none;" class="textarea">${vo.bcontent }</textarea>
+			</div>
+			<a href="board.do" class="btn list">목록</a>
+			<c:if test = "${session_id eq vo.id}">
+				<a href="board_update.do" class="btn update">수정</a>
+				<button class="btn delete">삭제</button>
+			</c:if>
+		 	<div class="comment">			
+		 		<p>댓글</p>
+		 		<textarea style="resize: none;" class="form-control"></textarea>
+		 		<button class="btn">등록</button>
+		 	</div>	 	
 		 </div>
 	</div>
 </section>

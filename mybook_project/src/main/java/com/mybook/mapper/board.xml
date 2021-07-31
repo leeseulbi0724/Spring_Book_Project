@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.board">
+
+	<insert id="board_write" parameterType="com.mybook.vo.BoardVO">
+		insert into mybook_board values(#{id}, 'b_'||sequ_mybook_board.nextval, #{btitle}, #{bcontent}, 0, #{bfile}, #{bsfile}, sysdate)
+	</insert>
+	
+	<select id="board_count" resultType="java.lang.Integer">
+		select count(*) from mybook_board
+	</select>
+	
+	<select id="board_list" parameterType="hashmap" resultType="com.mybook.vo.BoardVO">
+	select rownum rno, bid, btitle, bcontent, bhit, bsfile, bfile, bdate, id
+		from (select rownum rno, bid, btitle, bcontent, bhit, bsfile, bfile, bdate, id
+			from (select bid, btitle, bcontent, bhit, bsfile, bfile, to_char(bdate, 'yyyy-mm-dd') bdate, id from mybook_board order by bid desc) order by bid)
+			where rno between (#{page}-1)*#{perPageNum}+1 and (#{page}*#{perPageNum}) order by rno desc
+	</select>
+	
+	<select id="board_name" parameterType="java.lang.String" resultType="java.lang.String">
+		select substr(name, 1,1) name from mybook_member where id=#{id}
+	</select>
+	
+	<select id="board_content" parameterType="java.lang.String" resultType="com.mybook.vo.BoardVO">
+		select * from mybook_board where bid=#{bid}
+	</select>
+	
+	<update id="board_hit" parameterType="java.lang.String">
+		update mybook_board set bhit=bhit+1 where bid=#{bid}
+	</update>
+	
+	
+	
+</mapper>

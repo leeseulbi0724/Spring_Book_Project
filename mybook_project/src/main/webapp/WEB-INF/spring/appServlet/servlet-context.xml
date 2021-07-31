@@ -38,6 +38,7 @@
 	<beans:bean id="BookService" class="com.mybook.service.BookServiceImpl"></beans:bean> 	
 	<beans:bean id="MypageService" class="com.mybook.service.MypageServiceImpl"></beans:bean> 	
 	<beans:bean id="RoomService" class="com.mybook.service.RoomServiceImpl"></beans:bean> 	
+	<beans:bean id="BoardService" class="com.mybook.service.BoardServiceImpl"></beans:bean> 	
 	
 	<!-- spring-donwload bean -->
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">

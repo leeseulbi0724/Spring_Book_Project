@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="https://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
-<title>도서요청 | 라온 도서관</title>
+<title>희망도서 신청 | 라온 도서관</title>
 <style>
 	.menu_div {
 		background-color:rgb(251,251,251);
@@ -49,7 +49,7 @@
 	.form-control { display:inline-block; margin-bottom:5px; font-size:14px; }
 	.textarea { height:500px; resize:none; }
 	
-	.btn { margin-top:20px; }
+	.up, .back { margin-top:20px; padding:3px10px; }
 	.up { background-color:rgb(109,171,239); color:white; }
 	.back { background-color:white; border:1px solid lightgray; }
 	.back:hover { background-color:lightgray; }
@@ -62,7 +62,7 @@
 	 <div class="menu_div">
 		 <div>
 		 	<a href="index.do"><img src="http://localhost:9000/mybook/images/home_icon.png" width=15 height=15></a>>
-		 	<a href="request.do">커뮤니티</a>><a href="request.do">도서요청</a>
+		 	<a href="request.do">커뮤니티</a>><a href="request.do">희망도서 신청</a>
 		 </div>
 	 </div>
 	 <div class="content">
@@ -70,13 +70,13 @@
 		 	<ul>
 		 		<li><a href="notice.do">공지사항</a></li>
 		 		<li><a href="board.do">자유 게시판</a></li>
-		 		<li><a href="request.do">도서요청</a></li>
+		 		<li><a href="request.do">희망도서 신청</a></li>
 		 		<li><a href="online.do">온라인 토론</a></li>
 		 	</ul>
 		 </div>
 		 <div class="center">
 		 	<div class="title">
-		 		<h3>도서요청</h3>
+		 		<h3>희망도서 신청</h3>
 		 		<img src="http://localhost:9000/mybook/images/title.gif" height=100% >
 		 	</div>
 			<input type="text" class="form-control">

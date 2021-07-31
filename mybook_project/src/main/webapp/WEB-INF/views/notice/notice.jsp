@@ -61,7 +61,7 @@
 		width:200px; height:30px;
 		display:inline-block; font-size:14px;
 	}
-	.btn { font-size:14px; padding:2px 5px; }
+	.btn_search { font-size:14px; padding:2px 5px; }
 	
 	.table tr:first-child th { background-color:rgb(248,248,248); border-top:1px solid lightgray; border-bottom:1px solid lightgray; }
 	.table tr:first-child th:nth-child(2) { width:700px; }
@@ -98,7 +98,7 @@
 		 	<ul>
 		 		<li><a href="notice.do">공지사항</a></li>
 		 		<li><a href="board.do">자유 게시판</a></li>
-		 		<li><a href="request.do">도서요청</a></li>
+		 		<li><a href="request.do">희망도서 신청</a></li>
 		 		<li><a href="online.do">온라인 토론</a></li>
 		 	</ul>
 		 </div>
@@ -113,7 +113,7 @@
 		 			<option>제목
 		 		</select>
 		 		<input type="text" class="form-control">
-		 		<button class="btn btn-secondary">검색</button>
+		 		<button class="btn btn-secondary btn_search">검색</button>
 		 	</div>
 		 	<table class="table">
 		 		<tr>

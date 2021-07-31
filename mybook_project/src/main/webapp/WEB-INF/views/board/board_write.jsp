@@ -7,7 +7,7 @@
 <link rel="shortcut icon" type="image⁄x-icon" href="http://localhost:9000/mybook/images/icon.png">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
-<script src="https://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
+<script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <title>자유 게시판 | 라온 도서관</title>
 <style>
 	.menu_div {
@@ -49,12 +49,27 @@
 	.form-control { display:inline-block; margin-bottom:5px; font-size:14px; }
 	.textarea { height:500px; resize:none; }
 	
-	.btn { margin-top:20px; }
+	.up, .back { margin-top:20px; padding:3px10px; }
 	.up { background-color:rgb(109,171,239); color:white; }
 	.back { background-color:white; border:1px solid lightgray; }
 	.back:hover { background-color:lightgray; }
 </style>
 </head>
+<script>
+	$(document).ready(function() {
+		$(".up").click(function() {
+			if ($(".btitle").val() == "") {
+				alert("제목을 입력해주세요");
+				$(".btitle").focus();
+			} else if ($(".textarea").val() == "") {
+				alert("내용을 입력해주세요");
+				$(".textarea").focus();
+			} else {
+				board_write.submit();
+			}
+		});
+	});
+</script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 
@@ -70,7 +85,7 @@
 		 	<ul>
 		 		<li><a href="notice.do">공지사항</a></li>
 		 		<li><a href="board.do">자유 게시판</a></li>
-		 		<li><a href="request.do">도서요청</a></li>
+		 		<li><a href="request.do">희망도서 신청</a></li>
 		 		<li><a href="online.do">온라인 토론</a></li>
 		 	</ul>
 		 </div>
@@ -79,11 +94,13 @@
 		 		<h3>자유 게시판</h3>
 		 		<img src="http://localhost:9000/mybook/images/title.gif" height=100% >
 		 	</div>
-			<input type="text" class="form-control">
-			<textarea class="form-control textarea"></textarea>
-			<input type="file" class="form-control">
-			<a href="#" class="btn up">등록</a>
-			<a href="board.do" class="btn back">취소</a>
+		 	<form name="board_write" action="board_write_proc.do" method="post" enctype= "multipart/form-data">
+				<input type="text" class="form-control btitle" placeholder="제목을 입력해주세요" name="btitle">
+				<textarea class="form-control textarea" placeholder="내용을 입력해주세요" name="bcontent"></textarea>
+				<input type="file" class="form-control"  multiple="multiple" name="file">
+				<a class="btn up">등록</a>
+				<a href="board.do" class="btn back">취소</a>
+			</form>
 		 </div>
 	</div>
 </section>
