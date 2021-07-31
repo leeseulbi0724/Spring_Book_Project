@@ -98,6 +98,19 @@
 	.dropmenu a:hover { text-decoration:underline; }
 	
 	.modal { background-color : rgba(0,0,0, .7); }
+	
+	.bell { cursor:pointer; }
+	.bell_box { 
+		background-color:white; 
+		border:1px solid lightgray; 
+		width:400px; height:200px;
+		margin-left:1080px; margin-top:30px;
+		display:none;
+	}
+	.bell_box>p { font-weight:bold; float:left; font-size:20px; margin:10px; }
+	.bell_div { position:absolute; width:400px; height:200px; }
+	.x { float:right; cursor:pointer; background-color:rgb(240,242,244); padding:5px 10px; }
+	
 </style>
 <script>
 	$(document).ready(function() {
@@ -119,6 +132,14 @@
 			$(".modal-body").text("로그아웃 되셨습니다");
 			$(".modal-footer").children().remove();
 		});
+		
+		$(".bell").click(function() {
+			$(".bell_box").css("display","inline-block");
+		});
+		
+		$(".x").click(function() {
+			$(".bell_box").css("display","none");
+		});
 	});
 </script>
 </head>
@@ -127,16 +148,26 @@
 	<div class="sub_menu">
 		<div>
 			<ul>
-				<li class="admin"><a href="admin_login.do" >관리자 로그인</a></li>
 				<c:if test= "${empty session_id}">
+				<li class="admin"><a href="admin_login.do" >관리자 로그인</a></li>
 				<li><a href="join.do">회원가입</a></li>
 				<li><a href="login.do">로그인</a></li>
 				</c:if>
 				<c:if test= "${!empty session_id}">
+				<li>
+					<a class="bell"><img src="http://localhost:9000/mybook/images/notifications_yes.png" width=25 height=25></a>	
+					<div class="bell_div">
+						<div class="bell_box">
+							<div class="x">X</div>
+							<p>알림</p>
+						</div>
+					</div>				
+				</li>
 				<li><a href="mypage.do">마이페이지</a></li>
 				<li><a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="logout">로그아웃</a></li>
 				</c:if>
 			</ul>
+			
 		</div>
 	</div>
 	<div>
