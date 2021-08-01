@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link rel="stylesheet" href="http://localhost:9000/mybook/css/join.css">
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://localhost:9000/mybook/js/address.js"></script>
 <script src="http://localhost:9000/mybook/js/join.js"></script>
 <title>회원가입 | 라온 도서관</title>
