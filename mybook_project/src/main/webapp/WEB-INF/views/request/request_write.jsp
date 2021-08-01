@@ -77,7 +77,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>희망도서 신청</h3>
-		 		<img src="http://localhost:9000/mybook/images/title.gif" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
 		 	</div>
 			<input type="text" class="form-control">
 			<textarea class="form-control textarea"></textarea>

@@ -166,7 +166,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>열람실 예약</h3>
-		 		<img src="http://localhost:9000/mybook/images/title.gif" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
 		 	</div>
 		 	<p>총 <span>150</span>석 중 <span>${count }</span>석 사용중</p>
 		 	<div class="seat">		 

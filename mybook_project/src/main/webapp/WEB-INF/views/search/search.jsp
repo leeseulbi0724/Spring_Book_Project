@@ -182,7 +182,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>도서 검색</h3>
-		 		<img src="http://localhost:9000/mybook/images/title_bg.gif" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
 		 	</div>		 	
 	 		<div class="search">
 	 			<img src="http://localhost:9000/mybook/images/search.png" width=30px height=30px >
