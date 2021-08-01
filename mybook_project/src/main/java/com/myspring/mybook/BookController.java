@@ -127,6 +127,7 @@ public class BookController {
 		boolean h_result = false;
 		boolean r_result = false;
 		boolean v_result = false;
+		int ing = 0;
 		
 		int sum = 0;
 		
@@ -144,12 +145,16 @@ public class BookController {
 			bvo.setId(id); 	 bvo.setBid(bid);
 			h_result = BookService.getHeartResult(bvo);			
 			//대여 여부 확인하기
-			r_result = BookService.getRentalResult(bvo);		
+			r_result = BookService.getRentalResult(bvo);
 			//리뷰 여부 확인하기
 			v_result = BookService.getReviewResult(bvo);
 			if (!v_result) {
 				rvo = BookService.getUserReview(bvo);
 			}
+			//대여중인지 확인
+			BookVO ing_vo = new BookVO();
+			ing_vo.setId(id);  ing_vo.setBid(bid); 
+			ing = BookService.getUserRentalList(ing_vo);
 		}
 		
 		mv.addObject("count", count);
@@ -160,6 +165,7 @@ public class BookController {
 		mv.addObject("vo", vo);
 		mv.addObject("list", list);
 		mv.addObject("sum", sum);
+		mv.addObject("ing", ing);
 		mv.setViewName("search/content");
 		
 		return mv;

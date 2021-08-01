@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.ReviewVO;
@@ -36,6 +37,16 @@ public class MypageDAO {
 	
 	public int getProfileUpdate(MemberVO vo) {
 		return sqlSession.update(namespace+".profile_update", vo);
+	}
+	
+	public ArrayList<BoardVO> getBoardList(String id) {
+		List<BoardVO> list = sqlSession.selectList(namespace+".board_list", id);		
+		return (ArrayList<BoardVO>)list;
+	}
+	
+	public ArrayList<BoardVO> getCommentList(String id) {
+		List<BoardVO> list = sqlSession.selectList(namespace+".comment_list", id);		
+		return (ArrayList<BoardVO>)list;
 	}
 
 }

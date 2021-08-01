@@ -4,11 +4,23 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class BoardVO {
 	
-	String id, btitle, bcontent, bfile, bsfile, bdate, bid, name, ccontent, cdate, cid, img;
-	int bhit, rno;
+	String id, btitle, bcontent, bfile, bsfile, bdate, bid, name, ccontent, cdate, cid, img, old_name;
+	int bhit, rno, count;
 	CommonsMultipartFile file1;
 	
 	
+	public String getOld_name() {
+		return old_name;
+	}
+	public void setOld_name(String old_name) {
+		this.old_name = old_name;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getImg() {
 		return img;
 	}

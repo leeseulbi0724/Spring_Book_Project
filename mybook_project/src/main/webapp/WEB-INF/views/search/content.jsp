@@ -157,7 +157,7 @@
 		});
 		
 		$(".rental").click(function() {
-			 if (${vo.status} == 1) {
+			 if (${ing} == 1) {
 				alert("이미 대여중인 도서입니다");
 				$(this).attr("href","");
 			}
@@ -287,7 +287,7 @@
 		 		<c:forEach var = "vo"  items="${list}">		
 		 			<div class="review_text">
 		 				<p>
-		 					<img src="http://localhost:9000/mybook/images/star${vo.star }.png" width=100px height=18 > ${vo.rdate }
+		 					<img src="http://localhost:9000/mybook/images/star${vo.star }.gif" width=100px height=18 > ${vo.rdate }
 		 					<c:if test = "${session_id eq vo.id }">
 		 						<a class="update_btn">수정</a>
 		 						<a class="delete_btn" id="${vo.rid }">삭제</a>

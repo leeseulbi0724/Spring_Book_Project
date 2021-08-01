@@ -65,5 +65,25 @@ public class BoardDAO {
 	public String getProfileImage(String id) {
 		return sqlSession.selectOne(namespace+".profile_image", id);
 	}
+	
+	//댓글 갯수가져오기
+	public int getCommentCount(String bid) {
+		return sqlSession.selectOne(namespace+".comment_count", bid);
+	}
+	
+	//게시판 수정하기
+	public int getBoardUpdate(BoardVO vo) {
+		return sqlSession.update(namespace+".board_update", vo);
+	}
+	
+	//게시판 삭제
+	public int getBoardDelete(String bid) {
+		return sqlSession.delete(namespace+".board_delete", bid);
+	}
+	
+	//게시판 댓글 삭제
+	public int getBoardCommentDelete(String cid) {
+		return sqlSession.delete(namespace+".board_comment_delete", cid);
+	}
 
 }

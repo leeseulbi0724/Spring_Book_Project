@@ -1,7 +1,6 @@
 package com.myspring.mybook;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mybook.service.BoardService;
@@ -21,6 +19,7 @@ import com.mybook.service.BookService;
 import com.mybook.service.MemberService;
 import com.mybook.service.MypageService;
 import com.mybook.service.RoomService;
+import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.ReviewVO;
@@ -270,8 +269,22 @@ public class MypageController {
 	 * 마이페이지 게시글
 	 */
 	@RequestMapping(value="/mypage_board.do", method=RequestMethod.GET)
-	public String mypage_board() {
-		return "mypage/mypage_board";
+	public ModelAndView mypage_board(HttpSession session) {
+		// 로그인 회원정보 가져오기
+		String id = (String) session.getAttribute("session_id");
+		ModelAndView mv = new ModelAndView();
+		
+		ArrayList<BoardVO> blist = MypageService.getBoardList(id);
+		for (int i=0; i<blist.size(); i++) {
+			int count = BoardService.getCommentCount(blist.get(i).getBid());
+			blist.get(i).setCount(count);
+		}
+		ArrayList<BoardVO> clist = MypageService.getCommentList(id);
+		
+		mv.addObject("blist", blist);
+		mv.addObject("clist", clist);
+		mv.setViewName("mypage/mypage_board");
+		return mv;
 	}
 	
 	/**

@@ -87,7 +87,7 @@ $(function () {
 		 		<c:forEach var = "vo"  items="${list}" >		
 			 		<tr>
 			 			<th><a href="content.do?bid=${vo.bid }" >${vo.bname }</a></th>
-			 			<th><img src="http://localhost:9000/mybook/images/star${vo.star }.png" width=100 height=18></th>
+			 			<th><img src="http://localhost:9000/mybook/images/star${vo.star }.gif" width=100 height=18></th>
 			 			<th>${vo.content }</th>
 			 			<th>${vo.rdate }</th>
 			 			<th><button id="return"  name="${vo.rid }">삭제</button></th>

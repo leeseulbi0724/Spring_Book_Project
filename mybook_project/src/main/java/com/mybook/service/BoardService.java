@@ -16,5 +16,8 @@ public interface BoardService {
 	boolean getBoardComment(BoardVO vo);
 	ArrayList<BoardVO> getBoardCommentContent(String bid);
 	String getProfileImage(String id);
-
+	int getCommentCount(String bid);
+	boolean getBoardUpdate(BoardVO vo);
+	boolean getBoardDelete(String bid);
+	boolean getBoardCommentDelete(String cid);
 }

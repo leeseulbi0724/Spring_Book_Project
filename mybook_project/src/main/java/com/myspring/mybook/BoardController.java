@@ -44,6 +44,9 @@ public class BoardController {
 	    for(int i=0; i<list.size(); i++) {
 	    	String name = BoardService.getBoardName(list.get(i).getId());
 	    	list.get(i).setName(name);
+	    	//댓글 갯수가져오기
+	    	int count = BoardService.getCommentCount(list.get(i).getBid());
+	    	list.get(i).setCount(count);
 	    }
 	    
 	    mv.addObject("pageMaker", pageMaker);
@@ -162,5 +165,130 @@ public class BoardController {
 		return result;
 		
 	}
+	
+	/**
+	 * 게시판 수정
+	 */
+	@RequestMapping(value="/board_update.do", method=RequestMethod.GET)
+	public ModelAndView board_update(String bid) {
+		ModelAndView mv = new ModelAndView();
+		
+		BoardVO vo = BoardService.getBoardContent(bid);
+		String file[] = vo.getBfile().split(",");
+		String sfile[] = vo.getBsfile().split(",");
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		for (int i=0; i<file.length; i++) {
+			BoardVO bvo = new BoardVO();
+			bvo.setBfile(file[i]);	bvo.setBsfile(sfile[i]);
+			list.add(bvo);
+		}
+		
+		
+		mv.setViewName("board/board_update");		
+		mv.addObject("vo", vo);
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	/**
+	 * 게시판 수정 DB
+	 */
+	@RequestMapping(value="/board_update_proc.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView board_update_proc(MultipartHttpServletRequest request, @RequestParam("file") MultipartFile[] file) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		System.out.println("파일이름" + request.getParameter("bfile"));
+		System.out.print("파일경로" + request.getParameter("bsfile"));
+		
+		String fileOldName=request.getParameter("bfile");
+		String fileOldRoot = request.getParameter("bsfile");
+		
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		System.out.print(root_path);
+		String attach_path = "\\resources\\upload\\";
+		String fileOriginName = ""; 
+		String fileMultiName = "";
+		String fileMultiUplodaName= "";
+		
+		UUID uuid = UUID.randomUUID();
+		
+		System.out.print(file.length);
 
+		for(int i=0; i<file.length; i++) { 
+			fileOriginName = file[i].getOriginalFilename(); 
+			System.out.println("기존 파일명 : "+fileOriginName); 
+			File f = new File(root_path + attach_path + uuid +"_"+ fileOriginName); 
+			file[i].transferTo(f);
+			if (fileOriginName != "") {
+				if(i==0) { 
+					fileMultiName += fileOriginName; 
+					fileMultiUplodaName += uuid +"_"+fileOriginName;
+				} else { 
+					fileMultiName += ","+fileOriginName; 
+					fileMultiUplodaName += "," + uuid +"_"+fileOriginName;
+				} 
+			}
+		}
+		
+		String old_name = request.getParameter("old_name");
+		String old[] = old_name.split(",");
+		for (int i=0; i<old.length; i++) {
+			File old_file = new File(root_path+attach_path+old[i]);
+			if ( old_file.exists()) {
+				old_file.delete();
+			}
+		}
+
+		BoardVO vo = new BoardVO();
+		vo.setBfile(fileOldName+fileMultiName);
+		vo.setBsfile(fileOldRoot+fileMultiUplodaName);
+		vo.setBid(request.getParameter("bid"));
+		vo.setBtitle(request.getParameter("btitle"));
+		vo.setBcontent(request.getParameter("bcontent"));
+		
+		boolean result = BoardService.getBoardUpdate(vo);
+		
+		mv.setViewName("redirect:/board_content.do?bid="+vo.getBid());
+		return mv;
+	}
+	
+	/**
+	 * 게시판 삭제 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/board_delete.do", method=RequestMethod.POST)
+	public boolean board_delete(HttpServletRequest request) {
+		String bid = request.getParameter("bid");			
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		String attach_path = "\\resources\\upload\\";
+		
+		BoardVO vo = BoardService.getBoardContent(bid);
+		String img[] = vo.getBsfile().split(",");
+		
+		for (int i=0; i<img.length; i++) {
+			String old_name = img[i];
+			File old_file = new File(root_path+attach_path+old_name);
+			if ( old_file.exists()) {
+				old_file.delete();
+			}			
+		}
+		
+		boolean result = BoardService.getBoardDelete(bid);
+		
+		return result;
+	}
+	
+	/**
+	 * 댓글 삭제 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/board_comment_delete.do", method=RequestMethod.POST)
+	public boolean board_comment_delete(HttpServletRequest request) {
+		String cid = request.getParameter("cid");
+		
+		boolean result = BoardService.getBoardCommentDelete(cid);
+		
+		return result;
+	}
 }

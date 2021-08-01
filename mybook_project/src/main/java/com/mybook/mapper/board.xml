@@ -45,6 +45,20 @@
 		select msfile from mybook_member where id=#{id}
 	</select>
 	
+	<select id="comment_count" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from mybook_comment where bid=#{bid}
+	</select>
 	
+	<update id="board_update" parameterType="com.mybook.vo.BoardVO">
+		update mybook_board set btitle=#{btitle}, bcontent=#{bcontent}, bfile=#{bfile}, bsfile=#{bsfile} where bid=#{bid}
+	</update>
+	
+	<delete id="board_delete" parameterType="java.lang.String">
+		delete from mybook_board where bid=#{bid}
+	</delete>
+	
+	<delete id="board_comment_delete" parameterType="java.lang.String">
+		delete from mybook_comment where cid=#{cid}
+	</delete>
 	
 </mapper>

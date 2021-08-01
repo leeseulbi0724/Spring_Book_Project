@@ -107,7 +107,7 @@
 		display:none;
 	}
 	.bell_box>p { font-weight:bold; float:left; font-size:20px; margin:10px; }
-	.bell_div { width:400px; height:200px; position:absolute; margin-left:1080px; margin-top:30px; }
+	.bell_div { width:400px; height:200px; position:absolute; margin-left:1080px; margin-top:30px; display:none; }
 	.x { float:right; cursor:pointer; background-color:rgb(240,242,244); padding:5px 10px; border:1px solid lightgray; }
 	
 	.scroll_box {
@@ -141,10 +141,12 @@
 		});
 		
 		$(".bell").click(function() {
+			$(".bell_div").css("display","block");
 			$(".bell_box").css("display","inline-block");
 		});
 		
 		$(".x").click(function() {
+			$(".bell_div").css("display","none");
 			$(".bell_box").css("display","none");
 		});
 	});

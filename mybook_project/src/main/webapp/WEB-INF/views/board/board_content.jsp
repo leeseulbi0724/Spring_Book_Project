@@ -40,7 +40,7 @@
 	.comment>div:nth-child(2) { margin-top:50px; }
 	.comment>div.comment_div { border-bottom:1px solid lightgray; text-align:left; padding:10px 0; }
 	.comment_div img { margin-right:5px; }
-	.comment_div>p:nth-child(2), .comment_div>p:last-child { margin-left:35px; }
+	.comment_div>p:nth-child(2), .comment_div>p:nth-child(3) { margin-left:35px; }
 	
 	.list, .update, .delete {
 		background-color:rgb(43,129,199); 
@@ -50,8 +50,7 @@
 		margin-left:5px;
 	}
 	
-	
-
+	p>a { color:lightgray; text-decoration:none; cursor:pointer; }
 </style>
 </head>
 <script>
@@ -77,6 +76,43 @@
 		            });
 			}
 		});		
+		
+		$(".delete").click(function() {
+			if (confirm("게시물을 삭제하시겠습니까?")) {	
+				$.ajax({
+	                type: "post",
+	                url: "board_delete.do",             
+	                data:{bid:"${vo.bid}"},
+	                dataType: 'json',
+	                success: function (result) {
+	                	alert("게시물이 삭제되었습니다");
+	                	location.replace("board.do");
+	                },
+	           }); 
+			} 
+		});
+		
+		$(".comment_delete").click(function() {
+			var cid = $(this).attr("id");
+			$.ajax({
+                type: "post",
+                url: "board_comment_delete.do",             
+                data:{cid:cid},
+                dataType: 'json',
+                success: function (result) {
+                	location.reload();
+                },
+           }); 			
+		});
+		
+		$(".comment_reply").click(function() {
+			var div = "<div class='reply'>"
+			div += "<textarea style='resize: none; width:800px' class='form-control'>"
+			div += "</textarea>"
+			div += "<button class='btn write' style='display:inline-block'>등록</button>"
+			div += "</div>"
+			$(this).append().html(div);
+		});
 		
 	});
 </script>
@@ -119,7 +155,7 @@
 			</div>
 			<a href="board.do" class="btn list">목록</a>
 			<c:if test = "${session_id eq vo.id}">
-				<a href="board_update.do" class="btn update">수정</a>
+				<a href="board_update.do?bid=${vo.bid }" class="btn update">수정</a>
 				<button class="btn delete">삭제</button>
 			</c:if>
 		 	<div class="comment">			
@@ -136,7 +172,14 @@
 			 			</c:if>
 			 			<strong>${vo.name}**(${vo.id })</strong></p>
 			 			<p>${vo.ccontent }</p>
-			 			<p style="color:gray">${vo.cdate }</p>
+			 			<p style="color:gray">
+			 				${vo.cdate }
+			 				<a class="comment_reply">답글</a>
+			 				<c:if test="${session_id eq vo.id }">
+			 					<a class="comment_update">수정</a>
+			 					<a class="comment_delete" id="${vo.cid }">삭제</a>			 					
+			 				</c:if>
+			 			</p>
 			 		</div>
 		 		</c:forEach>
 		 		<c:if test = "${not empty session_id }">
@@ -151,7 +194,6 @@
 		 </div>
 	</div>
 </section>
-
 <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

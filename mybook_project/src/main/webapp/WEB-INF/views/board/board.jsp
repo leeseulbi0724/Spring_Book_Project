@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
+    <c:set var="today" value="<%=new java.util.Date()%>" />	
+    <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +57,9 @@
 	.button>div { display:inline-block; }
 	.page-item { background-color:white; }
 	.pagination > .active > a.page-link, .pagination > .active > a:hover {  background-color:rgb(109,171,239); border:1px solid rgb(109,171,239); }
+	
+	a>span { color:rgb(245,135,140); }
+	a>img { margin-left:5px; }
 </style>
 </head>
 <body>
@@ -99,7 +106,14 @@
 		 		<c:forEach var = "vo"  items="${list}" varStatus="status">						
 			 		<tr>
 			 			<td>${ (pageMaker.totalCount - status.index) - ( (pageMaker.cri.page - 1)  *  pageMaker.displayPageNum ) } </td>
-			 			<td><a href="board_content.do?bid=${vo.bid}">${vo.btitle }</a></td>
+			 			<td><a href="board_content.do?bid=${vo.bid}">${vo.btitle }
+			 				<c:if test="${vo.count > 0 }">
+			 					<span>[${vo.count }]</span>
+			 				</c:if>
+			 				<c:if test="${date eq vo.bdate }">
+			 					<img src="http://localhost:9000/mybook/images/new.png" width=20 height=20 style="vertical-align:bottom">
+			 				</c:if>
+			 			</a></td>
 			 			<td>${vo.name }**(${vo.id })</td>
 			 			<td>${vo.bdate }</td>
 			 			<td>${vo.bhit }</td>

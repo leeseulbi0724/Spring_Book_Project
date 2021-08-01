@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="review_list" parameterType="java.lang.String" resultType="com.mybook.vo.ReviewVO">
-		select id, bid, rid, content, star, rdate from mybook_review where id=#{id}
+		select id, bid, rid, content, star, rdate from mybook_review where id=#{id} order by rdate desc
 	</select>
 	
 	<select id="room_result" parameterType="java.lang.String" resultType="com.mybook.vo.RoomVO">
@@ -21,5 +21,13 @@
 	<update id="profile_update" parameterType="com.mybook.vo.MemberVO">
 		update mybook_member set mfile=#{mfile}, msfile=#{msfile} where id=#{id}
 	</update>
+	
+	<select id="board_list" parameterType="java.lang.String" resultType="com.mybook.vo.BoardVO">
+		select * from mybook_board where id=#{id} order by bdate desc
+	</select>
+	
+	<select id="comment_list" parameterType="java.lang.String" resultType="com.mybook.vo.BoardVO">
+		select * from mybook_comment where id=#{id} order by cdate desc
+	</select>
 	
 </mapper>

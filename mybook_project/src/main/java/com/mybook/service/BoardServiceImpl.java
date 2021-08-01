@@ -60,5 +60,36 @@ public class BoardServiceImpl implements BoardService {
 	public String getProfileImage(String id) {
 		return boardDAO.getProfileImage(id);
 	}
+	
+	public  int getCommentCount(String bid) {
+		return boardDAO.getCommentCount(bid);
+	}
+	
+	public boolean getBoardUpdate(BoardVO vo) {
+		int val = boardDAO.getBoardUpdate(vo);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean getBoardDelete(String bid) {
+		int val = boardDAO.getBoardDelete(bid);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean getBoardCommentDelete(String cid) {
+		int val = boardDAO.getBoardCommentDelete(cid);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }
