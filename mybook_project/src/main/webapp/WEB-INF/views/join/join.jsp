@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="http://localhost:9000/mybook/css/join.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://localhost:9000/mybook/js/address.js"></script>
-<script src="http://localhost:9000/mybook/js/join.js"></script>
+<script src="http://localhost:9000/mybook/js/join/join.js"></script>
 <title>회원가입 | 라온 도서관</title>
 </head>
 <body>

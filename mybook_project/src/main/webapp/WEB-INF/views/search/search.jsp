@@ -9,7 +9,7 @@
 <link rel="shortcut icon" type="image⁄x-icon" href="http://localhost:9000/mybook/images/icon.png">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
-<script src="http://localhost:9000/myjeju/js/jquery-3.6.0.min.js"></script>
+<script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
 <title>도서 검색 | 라온 도서관</title>
 <style>
 	.menu_div {
@@ -101,67 +101,66 @@
 </style>
 </head>
 <script>
-	$(document).ready(function() {
-		$(".book_div").hover(function() {
-			$(this).children().css("display","block");
-		}, function() {
-			$(this).children().css("display","none");
-		});
-		
-		$(".rental").click(function() {
-			if ($(this).attr("id") == 1) {
-				alert("이미 대여중인 도서입니다");
-				$(this).attr("href","");
-			}
-		});
-		
-		$("#more_btn").click(function() {
-			$(".more_div").css("display", "inline-block");
-		});
-		
-		$("#all").click(function() {
-			location.reload();
-		});
-		
-		$("#search").click(function() {
-			var addListHtml="";
-	        var search = $("#search_input").val();		
-	        $.ajax({
-				type:"GET",
-				url:"search_proc.do",
-				data:{
-					search:search
-				},
-				success:function(result){
-					var jdata = JSON.parse(result);
-					
-					if(jdata.jlist == null){
-						$("#more_btn").remove();
-					}
-					for(var i in jdata.jlist){
-						addListHtml += "<div class='book_div' id='book_div' style='background-image:url(http://localhost:9000/mybook/upload/" +jdata.jlist[i].bsfile+")'"+">";
-						addListHtml += "	<div>";
-						addListHtml += "<p ><strong class='bname'>" + jdata.jlist[i].bname + "</strong></p>";
-						addListHtml += "<p>" + jdata.jlist[i].bauthor +" 지음<br>"+ jdata.jlist[i].bpublish +"<br>" + jdata.jlist[i].yyyy + "</p>";
-						addListHtml += "<div>";
-						addListHtml += "<a href='rental.do?bid="+jdata.jlist[i].bid+"'" +" class='rental' id='" +  jdata.jlist[i].status + "' style='margin-right:5px'>대여하기</a>";
-						addListHtml += "<a href='content.do?bid="+jdata.jlist[i].bid+"'"+" class='detail' >상세정보</a>";
-						addListHtml += "</div>";
-						addListHtml += "</div>";
-						addListHtml += "</div>";
-					}
-					$(".booklist").children().remove();
-					$(".booklist").append(addListHtml);
-					$(".book_div").hover(function() {
-						$(this).children().css("display","block");
-					}, function() {
-						$(this).children().css("display","none");
-					});
-				}
-			}); 
-		});
-});	
+$(document).ready(function() {
+	$(".book_div").hover(function() {
+		$(this).children().css("display","block");
+	}, function() {
+		$(this).children().css("display","none");
+	});
 	
+	$(".rental").click(function() {
+		if ($(this).attr("id") == 1) {
+			alert("이미 대여중인 도서입니다");
+			$(this).attr("href","");
+		}
+	});
+	
+	$("#more_btn").click(function() {
+		$(".more_div").css("display", "inline-block");
+	});
+	
+	$("#all").click(function() {
+		location.reload();
+	});
+	
+	$("#search").click(function() {
+		var addListHtml="";
+        var search = $("#search_input").val();		
+        $.ajax({
+			type:"GET",
+			url:"search_proc.do",
+			data:{
+				search:search
+			},
+			success:function(result){
+				var jdata = JSON.parse(result);
+				
+				if(jdata.jlist == null){
+					$("#more_btn").remove();
+				}
+				for(var i in jdata.jlist){
+					addListHtml += "<div class='book_div' id='book_div' style='background-image:url(http://localhost:9000/mybook/upload/" +jdata.jlist[i].bsfile+")'"+">";
+					addListHtml += "	<div>";
+					addListHtml += "<p ><strong class='bname'>" + jdata.jlist[i].bname + "</strong></p>";
+					addListHtml += "<p>" + jdata.jlist[i].bauthor +" 지음<br>"+ jdata.jlist[i].bpublish +"<br>" + jdata.jlist[i].yyyy + "</p>";
+					addListHtml += "<div>";
+					addListHtml += "<a href='rental.do?bid="+jdata.jlist[i].bid+"'" +" class='rental' id='" +  jdata.jlist[i].status + "' style='margin-right:5px'>대여하기</a>";
+					addListHtml += "<a href='content.do?bid="+jdata.jlist[i].bid+"'"+" class='detail' >상세정보</a>";
+					addListHtml += "</div>";
+					addListHtml += "</div>";
+					addListHtml += "</div>";
+				}
+				$(".booklist").children().remove();
+				$(".booklist").append(addListHtml);
+				$(".book_div").hover(function() {
+					$(this).children().css("display","block");
+				}, function() {
+					$(this).children().css("display","none");
+				});
+			}
+		}); 
+	});
+});	
 </script>
 <body>
  <jsp:include page="../header.jsp"></jsp:include>
@@ -182,7 +181,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>도서 검색</h3>
-		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>		 	
 	 		<div class="search">
 	 			<img src="http://localhost:9000/mybook/images/search.png" width=30px height=30px >

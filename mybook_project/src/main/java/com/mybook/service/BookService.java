@@ -15,10 +15,8 @@ public interface BookService {
 	ArrayList<BookVO> getBookList();
 	BookVO getBookContent(String bid);
 	boolean getBookRental(BookVO vo);
-	boolean getBookStatus(String bid);
 	ArrayList<BookVO> getMemberBookList(String id);
 	boolean getBookReturn(BookVO vo);
-	boolean getBookReturnStatus(String bid);
 	boolean getBookDelete(String bid);
 	String getOldFile(String bid);
 	boolean getBookHeartPlus(String bid);
@@ -38,5 +36,6 @@ public interface BookService {
 	ReviewVO getUserReview(BookVO vo);
 	boolean getReviewUpdate(ReviewVO vo);
 	boolean getReviewDelete(String rid);
+	int getUserRentalList(BookVO vo);
 
 }

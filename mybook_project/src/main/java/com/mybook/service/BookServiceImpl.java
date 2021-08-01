@@ -57,16 +57,6 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	public boolean getBookStatus(String bid) {
-		int val = bookDAO.getBookStatus(bid);
-		boolean result = false;
-		if (val!=0) {
-			result = true;
-		}
-		return result;
-	}
-	
-	@Override
 	public ArrayList<BookVO> getMemberBookList(String id) {
 		return bookDAO.getMemberBookList(id);
 	}
@@ -74,16 +64,6 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public boolean getBookReturn(BookVO vo) {
 		int val = bookDAO.getBookReturn(vo);
-		boolean result = false;
-		if (val!=0) {
-			result = true;
-		}
-		return result;
-	}
-	
-	@Override
-	public boolean getBookReturnStatus(String bid) {
-		int val = bookDAO.getBookReturnStatus(bid);
 		boolean result = false;
 		if (val!=0) {
 			result = true;
@@ -251,6 +231,10 @@ public class BookServiceImpl implements BookService {
 			result = true;
 		}
 		return result;
+	}
+	
+	public int getUserRentalList(BookVO vo) {
+		return bookDAO.getUserRentalList(vo);
 	}
 
 }

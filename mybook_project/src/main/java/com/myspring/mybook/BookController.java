@@ -29,15 +29,23 @@ public class BookController {
 	 * 대여 검색
 	 */
 	@RequestMapping(value = "/search.do", method=RequestMethod.GET)
-	public ModelAndView search() {
+	public ModelAndView search(HttpSession session) {
+		//로그인 회원정보 가져오기
+		String id = (String) session.getAttribute("session_id");
 		ModelAndView mv = new ModelAndView();
 		
-		ArrayList<BookVO> list = BookService.getBookList();
-		
+		ArrayList<BookVO> list = BookService.getBookList();		
 		for (int i=0; i<list.size(); i++) {
 			String date[] = list.get(i).getBdate().split(" ");
-			list.get(i).setYyyy(date[0]);
+			list.get(i).setYyyy(date[0]);			
+			if (id != null) {
+				BookVO vo = new BookVO();
+				vo.setId(id);   vo.setBid(list.get(i).getBid());
+				int count = BookService.getUserRentalList(vo);
+				list.get(i).setStatus(count);
+			}
 		}
+
 		
 		mv.addObject("list", list);
 		mv.setViewName("search/search");
@@ -168,13 +176,10 @@ public class BookController {
 		String id = (String) session.getAttribute("session_id");
 		BookVO vo = new BookVO();
 		vo.setId(id); vo.setBid(request.getParameter("bid"));	vo.setEndday(request.getParameter("date"));
+		System.out.print(vo.getId()+vo.getBid());
 		boolean result = BookService.getBookRental(vo);
-		if (result) {
-			//도서 대여상태로 바꾸기
-			total = BookService.getBookStatus(request.getParameter("bid"));
-		}
 		
-		return total;		
+		return result;		
 	}
 	
 	/**
@@ -188,11 +193,7 @@ public class BookController {
 		String id = (String) session.getAttribute("session_id");
 		BookVO vo = new BookVO();
 		vo.setId(id); vo.setBid(request.getParameter("bid"));
-		boolean result = BookService.getBookReturn(vo);
-		if (result) {
-			//도서 반납상태로 바꾸기
-			total = BookService.getBookReturnStatus(request.getParameter("bid"));
-		}
+		boolean result = BookService.getBookReturn(vo);		
 		
 		return total;		
 	}

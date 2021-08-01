@@ -132,7 +132,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>자유 게시판</h3>
-		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
 			<div class="sub">
 				<div class="first">

@@ -60,11 +60,6 @@ public class BookDAO {
 		return (ArrayList<BookVO>)list;
 	}
 	
-	//도서 대여상태바꾸기
-	public int getBookStatus(String bid) {
-		return sqlSession.update(namespace+".book_status", bid);
-	}
-	
 	//로그인한 회원 도서대여정보
 	public ArrayList<BookVO> getMemberBookList(String id) {
 		List<BookVO> list = sqlSession.selectList(namespace+".member_book_list", id);			
@@ -74,12 +69,7 @@ public class BookDAO {
 	//도서 반납
 	public int getBookReturn(BookVO vo) {
 		return sqlSession.delete(namespace+".book_return", vo);
-	}
-	
-	//도서 대여상태바꾸기
-	public int getBookReturnStatus(String bid) {
-		return sqlSession.update(namespace+".book_return_status", bid);
-	}
+	}	
 	
 	//도서삭제
 	public int getBookDelete(String bid) {
@@ -170,6 +160,11 @@ public class BookDAO {
 	//리뷰 delete
 	public int getReviewDelete(String rid) {
 		return sqlSession.delete(namespace+".review_delete", rid);
+	}
+	
+	//도서 대여하고 있는지 정보 가져오기
+	public int getUserRentalList(BookVO vo) {
+		return sqlSession.selectOne(namespace+".user_rental_list", vo);
 	}
 
 }

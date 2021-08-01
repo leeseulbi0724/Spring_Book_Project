@@ -91,7 +91,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>공지사항</h3>
-		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
 		 	<table class="table">
 		 		<tr>

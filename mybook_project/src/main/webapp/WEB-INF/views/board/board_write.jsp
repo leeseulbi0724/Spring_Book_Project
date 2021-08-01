@@ -92,7 +92,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>자유 게시판</h3>
-		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
 		 	<form name="board_write" action="board_write_proc.do" method="post" enctype= "multipart/form-data">
 				<input type="text" class="form-control btitle" placeholder="제목을 입력해주세요" name="btitle">

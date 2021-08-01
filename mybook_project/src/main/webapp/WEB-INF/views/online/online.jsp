@@ -93,7 +93,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>온라인 토론</h3>
-		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
 		 	<div class="search">
 		 		<p>총 <span>4</span>개 방</p>

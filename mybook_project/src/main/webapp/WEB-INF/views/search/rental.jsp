@@ -8,7 +8,7 @@
 <link rel="shortcut icon" type="image⁄x-icon" href="http://localhost:9000/mybook/images/icon.png">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
-<script src="http://localhost:9000/myjeju/js/jquery-3.6.0.min.js"></script>
+<script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
 <title>도서 대여 | 라온 도서관</title>
 <style>
 	.menu_div {
@@ -85,43 +85,43 @@
 </style>
 </head>
 <script>
-	$(document).ready(function() {
-		$(".heart").click(function() {
-			if ($(".heart img").attr("id") == "before") {
-				$(".heart img").attr("src", "http://localhost:9000/mybook/images/heart_after.png");
-				$(".heart img").attr("id", "after");				
-			} else {
-				$(".heart img").attr("src", "http://localhost:9000/mybook/images/heart_before.png")
-				$(".heart img").attr("id", "before");	
-			}
-		});
-		
-		$(".rental").click(function() {
-			if ($("#date").val() == "") {
-				alert("반납일을 선택해주세요");
-				$("#date").focus();
-			} else {
-				var bid = "${vo.bid}";
-				var date = $("#date").val();
-		    	var con_test = confirm("해당 도서를 대여하시겠습니까?"); 
-	        	if(con_test == true){   
-		         $.ajax({
-		                type: "post",
-		                url: "book_rental_proc.do",
-		                data:{bid:bid, date:date},
-		                dataType: 'json',
-		                success: function (result) {
-		                   if (result) {
-		                	   alert("도서 대여가 완료되었습니다");
-		                	   location.replace("mypage_book.do");
-		                   }
-		                },
-	
-		            });
-	        	}			
-			}
-		});
+$(document).ready(function() {
+	$(".heart").click(function() {
+		if ($(".heart img").attr("id") == "before") {
+			$(".heart img").attr("src", "http://localhost:9000/mybook/images/heart_after.png");
+			$(".heart img").attr("id", "after");				
+		} else {
+			$(".heart img").attr("src", "http://localhost:9000/mybook/images/heart_before.png")
+			$(".heart img").attr("id", "before");	
+		}
 	});
+	
+	$(".rental").click(function() {
+		if ($("#date").val() == "") {
+			alert("반납일을 선택해주세요");
+			$("#date").focus();
+		} else {
+			var bid = "${vo.bid}";
+			var date = $("#date").val();
+	    	var con_test = confirm("해당 도서를 대여하시겠습니까?"); 
+        	if(con_test == true){   
+	         $.ajax({
+	                type: "post",
+	                url: "book_rental_proc.do",
+	                data:{bid:bid, date:date},
+	                dataType: 'json',
+	                success: function (result) {
+	                   if (result) {
+	                	   alert("도서 대여가 완료되었습니다");
+	                	   location.replace("mypage_book.do");
+	                   }
+	                },
+
+	            });
+        	}			
+		}
+	});
+});
 </script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -143,7 +143,7 @@
 		 <div class="center">
 		 	<div class="title">
 		 		<h3>도서 대여</h3>
-		 		<img src="http://localhost:9000/mybook/images/background.png" height=100% >
+		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
 		 	<table class="table">
 		 		<tr>
