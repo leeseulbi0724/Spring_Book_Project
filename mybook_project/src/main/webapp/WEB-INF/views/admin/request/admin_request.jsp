@@ -14,7 +14,7 @@
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
 	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:500px; background-color:white; margin-left:20px; }
+	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }
 	
 	.search { float:right; margin:10px; }
 	#s_select { width:100px; display:inline-block; font-size:12px; border-radius:15px; }
@@ -26,7 +26,7 @@
   		width:200px; display:inline-block; font-size:12px; border-radius:15px;
 	}
 	
-	.table { text-align:center; font-size:13px; }	
+	.table { text-align:center; font-size:14px; }	
 	#request { margin:0; padding:0; font-size:13px; padding:0 10px; }
 	.button { text-align:center; }
 	nav { display:inline-block; }
@@ -36,8 +36,8 @@
 <jsp:include page="../admin_main.jsp"></jsp:include>
 
 <section class="center">
-	<h3>요청 목록</h3>
-	<p><a>요청</a><span>></span><a>요청 목록</a></p>
+	<h3>희망도서 목록</h3>
+	<p><a>희망도서</a><span>></span><a>희망도서 목록</a></p>
 	<div class="list_box">
 		<div class="search">
 			<select class="form-select" id="s_select" >

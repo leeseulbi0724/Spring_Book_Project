@@ -85,5 +85,10 @@ public class BoardDAO {
 	public int getBoardCommentDelete(String cid) {
 		return sqlSession.delete(namespace+".board_comment_delete", cid);
 	}
+	
+	//알림 테이블 등록
+	public int getCommentBell(BoardVO vo) {
+		return sqlSession.insert(namespace+".comment_bell", vo);
+	}
 
 }

@@ -2,6 +2,7 @@ package com.mybook.service;
 
 import java.util.ArrayList;
 
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
@@ -16,4 +17,7 @@ public interface MypageService {
 	boolean getProfileUpdate(MemberVO vo);
 	ArrayList<BoardVO> getBoardList(String id);
 	ArrayList<BoardVO> getCommentList(String id);
+	ArrayList<BellVO> getBellList(String id);
+	boolean getBellUpdate(String id);
+	int getBellResult(String id);
 }

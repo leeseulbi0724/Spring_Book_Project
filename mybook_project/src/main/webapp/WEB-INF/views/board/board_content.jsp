@@ -64,10 +64,11 @@
 			} else {
 				var comment = $("#com_textarea").val();
 				var bid = "${vo.bid}";
+				var id = "${vo.id}";
 				 $.ajax({
 		                type: "post",
 		                url: "board_comment.do",
-		                data: {comment:comment, bid:bid},
+		                data: {comment:comment, bid:bid, id:id},
 		                dataType: 'json',
 		                success: function (result) {
 		                    location.reload();

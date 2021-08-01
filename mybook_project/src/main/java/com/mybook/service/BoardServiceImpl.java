@@ -91,5 +91,14 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return result;
 	}
+	
+	public boolean getCommentBell(BoardVO vo) {
+		int val = boardDAO.getCommentBell(vo);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

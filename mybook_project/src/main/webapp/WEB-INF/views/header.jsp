@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,6 +117,7 @@
 		width:400px; height:150px;
 	}
 	.scroll_box>div { text-align:left; padding:10px; border-bottom:1px solid lightgray; font-size:17px; }
+	.scroll_box>div>span { float:right; }
 	
 </style>
 <script>
@@ -140,9 +141,17 @@
 			$(".modal-footer").children().remove();
 		});
 		
-		$(".bell").click(function() {
-			$(".bell_div").css("display","block");
-			$(".bell_box").css("display","inline-block");
+		$(".bell").click(function() {			
+			 $.ajax({
+	                type: "post",
+	                url: "bell_update.do",
+	                dataType: 'json',
+	                success: function (result) {
+	                	$(".bell_div").css("display","block");
+	        			$(".bell_box").css("display","inline-block");
+	                },
+
+	           });
 		});
 		
 		$(".x").click(function() {
@@ -164,15 +173,29 @@
 				</c:if>
 				<c:if test= "${!empty session_id}">
 				<li>
-					<a class="bell"><img src="http://localhost:9000/mybook/images/notifications_yes.png" width=18 height=18></a>	
+					<a class="bell">
+						<c:if test="${b_count > 0 }">
+							<img src="http://localhost:9000/mybook/images/notifications_yes.png" width=18 height=18>
+						</c:if>
+						<c:if test="${b_count eq 0 }">
+							<img src="http://localhost:9000/mybook/images/notifications_no.png" width=18 height=18>
+						</c:if>
+					</a>	
 					<div class="bell_div">
 						<div class="bell_box">
 							<div class="x">X</div>
 							<p>알림</p>
 							<div class="scroll_box" >
-								<div>회원님의 게시글에 댓글이 달렸습니다</div>
-								<div>회원님의 게시글에 댓글이 달렸습니다</div>
-								<div>회원님의 게시글에 댓글이 달렸습니다</div>
+								<c:forEach var = "vo"  items="${bell_list}" >
+								<div>${vo.content } 
+									<c:if test="${vo.day eq 0 }">
+										<span>오늘</span>
+									</c:if>
+									<c:if test = "${vo.day > 0 }">
+										<span>${vo.day }일전</span>
+									</c:if>
+								</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>

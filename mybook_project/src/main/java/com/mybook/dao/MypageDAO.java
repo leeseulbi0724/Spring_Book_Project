@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
@@ -47,6 +48,19 @@ public class MypageDAO {
 	public ArrayList<BoardVO> getCommentList(String id) {
 		List<BoardVO> list = sqlSession.selectList(namespace+".comment_list", id);		
 		return (ArrayList<BoardVO>)list;
+	}
+	
+	public ArrayList<BellVO> getBellList(String id) {
+		List<BellVO> list = sqlSession.selectList(namespace+".bell_list", id);		
+		return (ArrayList<BellVO>)list;
+	}
+	
+	public int getBellUpdate(String id) {
+		return sqlSession.update(namespace+".bell_update", id);
+	}
+	
+	public int getBellResult(String id) {
+		return sqlSession.selectOne(namespace+".bell_result", id);
 	}
 
 }

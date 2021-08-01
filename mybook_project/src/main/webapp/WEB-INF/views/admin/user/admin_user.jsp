@@ -15,7 +15,7 @@
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
 	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:500px; background-color:white; margin-left:20px; }
+	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }
 	
 	.search { float:right; margin:10px; }
 	#s_select { width:100px; display:inline-block; font-size:12px; border-radius:15px; }

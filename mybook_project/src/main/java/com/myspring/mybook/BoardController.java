@@ -2,6 +2,7 @@ package com.myspring.mybook;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.BoardService;
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BoardVO;
 
 @Controller
-public class BoardController {
+public class BoardController {	
 	
 	@Autowired
 	private BoardService BoardService;
@@ -47,7 +49,8 @@ public class BoardController {
 	    	//´ñ±Û °¹¼ö°¡Á®¿À±â
 	    	int count = BoardService.getCommentCount(list.get(i).getBid());
 	    	list.get(i).setCount(count);
-	    }
+	    }	    
+	    
 	    
 	    mv.addObject("pageMaker", pageMaker);
 		mv.addObject("list", list);
@@ -159,8 +162,13 @@ public class BoardController {
 		BoardVO vo = new BoardVO();
 		vo.setId(id);   vo.setCcontent(request.getParameter("comment"));
 		vo.setBid(request.getParameter("bid"));
-		
+
 		boolean result = BoardService.getBoardComment(vo);
+		
+		if (result) {
+			vo.setId(request.getParameter("id"));
+			result = BoardService.getCommentBell(vo);
+		}
 		
 		return result;
 		

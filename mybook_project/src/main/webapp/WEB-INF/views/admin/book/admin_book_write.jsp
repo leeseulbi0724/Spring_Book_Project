@@ -16,7 +16,7 @@
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
 	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:500px; background-color:white; margin-left:20px; text-align:center; }
+	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
 	div.box { display:inline-block; margin-top:30px; text-align:center; display:inline-block; width:1000px; }
 	.table { margin-top:20px; font-size:14px; }
 	.table tr { border-bottom:1px solid lightgray; }

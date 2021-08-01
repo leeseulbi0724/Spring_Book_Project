@@ -53,14 +53,14 @@
 <section class="left">
 <ul>
 	<li class="logo"><p>관리자 페이지</p></li>
-	<li  class="main" ><a href="index.do">사이트 바로가기</a></li>
+	<li  class="main" ><a href="index.do" target='_blank'>사이트 바로가기</a></li>
 </ul>
 </section>
 <section class="top">
 	<ul>
 		<li class="user"><a href="admin_user.do">회원 관리</a></li>
 		<li class="book"><a href="admin_book.do">도서 관리</a></li>
-		<li class="request"><a href="admin_request.do">요청 관리</a></li>
+		<li class="request"><a href="admin_request.do">희망도서 관리</a></li>
 		<li class="board"><a href="admin_board.do">게시판 관리</a></li>
 		<li class="notice"><a href="admin_notice.do">공지사항 관리</a></li>
 		<li class="logout"><a class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">로그아웃</a>

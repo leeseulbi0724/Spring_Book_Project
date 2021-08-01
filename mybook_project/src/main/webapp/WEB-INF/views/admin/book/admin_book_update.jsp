@@ -11,13 +11,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="http://rawgit.com/jackmoored/autosize/master/dist/autosize.min.js"></script>
 <style>
 	.book { border-bottom:4px solid rgb(76,127,242); }
 	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
 	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:500px; background-color:white; margin-left:20px; text-align:center; }
+	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
 	div.box { display:inline-block; margin-top:30px; text-align:center; display:inline-block; width:1000px; }
 	.table { margin-top:20px; font-size:14px; }
 	.table tr { border-bottom:1px solid lightgray; }
@@ -35,6 +36,8 @@
 </head>
 <script>
 	$(document).ready(function() {		
+		$("#bcontent").css("height", $("#bcontent").prop('scrollHeight')+5);		
+		
 		$("#write").click(function() {
 			if ($("#bname").val() == "") {
 				alert("책명을 입력해주세요");

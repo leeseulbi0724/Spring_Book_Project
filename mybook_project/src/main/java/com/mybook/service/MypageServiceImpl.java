@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mybook.dao.MypageDAO;
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
@@ -48,6 +49,23 @@ public class MypageServiceImpl implements MypageService {
 	}
 	public ArrayList<BoardVO> getCommentList(String id) {
 		return mypageDAO.getCommentList(id);
+	}
+	
+	public ArrayList<BellVO> getBellList(String id) {
+		return mypageDAO.getBellList(id);
+	}
+	
+	public boolean getBellUpdate(String id) {
+		int val = mypageDAO.getBellUpdate(id);
+		boolean result = false;
+		if (val != 0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public int getBellResult(String id) {
+		return mypageDAO.getBellResult(id);
 	}
 
 }

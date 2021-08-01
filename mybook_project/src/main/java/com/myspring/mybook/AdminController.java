@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
+import com.mybook.service.BoardService;
 import com.mybook.service.BookService;
 import com.mybook.service.MemberService;
 import com.mybook.service.NoticeService;
+import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.NoticeVO;
@@ -34,6 +36,9 @@ public class AdminController {
 	
 	@Autowired
 	private BookService BookService;
+	
+	@Autowired
+	private BoardService BoardService;
 
 	/**
 	 * 관리자 로그인
@@ -403,8 +408,28 @@ public class AdminController {
 	 * 관리자 게시판관리
 	 */
 	@RequestMapping(value = "/admin_board.do", method=RequestMethod.GET)
-	public String admin_board() {
-		return "admin/board/admin_board";
+	public ModelAndView admin_board(Criteria cri) {
+		ModelAndView mv = new ModelAndView();
+        
+	    PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(BoardService.getBoardCount());
+	        
+	    ArrayList<BoardVO> list = BoardService.getBoardList(cri);
+	    //이름 가져오기
+	    for(int i=0; i<list.size(); i++) {
+	    	String name = BoardService.getBoardName(list.get(i).getId());
+	    	list.get(i).setName(name);
+	    	//댓글 갯수가져오기
+	    	int count = BoardService.getCommentCount(list.get(i).getBid());
+	    	list.get(i).setCount(count);
+	    }
+	    
+	    mv.addObject("pageMaker", pageMaker);
+		mv.addObject("list", list);
+		mv.setViewName("admin/board/admin_board");
+		
+		return mv;
 	}
 
 }

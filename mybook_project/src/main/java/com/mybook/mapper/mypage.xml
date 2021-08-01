@@ -30,4 +30,16 @@
 		select * from mybook_comment where id=#{id} order by cdate desc
 	</select>
 	
+	<select id="bell_list" parameterType="java.lang.String" resultType="com.mybook.vo.BellVO">
+		select id, kinds, status, to_char(bdate, 'yyyy-mm-dd') bdate from mybook_bell where id=#{id} order by bdate desc
+	</select>
+	
+	<update id="bell_update" parameterType="java.lang.String">
+		update mybook_bell set status=0 where id=#{id}
+	</update>
+	
+	<select id="bell_result" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from mybook_bell where id=#{id} and status=1
+	</select>
+	
 </mapper>

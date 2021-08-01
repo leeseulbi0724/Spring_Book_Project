@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
 	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:500px; background-color:white; margin-left:20px; }
+	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }
 	
 	.search { float:right; margin:10px; }
 	#s_select { width:100px; display:inline-block; font-size:12px; border-radius:15px; }
@@ -28,8 +29,9 @@
 	
 	.table { text-align:center; font-size:14px; }	
 	#request { margin:0; padding:0; font-size:13px; padding:0 10px; }
-	.button { text-align:center; }
-	nav { display:inline-block; }
+	
+	.button { text-align:center; margin-top:-80px; }
+	.button>div { display:inline-block; }
 </style>
 </head>
 <body>
@@ -54,44 +56,50 @@
 					<th>제목</th>
 					<th>아이디</th>
 					<th>날짜</th>
-					<th>공감수</th>
-					<th>신고수</th>
+					<th>조회수</th>
+					<th>댓글수</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>요청합니다</td>
-					<td>tmfql4428</td>
-					<td>2021-07-10</td>
-					<td>10</td>			
-					<td>0</td>			
-					<td><button type="button" class="btn btn-secondary"  id="request" >내용보기</button></td>				
-				</tr>
+				<c:forEach var = "vo"  items="${list}" varStatus="status">						
+			 		<tr>
+			 			<td>${ (pageMaker.totalCount - status.index) - ( (pageMaker.cri.page - 1)  *  pageMaker.displayPageNum ) } </td>
+			 			<td>${vo.btitle }</td>
+			 			<td>${vo.id }</td>
+			 			<td>${vo.bdate }</td>
+			 			<td>${vo.bhit }</td>
+			 			<td>${vo.count }</td>
+			 			<td><button type="button" class="btn btn-secondary"  id="request" >내용보기</button></td>				
+			 		</tr>		 		
+		 		</c:forEach>
 			</tbody>
-		</table>
-		<div class="button">
-		<nav aria-label="Page navigation example">
-		  <ul class="pagination">
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
-		</div>
+		</table>		
 		</div>
 	</div>
+		<div class="button">
+			<div>
+			<nav aria-label="Page navigation example">
+			<ul class="pagination">
+	    	<c:if test="${pageMaker.prev }">
+			    <li class="page-item">
+			        <a class="page-link" href="admin_board.do?page=${pageMaker.startPage -1 }">이전</a>
+			    </li>
+		    </c:if>
+		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
+			    	<a class="page-link" href="admin_board.do?page=${pageNum }">${pageNum }</a>
+			    </li>
+		    </c:forEach>
+		    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			    <li class="page-item">
+			        <a class="page-link" href="admin_board.do??page=${pageMaker.endPage+1 }">다음</a>
+			    </li>
+		    </c:if>
+			</ul>
+			</nav>
+			</div>
+		</div>
 </section>
 </body>
 </html>
