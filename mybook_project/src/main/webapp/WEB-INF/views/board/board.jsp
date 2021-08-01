@@ -118,7 +118,7 @@
 		 		</tr>		 
 		 		<c:forEach var = "vo"  items="${list}" varStatus="status">						
 			 		<tr>
-			 			<td>${vo.rno }</td>
+			 			<td>${ (pageMaker.totalCount - status.index) - ( (pageMaker.cri.page - 1)  *  pageMaker.displayPageNum ) } </td>
 			 			<td><a href="board_content.do?bid=${vo.bid}">${vo.btitle }</a></td>
 			 			<td>${vo.name }**(${vo.id })</td>
 			 			<td>${vo.bdate }</td>
@@ -137,7 +137,7 @@
 			
 			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 				   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
-				    	<a class="page-link" href="notice.do?page=${pageNum }">${pageNum }</a>
+				    	<a class="page-link" href="board.do?page=${pageNum }">${pageNum }</a>
 				    </li>
 			    </c:forEach>
 			    

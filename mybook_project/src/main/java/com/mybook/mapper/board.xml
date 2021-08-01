@@ -15,9 +15,9 @@
 	</select>
 	
 	<select id="board_list" parameterType="hashmap" resultType="com.mybook.vo.BoardVO">
-	select rownum rno, bid, btitle, bcontent, bhit, bsfile, bfile, bdate, id
+	select rownum rno, bid, btitle, bcontent, bhit, bsfile, bfile, to_char(bdate, 'yyyy-mm-dd') bdate, id
 		from (select rownum rno, bid, btitle, bcontent, bhit, bsfile, bfile, bdate, id
-			from (select bid, btitle, bcontent, bhit, bsfile, bfile, to_char(bdate, 'yyyy-mm-dd') bdate, id from mybook_board order by bid desc) order by bid)
+			from (select bid, btitle, bcontent, bhit, bsfile, bfile, bdate, id from mybook_board order by bdate desc) order by bdate)
 			where rno between (#{page}-1)*#{perPageNum}+1 and (#{page}*#{perPageNum}) order by rno desc
 	</select>
 	
@@ -32,6 +32,18 @@
 	<update id="board_hit" parameterType="java.lang.String">
 		update mybook_board set bhit=bhit+1 where bid=#{bid}
 	</update>
+	
+	<insert id="board_comment" parameterType="com.mybook.vo.BoardVO">
+		insert into mybook_comment values(#{id}, #{bid}, 'c_'||sequ_mybook_comment.nextval, #{ccontent}, sysdate)
+	</insert>
+	
+	<select id="board_comment_content" parameterType="java.lang.String" resultType="com.mybook.vo.BoardVO">
+		select * from mybook_comment where bid=#{bid} order by cdate
+	</select>
+	
+	<select id="profile_image" parameterType="java.lang.String" resultType="java.lang.String">
+		select msfile from mybook_member where id=#{id}
+	</select>
 	
 	
 	

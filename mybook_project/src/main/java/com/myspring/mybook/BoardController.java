@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +21,6 @@ import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.BoardService;
 import com.mybook.vo.BoardVO;
-import com.mybook.vo.NoticeVO;
 
 @Controller
 public class BoardController {
@@ -77,6 +78,7 @@ public class BoardController {
 		String fileMultiUplodaName= "";
 		
 		UUID uuid = UUID.randomUUID();
+
 		for(int i=0; i<file.length; i++) { 
 			fileOriginName = file[i].getOriginalFilename(); 
 			System.out.println("기존 파일명 : "+fileOriginName); 
@@ -84,12 +86,17 @@ public class BoardController {
 			file[i].transferTo(f);
 			if(i==0) { 
 				fileMultiName += fileOriginName; 
-				fileMultiUplodaName += uuid +"_"+fileOriginName;
+				if (!fileOriginName.equals("")) {
+					fileMultiUplodaName += uuid +"_"+fileOriginName;
+				}
 			} else { 
 				fileMultiName += ","+fileOriginName; 
-				fileMultiUplodaName += "," + uuid +"_"+fileOriginName;
-				} 
+				if (!fileOriginName.equals("")) {
+					fileMultiUplodaName += "," + uuid +"_"+fileOriginName;
+				}
+			} 
 		}
+
 		BoardVO vo = new BoardVO();
 		vo.setBfile(fileMultiName);
 		vo.setBsfile(fileMultiUplodaName);
@@ -111,18 +118,49 @@ public class BoardController {
 	@RequestMapping(value="/board_content.do", method=RequestMethod.GET)
 	public ModelAndView board_content(String bid) {
 		ModelAndView mv = new ModelAndView();
+		String img[] = null;
 		//조회수 올리기
 		BoardService.getBoardHit(bid);
 		
 		BoardVO vo = BoardService.getBoardContent(bid);
 		String name = BoardService.getBoardName(vo.getId());
-		vo.setName(name);
+		vo.setName(name);		
+		if (vo.getBfile() != null) {
+			img = vo.getBsfile().split(",");		
+		}
 		
+		//댓글 가져오기
+		ArrayList<BoardVO> list = BoardService.getBoardCommentContent(bid);
+		for (int i=0; i<list.size(); i++) {
+			String n = BoardService.getBoardName(list.get(i).getId());
+			String image = BoardService.getProfileImage(list.get(i).getId());
+			list.get(i).setName(n);    list.get(i).setImg(image);
+		}
 		
 		mv.setViewName("board/board_content");
+		mv.addObject("img", img);
+		mv.addObject("list", list);
 		mv.addObject("vo", vo);
 		
 		return mv;
+	}
+	
+	/**
+	 * 댓글 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value="/board_comment.do", method=RequestMethod.POST)
+	public boolean board_comment(HttpSession session, HttpServletRequest request){
+		//로그인 회원정보 가져오기
+		String id = (String) session.getAttribute("session_id");
+		BoardVO vo = new BoardVO();
+		vo.setId(id);   vo.setCcontent(request.getParameter("comment"));
+		vo.setBid(request.getParameter("bid"));
+		
+		boolean result = BoardService.getBoardComment(vo);
+		
+		return result;
+		
 	}
 
 }

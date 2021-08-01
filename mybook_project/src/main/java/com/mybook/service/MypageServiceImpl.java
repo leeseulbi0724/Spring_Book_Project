@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mybook.dao.MypageDAO;
 import com.mybook.vo.BookVO;
+import com.mybook.vo.MemberVO;
 import com.mybook.vo.ReviewVO;
 import com.mybook.vo.RoomVO;
 
@@ -29,6 +30,16 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public  RoomVO getRoomResult(String id) {
 		return mypageDAO.getRoomResult(id);
+	}
+	
+	@Override
+	public boolean getProfileUpdate(MemberVO vo) {
+		int val = mypageDAO.getProfileUpdate(vo);
+		boolean result = false;
+		if (val != 0) {
+			result = true;
+		}
+		return result;
 	}
 
 }

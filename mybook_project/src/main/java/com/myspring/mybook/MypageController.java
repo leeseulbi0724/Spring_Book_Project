@@ -1,6 +1,9 @@
 package com.myspring.mybook;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mybook.service.BoardService;
 import com.mybook.service.BookService;
 import com.mybook.service.MemberService;
 import com.mybook.service.MypageService;
@@ -32,13 +37,23 @@ public class MypageController {
 	private MypageService MypageService;
 	@Autowired
 	private RoomService RoomService;
+	@Autowired
+	private BoardService BoardService;
 	
 	/**
 	 * 마이페이지 메인
 	 */
 	@RequestMapping (value = "/mypage.do", method=RequestMethod.GET)
-	public String mypage() {
-		return "mypage/mypage_main";
+	public ModelAndView mypage(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		//로그인 회원정보 가져오기
+		String id = (String) session.getAttribute("session_id");
+		//프로필 사진 가져오기
+		MemberVO vo = MemberService.getLoginContent(id);
+		
+		mv.setViewName("mypage/mypage_main");
+		mv.addObject("vo", vo);
+		return mv;
 	}
 	
 	/**
@@ -257,6 +272,47 @@ public class MypageController {
 	@RequestMapping(value="/mypage_board.do", method=RequestMethod.GET)
 	public String mypage_board() {
 		return "mypage/mypage_board";
+	}
+	
+	/**
+	 * 프로필 사진 변경하기
+	 */
+	@RequestMapping(value = "/mypage_profile.do", method=RequestMethod.POST)
+	public ModelAndView mypage_profile(HttpSession session, HttpServletRequest request, MemberVO vo)  throws Exception {
+		ModelAndView mv = new ModelAndView();
+		// 로그인 회원정보 가져오기
+		String id = (String) session.getAttribute("session_id");
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		String attach_path = "\\resources\\upload\\";
+		
+		//rfname 중복방지 처리			
+		UUID uuid = UUID.randomUUID();
+		
+		System.out.print(vo.getFile1().getOriginalFilename());
+		
+		//DB저장
+		vo.setMfile(vo.getFile1().getOriginalFilename());
+		vo.setMsfile(uuid+ "_"+vo.getFile1().getOriginalFilename());
+		vo.setId(id);
+		
+		String old_bsfile = BoardService.getProfileImage(id);
+		boolean result = MypageService.getProfileUpdate(vo);
+		
+		//DB저장 완료 후 폴더에 저장하기
+		if (result) {
+			System.out.println(root_path + attach_path + uuid +"_"+vo.getFile1().getOriginalFilename());
+
+			File f = new File(root_path + attach_path + uuid
+					+"_"+vo.getFile1().getOriginalFilename()); vo.getFile1().transferTo(f);
+					
+			//기존 upload 폴더에 존재하는 파일 삭제
+			File old_file = new File(root_path+attach_path+old_bsfile);
+			if ( old_file.exists()) {
+				old_file.delete();
+			}
+		}
+		mv.setViewName("redirect:/mypage.do");
+		return mv;
 	}
 	
 	

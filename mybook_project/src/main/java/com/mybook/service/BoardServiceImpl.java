@@ -43,5 +43,22 @@ public class BoardServiceImpl implements BoardService {
 	public int getBoardHit(String bid) {
 		return boardDAO.getBoardHit(bid);
 	}
+	
+	public boolean getBoardComment(BoardVO vo) {
+		int val = boardDAO.getBoardComment(vo);
+		boolean result = false;
+		if ( val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public ArrayList<BoardVO> getBoardCommentContent(String bid) {
+		return boardDAO.getBoardCommentContent(bid);
+	}
+	
+	public String getProfileImage(String id) {
+		return boardDAO.getProfileImage(id);
+	}
 
 }

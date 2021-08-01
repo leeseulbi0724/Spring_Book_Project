@@ -16,7 +16,7 @@
 	    vertical-align: baseline;
 	    background: transparent;
 	}
-	body { font-family:LG PC; padding-top:115px; }
+	body { font-family:LG PC; padding-top:105px; }
 	header { 
 		width:100%;
 		text-align:center; 
@@ -162,7 +162,7 @@
 				</c:if>
 				<c:if test= "${!empty session_id}">
 				<li>
-					<a class="bell"><img src="http://localhost:9000/mybook/images/notifications_yes.png" width=25 height=25></a>	
+					<a class="bell"><img src="http://localhost:9000/mybook/images/notifications_yes.png" width=18 height=18></a>	
 					<div class="bell_div">
 						<div class="bell_box">
 							<div class="x">X</div>

@@ -1,9 +1,37 @@
 package com.mybook.vo;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 public class MemberVO {
-	String id, pass, cpass, name, birth, email1, email2, email, hp1, hp2, hp3, hp, addr1, addr2, mdate;
+	String id, pass, cpass, name, birth, email1, email2, email, hp1, hp2, hp3, hp, addr1, addr2, mdate, mfile, msfile;
 	int rno, id_del;	
+	CommonsMultipartFile file1;	
 	
+	
+	public CommonsMultipartFile getFile1() {
+		return file1;
+	}
+
+	public void setFile1(CommonsMultipartFile file1) {
+		this.file1 = file1;
+	}
+
+	public String getMfile() {
+		return mfile;
+	}
+
+	public void setMfile(String mfile) {
+		this.mfile = mfile;
+	}
+
+	public String getMsfile() {
+		return msfile;
+	}
+
+	public void setMsfile(String msfile) {
+		this.msfile = msfile;
+	}
+
 	public int getId_del() {
 		return id_del;
 	}

@@ -4,11 +4,35 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class BoardVO {
 	
-	String id, btitle, bcontent, bfile, bsfile, bdate, bid, name;
+	String id, btitle, bcontent, bfile, bsfile, bdate, bid, name, ccontent, cdate, cid, img;
 	int bhit, rno;
 	CommonsMultipartFile file1;
 	
 	
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getCcontent() {
+		return ccontent;
+	}
+	public void setCcontent(String ccontent) {
+		this.ccontent = ccontent;
+	}
+	public String getCdate() {
+		return cdate;
+	}
+	public void setCdate(String cdate) {
+		this.cdate = cdate;
+	}
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
 	public String getName() {
 		return name;
 	}

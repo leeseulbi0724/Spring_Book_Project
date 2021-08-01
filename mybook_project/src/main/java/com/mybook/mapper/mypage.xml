@@ -18,4 +18,8 @@
 		select * from mybook_room where id=#{id}
 	</select>
 	
+	<update id="profile_update" parameterType="com.mybook.vo.MemberVO">
+		update mybook_member set mfile=#{mfile}, msfile=#{msfile} where id=#{id}
+	</update>
+	
 </mapper>

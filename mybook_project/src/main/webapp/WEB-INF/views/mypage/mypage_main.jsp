@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +49,8 @@
 		font-size:20px;
 	}
 	.box>p:last-child { color:gray; }
+	
+	#change { display:none; }
 </style>
 </head>
 <script>
@@ -55,6 +58,15 @@ $(function () {
 	$('#profile').click(function (e) {
 		e.preventDefault();	
 		$('#file').click();	
+	});
+	
+	$("#file").change(function() {
+		if (window.FileReader) {
+			$("#change").trigger("click");
+			$("#change").bind("click", function(){
+				profile.submit();
+			});
+		}
 	});
 });
 </script>
@@ -65,9 +77,17 @@ $(function () {
   <section class="content">
 	  <div>
 	 		<div class="img">
-	 			<img src="http://localhost:9000/mybook/images/human.png" width=200px height=200px >
+	 			<c:if test = "${empty vo.msfile  }">
+	 				<img src="http://localhost:9000/mybook/images/human.png" width=200px height=200px >
+	 			</c:if>
+	 			<c:if test = "${not empty vo.msfile }">
+	 				<img src="http://localhost:9000/mybook/upload/${vo.msfile }" width=200px height=200px >
+	 			</c:if>
 		 		<button class="btn btn-outline-secondary" id="profile">프로필 사진 변경하기</button>
-		 		<input type="file" id="file">
+		 		<form name="profile"  action="mypage_profile.do" method="post" enctype="multipart/form-data">
+		 			<input type="file" id="file" name="file1">
+		 			<button type="submit" id="change">변경</button>
+		 		</form>
 	 		</div>
 	 		<div class="box_div">
 		 		<a class="box" href="mypage_heart.do">

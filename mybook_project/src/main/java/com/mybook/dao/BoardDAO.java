@@ -49,5 +49,21 @@ public class BoardDAO {
 	public int getBoardHit(String bid) {
 		return sqlSession.update(namespace+".board_hit", bid);
 	}
+	
+	//댓글 쓰기
+	public int getBoardComment(BoardVO vo) {
+		return sqlSession.insert(namespace+".board_comment", vo);
+	}
+	
+	//댓글 내용가져오기
+	public ArrayList<BoardVO> getBoardCommentContent(String bid) {
+		List<BoardVO> list = sqlSession.selectList(namespace+".board_comment_content", bid);
+		return (ArrayList<BoardVO>)list;
+	}
+	
+	//프로필 이미지
+	public String getProfileImage(String id) {
+		return sqlSession.selectOne(namespace+".profile_image", id);
+	}
 
 }

@@ -13,5 +13,8 @@ public interface BoardService {
 	String getBoardName(String id);
 	BoardVO getBoardContent(String bid);
 	int getBoardHit(String bid);
+	boolean getBoardComment(BoardVO vo);
+	ArrayList<BoardVO> getBoardCommentContent(String bid);
+	String getProfileImage(String id);
 
 }

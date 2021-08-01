@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mybook.vo.BookVO;
+import com.mybook.vo.MemberVO;
 import com.mybook.vo.ReviewVO;
 import com.mybook.vo.RoomVO;
 
@@ -31,6 +32,10 @@ public class MypageDAO {
 	
 	public RoomVO getRoomResult(String id) {
 		return sqlSession.selectOne(namespace+".room_result", id);
+	}
+	
+	public int getProfileUpdate(MemberVO vo) {
+		return sqlSession.update(namespace+".profile_update", vo);
 	}
 
 }
