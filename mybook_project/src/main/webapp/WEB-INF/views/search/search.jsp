@@ -10,43 +10,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
+<link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
 <title>도서 검색 | 라온 도서관</title>
-<style>
-	.menu_div {
-		background-color:rgb(251,251,251);
-		border-bottom:1px solid lightgray;
-		text-align:center;
-	}
-	.menu_div>div { display:inline-block; width:1400px; text-align:right; }
-	.menu_div a { margin-right:5px; text-decoration:none; color:black; }
-	.menu_div a:last-child { font-weight:bold; margin-right:20px; }
-	
+<style>	
 	.book { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
 	.home, .com  {	color:rgb(162,162,162); }
-	
-	section { text-align:center; }
-	.content { display:inline-block; width:1300px; margin-top:50px; }
-	.left { 
-		display:inline-block; 
-		width:250px; height:250px;
-		float:left;	
-	 }	 
-	.left ul { list-style:none; padding:0; margin:0; text-align:left; border-top:1px solid; border-bottom:1px solid; }
-	.left ul li { font-size:18px; padding:5px; border-bottom:1px solid lightgray; margin-left:10px; }
-	.left ul a { text-decoration:none; color:black; }
-	.left ul li:hover { text-decoration:underline; cursor:pointer; }
-	.left ul li:last-child { border-bottom:none; }
 	.left ul li:first-child a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.center { display:inline-block; width:1000px; height:600px; }
-	.title { height:100px; border-bottom:1px solid lightgray;}
-	.title h3 {
-		font-size:30px; 
-		font-weight:bold; 
-		float:left;
-		margin:30px 15px;
-	}
-	.title img { float:right; }	
 	
 	.search {  text-align:left; margin-top:20px; }
 	.search input { display:inline-block; width:500px; height:30px; font-size:14px; }
