@@ -90,5 +90,15 @@ public class BoardDAO {
 	public int getCommentBell(BoardVO vo) {
 		return sqlSession.insert(namespace+".comment_bell", vo);
 	}
+	
+	//댓글 내용 가져오기
+	public BoardVO getCommentContent(String cid) {
+		return sqlSession.selectOne(namespace+".comment_content", cid);
+	}
+	
+	//댓글 수정하기
+	public int getCommentUpdate(BoardVO vo) {
+		return sqlSession.update(namespace+".comment_update", vo);
+	}
 
 }

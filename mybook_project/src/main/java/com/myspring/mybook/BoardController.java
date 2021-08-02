@@ -19,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.BoardService;
@@ -253,6 +256,7 @@ public class BoardController {
 		
 		if (result) {
 			vo.setId(request.getParameter("id"));
+			vo.setCategory("게시판");
 			result = BoardService.getCommentBell(vo);
 		}
 		
@@ -408,6 +412,36 @@ public class BoardController {
 		String cid = request.getParameter("cid");
 		
 		boolean result = BoardService.getBoardCommentDelete(cid);
+		
+		return result;
+	}
+	
+	/**
+	 * 댓글 수정
+	 */
+	@ResponseBody
+	@RequestMapping(value="/board_comment_update.do", method=RequestMethod.POST)
+	public BoardVO board_comment_update(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		String cid = request.getParameter("cid");		
+		BoardVO vo = BoardService.getCommentContent(cid);
+		
+		return vo;
+	}
+	
+	/**
+	 * 댓글 수정 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value="/board_comment_update_proc.do", method=RequestMethod.POST)
+	public boolean board_comment_update_porc(HttpServletRequest request) {
+		String cid = request.getParameter("cid");
+		String content = request.getParameter("content");
+		BoardVO vo = new BoardVO();
+		vo.setCid(cid);    vo.setCcontent(content);
+		
+		boolean result = BoardService.getCommentUpdate(vo);
 		
 		return result;
 	}

@@ -100,5 +100,20 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return result;
 	}
+	
+	public BoardVO getCommentContent(String cid) {
+		return boardDAO.getCommentContent(cid);
+	}
+	
+	public boolean getCommentUpdate(BoardVO vo) {
+		int val = boardDAO.getCommentUpdate(vo);
+		
+		boolean result = false;
+		
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

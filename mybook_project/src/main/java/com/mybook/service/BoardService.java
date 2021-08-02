@@ -21,4 +21,6 @@ public interface BoardService {
 	boolean getBoardDelete(String bid);
 	boolean getBoardCommentDelete(String cid);
 	boolean getCommentBell(BoardVO vo);
+	BoardVO getCommentContent(String cid);
+	boolean getCommentUpdate(BoardVO vo);
 }

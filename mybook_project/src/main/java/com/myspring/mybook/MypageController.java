@@ -534,6 +534,25 @@ public class MypageController {
 		return mv;
 	}
 	
+	/**
+	 * 도서 연장하기
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/book_ex_proc.do", method=RequestMethod.POST)
+	public boolean book_ex_proc(HttpSession session, HttpServletRequest request) {
+		// 로그인 회원정보 가져오기
+		String id = (String) session.getAttribute("session_id");		
+		String bid = request.getParameter("bid");
+		String day = request.getParameter("day");
+		
+		BookVO vo = new BookVO();
+		vo.setId(id); vo.setBid(bid);  vo.setEndday(day);
+		
+		boolean result = MypageService.getBookEx(vo);
+		
+		return result;
+	}
+	
 	
 
 

@@ -273,14 +273,13 @@ public class BookController {
 	@ResponseBody
 	@RequestMapping(value = "/book_return_proc.do", method=RequestMethod.POST)
 	public boolean book_return_proc(HttpSession session, HttpServletRequest request) {
-		boolean total = false;
 		//로그인 회원정보 가져오기
 		String id = (String) session.getAttribute("session_id");
 		BookVO vo = new BookVO();
 		vo.setId(id); vo.setBid(request.getParameter("bid"));
 		boolean result = BookService.getBookReturn(vo);		
 		
-		return total;		
+		return result;		
 	}
 	
 	/**

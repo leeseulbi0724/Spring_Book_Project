@@ -3,6 +3,7 @@ package com.mybook.service;
 import java.util.ArrayList;
 
 import com.mybook.commons.Criteria;
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.NoticeVO;
 import com.mybook.vo.ReviewVO;
@@ -37,5 +38,6 @@ public interface BookService {
 	boolean getReviewUpdate(ReviewVO vo);
 	boolean getReviewDelete(String rid);
 	int getUserRentalList(BookVO vo);
+	boolean getBookBell(BellVO vo);
 
 }

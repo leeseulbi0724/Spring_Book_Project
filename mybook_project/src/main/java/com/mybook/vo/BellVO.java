@@ -2,10 +2,16 @@ package com.mybook.vo;
 
 public class BellVO {
 	
-	String id, kinds, bdate, content, day;
+	String id, kinds, bdate, content, day, category;
 	int status;
 	
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getDay() {
 		return day;
 	}

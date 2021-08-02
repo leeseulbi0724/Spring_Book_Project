@@ -151,5 +151,11 @@
 	<select id="user_rental_list" parameterType="com.mybook.vo.BookVO" resultType="java.lang.Integer">
 		select count(*) from mybook_rental where id=#{id} and status=1 and bid=#{bid}
 	</select>
+	
+	<!-- 도서 알림테이블 저장 -->
+	<insert id="book_bell" parameterType="com.mybook.vo.BellVO">
+		insert into mybook_bell values(#{id}, #{kinds}, 1, sysdate, #{category})
+	</insert>
+	
 
 </mapper>

@@ -62,5 +62,9 @@ public class MypageDAO {
 	public int getBellResult(String id) {
 		return sqlSession.selectOne(namespace+".bell_result", id);
 	}
+	
+	public int getBookEx(BookVO vo) {
+		return sqlSession.update(namespace+".book_ex", vo);
+	}
 
 }

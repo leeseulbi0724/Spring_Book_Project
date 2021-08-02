@@ -1,17 +1,15 @@
 package com.mybook.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mybook.commons.Criteria;
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BookVO;
-import com.mybook.vo.NoticeVO;
 import com.mybook.vo.ReviewVO;
 
 @Repository
@@ -166,5 +164,9 @@ public class BookDAO {
 	public int getUserRentalList(BookVO vo) {
 		return sqlSession.selectOne(namespace+".user_rental_list", vo);
 	}
-
+	
+	//도서 --> 알림테이블 저장
+	public int getBookBell(BellVO vo) {
+		return sqlSession.insert(namespace+".book_bell", vo);
+	}
 }

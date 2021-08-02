@@ -67,5 +67,14 @@ public class MypageServiceImpl implements MypageService {
 	public int getBellResult(String id) {
 		return mypageDAO.getBellResult(id);
 	}
+	
+	public boolean getBookEx(BookVO vo) {
+		int val = mypageDAO.getBookEx(vo);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mybook.commons.Criteria;
 import com.mybook.dao.BookDAO;
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.ReviewVO;
 
@@ -235,6 +236,15 @@ public class BookServiceImpl implements BookService {
 	
 	public int getUserRentalList(BookVO vo) {
 		return bookDAO.getUserRentalList(vo);
+	}
+	
+	public boolean getBookBell(BellVO vo) {
+		int val = bookDAO.getBookBell(vo);
+		boolean result = false;
+		if(val!=0) {
+			result = true;
+		}
+		return result;
 	}
 
 }

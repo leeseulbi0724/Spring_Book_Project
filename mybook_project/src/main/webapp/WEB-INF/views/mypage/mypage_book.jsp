@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
+    <c:set var="today" value="<%=new java.util.Date()%>" />	
+    <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
+<link href="http://localhost:9000/mybook/css/modal.css" rel="stylesheet" >
 <style>
 	.four { border-bottom:2px solid rgb(43,129,199); }	
 	.one, .three, .two { border-bottom:2px solid lightgray; }
@@ -36,6 +41,20 @@
 	#cancle, #return { background-color:rgb(247,248,249); margin:5px; padding:2px 10px; border:none; border-radius:4px; }
 	#ing:hover { background-color:rgb(23,86,123); }
 	#return:hover, #cancle:hover { background-color:rgb(222,225,230); }
+	
+	.con>div { width:400px; }
+	.con>div>p { float:left; font-size:18px; margin:10px 0; }
+	.book_ex { 
+		display:inline-block; 
+		background-color:#4fa9de; color:white; 
+		text-decoration:none;
+		padding:5px 10px;
+		border-radius:4px;
+		cursor:pointer;
+		margin-left:5px; margin-top:10px;
+		border:none;		
+	}
+	.form-control { display:inline-block; width:300px; }
 </style>
 </head>
 <script>
@@ -79,6 +98,62 @@ $(document).ready(function() {
             });
     	}	
 	});
+	
+	$(".book_ing").click(function() {	
+		var bid = $(this).attr("name");
+		$(".book_ex").attr("id",bid);
+		$("#modal").fadeIn(300);
+		$(".modal1").fadeIn(300);
+	});
+	
+	$(".book_ex").click(function() {
+		var bid = $(this).attr("id");
+		if ($("#book_date").val() == "") {
+			alert("연장하실 날짜를 선택해주세요");
+			$("#book_date").focus();
+		} else {
+			var day = $("#book_date").val();
+			 $.ajax({
+	                type: "post",
+	                url: "book_ex_proc.do",
+	                data:{bid:bid, day:day},
+	                dataType: 'json',
+	                success: function (result) {
+	                   if (result) {
+	                	   alert("연장이 완료되었습니다");
+	                	   location.reload();
+	                   }
+	                },
+
+	            });
+		}
+	});
+		
+	$("#modal, .close").on('click',function(){
+		  $("#modal").fadeOut(300);
+		  $(".modal-con").fadeOut(300);
+	});
+	
+	/* $(".room_ing").click(function() {
+		var seat = $(this).attr("name");
+		var con_test = confirm("연장하시겠습니까? (운영시간내에 최대 3시간입니다)"); 
+    	if(con_test == true){   
+         $.ajax({
+                type: "post",
+                url: "room_ing_proc.do",
+                data:{seat:seat},
+                dataType: 'json',
+                success: function (result) {
+                   if (result) {
+                	   alert("시간이 연장되었습니다");
+                	   location.reload();
+                   }
+                },
+
+            });
+		}
+	}); */
+
 })
 </script>
 <body>
@@ -100,11 +175,16 @@ $(document).ready(function() {
 		 		</tr>
 		 		<c:forEach var = "vo"  items="${list}" varStatus="status">				
 			 		<tr>
-			 			<th><a href="content.do?bid=${vo.bid}" >${vo.bname }</a></th>
+			 			<th>
+			 				<a href="content.do?bid=${vo.bid}" >${vo.bname }</a>
+			 				<c:if test = "${date > vo.endday }">
+			 					<p style="color:red">반납일이 지났습니다</p>
+			 				</c:if>
+			 			</th>
 			 			<th>${vo.startday }</th>
 			 			<th>${vo.endday }</th>
 			 			<th><button id="return"  name="${vo.bid }">반납하기</button></th>
-			 			<th><button id="ing">연장하기</button></th>
+			 			<th><button id="ing" class="book_ing" name="${vo.bid }">연장하기</button></th>
 			 		</tr>
 		 		</c:forEach>
 		 		<c:if test = "${empty list }">
@@ -131,7 +211,7 @@ $(document).ready(function() {
 			 			<th>${vo.start_time }</th>
 			 			<th>${vo.end_time }</th>
 			 			<th><button id="cancle" name="${vo.seat_number }">취소하기</button></th>
-			 			<th><button id="ing">연장하기</button></th>
+			 			<th><button id="ing" class="room_ing" name="${vo.seat_number }">연장하기</button></th>
 			 		</tr>
 			 	</c:if>
 		 		<c:if test = "${result eq true }">
@@ -142,6 +222,16 @@ $(document).ready(function() {
 		 	</table>
 		 </div>
   </section>
+  <div id="modal"></div>
+  <div class="modal-con modal1">
+    <a href="javascript:;" class="close">X</a>
+    <div class="con">    	
+       <div>
+       		<p>반납일을 선택해주세요</p>
+       		<input type="date" class="form-control" id="book_date"><a class="book_ex">연장</a>
+       	</div>
+    </div>
+  </div>
    <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

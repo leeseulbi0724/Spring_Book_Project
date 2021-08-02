@@ -116,8 +116,10 @@
 		overflow-x:hidden;
 		width:400px; height:150px;
 	}
-	.scroll_box>div { text-align:left; padding:10px; border-bottom:1px solid lightgray; font-size:17px; }
-	.scroll_box>div>span { float:right; }
+	.scroll_box>a { width:100%; }
+	.scroll_box div { text-align:left; padding:10px; border-bottom:1px solid lightgray; font-size:17px; }
+	.scroll_box div>span { float:right; }
+
 	
 </style>
 <script>
@@ -187,14 +189,21 @@
 							<p>알림</p>
 							<div class="scroll_box" >
 								<c:forEach var = "vo"  items="${bell_list}" >
-								<div>${vo.content } 
-									<c:if test="${vo.day eq 0 }">
-										<span>오늘</span>
+									<c:if test="${vo.category eq '게시판' }">
+										<a href="board_content.do?bid=${vo.kinds }">
 									</c:if>
-									<c:if test = "${vo.day > 0 }">
-										<span>${vo.day }일전</span>
+									<c:if test="${vo.category eq '도서' }">
+										<a href="mypage_book.do">
 									</c:if>
-								</div>
+										<div>${vo.content }
+											<c:if test="${vo.day eq 0 }">
+												<span>오늘</span>
+											</c:if>
+											<c:if test = "${vo.day > 0 }">
+												<span>${vo.day }일전</span>
+											</c:if>
+										</div>
+								</a> 
 								</c:forEach>
 							</div>
 						</div>

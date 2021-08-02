@@ -9,8 +9,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
-<script src="http://rawgit.com/jackmoored/autosize/master/dist/autosize.min.js"></script>
+<script src="https://rawgit.com/jackmoored/autosize/master/dist/autosize.min.js"></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/modal.css" rel="stylesheet" >
 <title>자유 게시판 | 라온 도서관</title>
 <style>	
 	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
@@ -48,9 +49,23 @@
 		float:right;
 		text-decoration:none;
 		margin-left:5px;
+	}	
+	p>a { color:lightgray; text-decoration:none; cursor:pointer; }
+	
+	.con>div { width:750px; }
+	.form-control { display:inline-block; width:700px; }
+	.com_update {
+		display:inline-block; 
+		background-color:#4fa9de; color:white; 
+		text-decoration:none;
+		padding:5px 10px;
+		border-radius:4px;
+		cursor:pointer;
+		margin-left:5px;
+		border:none;
 	}
 	
-	p>a { color:lightgray; text-decoration:none; cursor:pointer; }
+	.reply { display:none; }
 </style>
 </head>
 <script>
@@ -107,12 +122,51 @@
 		});
 		
 		$(".comment_reply").click(function() {
-			var div = "<div class='reply'>"
-			div += "<textarea style='resize: none; width:800px' class='form-control'>"
-			div += "</textarea>"
-			div += "<button class='btn write' style='display:inline-block'>등록</button>"
-			div += "</div>"
-			$(this).append().html(div);
+			$(".reply").css("display","block");
+		});
+		
+		$(".comment_update").click(function() {
+			var cid = $(this).attr("id");
+			$.ajax({
+                type: "post",                
+                url: "board_comment_update.do",
+                data:{cid:cid},
+                dataType: 'json',
+                success: function (data) {
+                	$("#comment_content").val(data.ccontent);
+                	$(".com_update").attr("id",data.cid);
+                	$("#modal").fadeIn(300);
+    				$(".modal1").fadeIn(300);
+                },
+           }); 	
+			
+		});
+		
+		$(".com_update").click(function() {
+			var cid = $(this).attr("id");
+			if ($("#comment_content").val() == "") {
+				alert("내용을 입력해주세요");
+				$("#comment_content").focus();
+			} else {
+				var content = $("#comment_content").val();
+				$.ajax({
+	                type: "post",                
+	                url: "board_comment_update_proc.do",
+	                data:{cid:cid, content:content},
+	                dataType: 'json',
+	                success: function (result) {
+	                	if (result) {
+	                		alert("수정이 완료되었습니다");
+	                		location.reload();
+	                	}
+	                },
+	           }); 	
+			}
+		});
+		
+		$("#modal, .close").on('click',function(){
+			  $("#modal").fadeOut(300);
+			  $(".modal-con").fadeOut(300);
 		});
 		
 	});
@@ -161,7 +215,7 @@
 			</c:if>
 		 	<div class="comment">			
 		 		<p>댓글</p>
-		 		<c:forEach var = "vo"  items="${list}">
+		 		<c:forEach var = "vo"  items="${list}" varStatus="status">
 		 			<div></div>
 			 		<div class="comment_div">
 			 			<p>
@@ -175,11 +229,15 @@
 			 			<p>${vo.ccontent }</p>
 			 			<p style="color:gray">
 			 				${vo.cdate }
-			 				<a class="comment_reply">답글</a>
+			 				<a class="comment_reply" >답글</a>			 					
 			 				<c:if test="${session_id eq vo.id }">
-			 					<a class="comment_update">수정</a>
+			 					<a class="comment_update" id="${vo.cid }">수정</a>
 			 					<a class="comment_delete" id="${vo.cid }">삭제</a>			 					
 			 				</c:if>
+<!-- 			 				<div class='reply'>
+								<textarea style="width:800px" class="form-control" id="com_textarea"></textarea>
+								<button class='btn write' style='display:inline-block'>등록</button>
+							</div> -->
 			 			</p>
 			 		</div>
 		 		</c:forEach>
@@ -195,6 +253,16 @@
 		 </div>
 	</div>
 </section>
+<div id="modal"></div>
+  <div class="modal-con modal1">
+    <a href="javascript:;" class="close">X</a>
+    <p class="title">댓글수정</p>
+    <div class="con">    	
+       <div>
+       		<input type="text" class="form-control" id="comment_content"><a class="com_update">수정</a>       		
+       	</div>
+    </div>
+  </div>
 <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

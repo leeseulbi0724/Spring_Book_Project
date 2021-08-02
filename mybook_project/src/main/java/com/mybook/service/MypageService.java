@@ -20,4 +20,5 @@ public interface MypageService {
 	ArrayList<BellVO> getBellList(String id);
 	boolean getBellUpdate(String id);
 	int getBellResult(String id);
+	boolean getBookEx(BookVO vo);
 }

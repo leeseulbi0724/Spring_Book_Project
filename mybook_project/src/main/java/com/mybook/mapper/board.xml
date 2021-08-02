@@ -62,7 +62,15 @@
 	</delete>
 	
 	<insert id="comment_bell" parameterType="com.mybook.vo.BoardVO">
-		insert into mybook_bell values(#{id}, #{bid}, 1, sysdate)
+		insert into mybook_bell values(#{id}, #{bid}, 1, sysdate, #{category})
 	</insert>
+	
+	<select id="comment_content" parameterType="java.lang.String" resultType="com.mybook.vo.BoardVO">
+		select * from mybook_comment where cid=#{cid}
+	</select>
+	
+	<update id="comment_update" parameterType="com.mybook.vo.BoardVO">
+		update mybook_comment set ccontent=#{ccontent}, cdate=sysdate where cid=#{cid}
+	</update>
 	
 </mapper>

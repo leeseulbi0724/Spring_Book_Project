@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="bell_list" parameterType="java.lang.String" resultType="com.mybook.vo.BellVO">
-		select id, kinds, status, to_char(bdate, 'yyyy-mm-dd') bdate from mybook_bell where id=#{id} order by bdate desc
+		select id, kinds, status, to_char(bdate, 'yyyy-mm-dd') bdate, category from mybook_bell where id=#{id} order by bdate desc
 	</select>
 	
 	<update id="bell_update" parameterType="java.lang.String">
@@ -41,5 +41,9 @@
 	<select id="bell_result" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(*) from mybook_bell where id=#{id} and status=1
 	</select>
+	
+	<update id="book_ex" parameterType="com.mybook.vo.BookVO">
+		update mybook_rental set endday=#{endday} where id=#{id} and bid=#{bid}
+	</update>
 	
 </mapper>
