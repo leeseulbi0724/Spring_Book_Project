@@ -104,5 +104,11 @@ public class NoticeDAO {
 	public NoticeVO getNextNoticeSpcl(String rno) {
 		return sqlSession.selectOne(namespace+".notice_next_spcl", rno);
 	}
+	
+	//공지사항 ajax
+	public ArrayList<NoticeVO> getNoticeSearchList(String search) {
+		List<NoticeVO> list = sqlSession.selectList(namespace+".notice_search_list", search);
+		return (ArrayList)list;
+	}
 
 }

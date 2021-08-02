@@ -1,7 +1,9 @@
 package com.mybook.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +101,15 @@ public class BoardDAO {
 	//댓글 수정하기
 	public int getCommentUpdate(BoardVO vo) {
 		return sqlSession.update(namespace+".comment_update", vo);
+	}
+	
+	//ajax
+	public ArrayList<BoardVO> getBoardSearchList(String search, String category) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("search", search);
+		param.put("category", category);
+		List<BoardVO> list = sqlSession.selectList(namespace+".board_search_list", param);
+		return (ArrayList<BoardVO>)list;
 	}
 
 }

@@ -23,4 +23,5 @@ public interface BoardService {
 	boolean getCommentBell(BoardVO vo);
 	BoardVO getCommentContent(String cid);
 	boolean getCommentUpdate(BoardVO vo);
+	ArrayList<BoardVO> getBoardSearchList(String search, String category);
 }

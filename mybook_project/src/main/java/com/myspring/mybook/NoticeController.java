@@ -13,14 +13,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.DownloadView;
 import com.mybook.service.MypageService;
 import com.mybook.service.NoticeService;
 import com.mybook.vo.BellVO;
+import com.mybook.vo.BookVO;
 import com.mybook.vo.NoticeVO;
 
 @Controller
@@ -165,6 +170,38 @@ public class NoticeController {
 		mv.addObject("downloadFile", file);
 		mv.addObject("downloadFile2", file2);
 		return mv;
+	}
+	
+	/**
+	 * 공지사항 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value="/notice_search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
+	public String travel_proc(String search) {
+		System.out.print(search);
+		ArrayList<NoticeVO> list = NoticeService.getNoticeSearchList(search);
+		
+		JsonObject jdata = new JsonObject();
+		JsonArray jlist = new JsonArray();
+		Gson gson = new Gson();
+		
+		for(NoticeVO vo : list) {
+			JsonObject jobj = new JsonObject();
+			jobj.addProperty("nid", vo.getNid());
+			jobj.addProperty("ntitle", vo.getNtitle());
+			jobj.addProperty("ndate", vo.getNdate());
+			jobj.addProperty("ncount", vo.getNcount());
+			jobj.addProperty("ncategory", vo.getNcategory());
+			jobj.addProperty("search", search);
+			jobj.addProperty("rno", vo.getRno());
+			
+			jlist.add(jobj);
+		}
+		
+		jdata.add("jlist", jlist);
+
+		return gson.toJson(jdata);
+		
 	}
 
 	

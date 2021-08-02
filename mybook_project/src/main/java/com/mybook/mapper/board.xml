@@ -73,4 +73,22 @@
 		update mybook_comment set ccontent=#{ccontent}, cdate=sysdate where cid=#{cid}
 	</update>
 	
+	<!-- 게시판항리스트 - 검색 -->
+	<select id="board_search_list" parameterType="map" resultType="com.mybook.vo.BoardVO">	
+		<choose>
+			<when test='category.equals("id")'>				    			
+    			select rno, id, bid, btitle, bhit, bdate
+				from (select rownum rno, id, bid, btitle, bhit, to_char(bdate, 'yyyy-mm-dd') bdate
+				from(select rownum rno, id, bid, btitle, bhit, bdate
+    			from(select id, bid, btitle, bhit, bdate from mybook_board order by bdate desc) order by bdate) order by rno desc) where id like '%'||#{search}||'%'
+    		</when>
+			<otherwise>
+				select rno, id, bid, btitle, bhit, bdate
+				from (select rownum rno, id, bid, btitle, bhit, to_char(bdate, 'yyyy-mm-dd') bdate
+				from(select rownum rno, id, bid, btitle, bhit, bdate
+    			from(select id, bid, btitle, bhit, bdate from mybook_board order by bdate desc) order by bdate) order by rno desc) where btitle like '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</select>
+	
 </mapper>

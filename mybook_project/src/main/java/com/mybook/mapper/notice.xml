@@ -122,4 +122,12 @@
 					from (select * from mybook_notice where ncategory='spcl' order by ndate desc) order by ndate) order by rno desc) where rno=#{rno}+1
 	</select>
 	
+	<!-- 공지사항리스트 - 검색 -->
+	<select id="notice_search_list" parameterType="java.lang.String" resultType="com.mybook.vo.NoticeVO">		
+			select rno, nid, ncategory, ntitle, ndate, ncount
+				from(select rno, nid, ncategory, ntitle, ndate, ncount
+    			from(select rownum rno, nid, ncategory, ntitle, ndate, ncount from mybook_notice order by ndate desc)
+    			where ntitle like '%'||#{search}||'%') 
+	</select>
+	
 </mapper>

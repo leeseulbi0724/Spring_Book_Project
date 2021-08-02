@@ -115,5 +115,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return result;
 	}
+	
+	public ArrayList<BoardVO> getBoardSearchList(String search, String category) {
+		return boardDAO.getBoardSearchList(search, category);
+	}
 
 }

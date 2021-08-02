@@ -28,13 +28,13 @@ import com.mybook.service.BoardService;
 import com.mybook.service.MypageService;
 import com.mybook.vo.BellVO;
 import com.mybook.vo.BoardVO;
+import com.mybook.vo.NoticeVO;
 
 @Controller
 public class BoardController {	
 	
 	@Autowired
-	private BoardService BoardService;
-	
+	private BoardService BoardService;	
 	@Autowired
 	private MypageService MypageService;
 
@@ -444,5 +444,47 @@ public class BoardController {
 		boolean result = BoardService.getCommentUpdate(vo);
 		
 		return result;
+	}
+	
+	/**
+	 * 공지사항 ajax
+	 */
+	@ResponseBody
+	@RequestMapping(value="/board_search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
+	public String travel_proc(String search, String category) {
+		System.out.print(search);
+		ArrayList<BoardVO> list = BoardService.getBoardSearchList(search, category);
+		//이름 가져오기
+	    for(int i=0; i<list.size(); i++) {
+	    	String name = BoardService.getBoardName(list.get(i).getId());
+	    	list.get(i).setName(name);
+	    	//댓글 갯수가져오기
+	    	int count = BoardService.getCommentCount(list.get(i).getBid());
+	    	list.get(i).setCount(count);
+	    }	    
+		
+		JsonObject jdata = new JsonObject();
+		JsonArray jlist = new JsonArray();
+		Gson gson = new Gson();
+		
+		for(BoardVO vo : list) {
+			JsonObject jobj = new JsonObject();
+			jobj.addProperty("id", vo.getId());
+			jobj.addProperty("bid", vo.getBid());
+			jobj.addProperty("btitle", vo.getBtitle());
+			jobj.addProperty("name", vo.getName());
+			jobj.addProperty("count", vo.getCount());
+			jobj.addProperty("bdate", vo.getBdate());
+			jobj.addProperty("bhit", vo.getBhit());
+			jobj.addProperty("search", search);
+			jobj.addProperty("rno", vo.getRno());
+			
+			jlist.add(jobj);
+		}
+		
+		jdata.add("jlist", jlist);
+
+		return gson.toJson(jdata);
+		
 	}
 }

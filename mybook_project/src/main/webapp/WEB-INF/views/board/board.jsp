@@ -62,6 +62,42 @@
 	.new { margin-left:5px; }
 </style>
 </head>
+<script>
+$(document).ready(function() {	
+	$(".btn_search").click(function() {
+		var addListHtml="";
+	    var search = $("#search_input").val();		
+	    var category = $("#search").val();
+	    $.ajax({
+			type:"GET",
+			url:"board_search_proc.do",
+			data:{
+				search:search, category:category
+			},
+			success:function(result){				
+				var jdata = JSON.parse(result);
+				for(var i in jdata.jlist){				
+					addListHtml += "<tr>";
+					addListHtml += "<td>"+jdata.jlist[i].rno+"</td>";							
+					addListHtml += "<td><a href='board_content.do?bid="+jdata.jlist[i].bid+"'>"+jdata.jlist[i].btitle;
+					addListHtml += "<span style='color:rgb(245,135,140)'> ["+jdata.jlist[i].count +"]</span>";
+ 					if ("${date}" == jdata.jlist[i].bdate) {
+						addListHtml += "<img src='http://localhost:9000/mybook/images/new.png' width=20 height=20 style='vertical-align:bottom; margin-left:8.5px;' class='new'>";
+ 					}
+ 					addListHtml += "</a></td>";
+					addListHtml += "<td>"+jdata.jlist[i].name+"**("+jdata.jlist[i].id+")</td>"
+					addListHtml += "<td>"+jdata.jlist[i].bdate+"</td>";
+					addListHtml += "<td>"+jdata.jlist[i].bhit+"</td>";
+					addListHtml += "</tr>";
+				}
+				
+				$(".table").children().find(".title_tr").nextAll().remove();
+				$(".table").append(addListHtml);			
+			}
+		}); 
+	});
+})
+</script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 
@@ -88,15 +124,15 @@
 		 	</div>
 		 	<div class="search">
 		 		<a href="board_write.do" class="btn write btn_write">등록</a>
-		 		<select class="form-select">
-		 			<option>제목
-		 			<option>아이디
+		 		<select class="form-select" id="search">
+		 			<option value="title">제목
+		 			<option value="id">아이디
 		 		</select>
-		 		<input type="text" class="form-control">
+		 		<input type="text" class="form-control" id="search_input">
 		 		<button class="btn btn-secondary btn_search">검색</button>
 		 	</div>
 		 	<table class="table">
-		 		<tr>
+		 		<tr class="title_tr">
 		 			<th>번호</th>
 		 			<th>제목</th>
 		 			<th>작성자</th>
@@ -104,7 +140,7 @@
 		 			<th>조회수</th>
 		 		</tr>		 
 		 		<c:forEach var = "vo"  items="${list}" varStatus="status">						
-			 		<tr>
+			 		<tr class="remove">
 			 			<td>${ (pageMaker.totalCount - status.index) - ( (pageMaker.cri.page - 1)  *  pageMaker.displayPageNum ) } </td>
 			 			<td><a href="board_content.do?bid=${vo.bid}">${vo.btitle }
 			 				<c:if test="${vo.count > 0 }">

@@ -64,6 +64,43 @@
 	
 </style>
 </head>
+<script>
+$(document).ready(function() {
+	
+	$(".btn_search").click(function() {
+		var addListHtml="";
+	    var search = $("#search_input").val();		
+	    $.ajax({
+			type:"GET",
+			url:"notice_search_proc.do",
+			data:{
+				search:search
+			},
+			success:function(result){
+				var jdata = JSON.parse(result);
+				
+				/*if(jdata.jlist == null){
+					$("#more_btn").remove();
+				}*/
+				for(var i in jdata.jlist){
+					addListHtml += "<tr>";
+					if (jdata.jlist[i].ncategroy == 'spcl') {
+						addListHtml += "<td><button>공지</button></td>";
+					} else {
+						addListHtml += "<td></td>";
+					}				
+					addListHtml += "<td><a href='notice_content.do?nid="+jdata.jlist[i].nid+"&rno="+jdata.jlist[i].rno+"&type="+jdata.jlist[i].ncategory+">"+jdata.jlist.nttitle+"</a></td>";
+					addListHtml += "<td>"+jdata.jlist[i].ndate+"</td>";
+					addListHtml += "<td>"+jdata.jlist[i].ncount+"</td>";		
+					addListHtml += "</tr>";
+				}
+				
+				$(".table").append(addListHtml);			
+			}
+		}); 
+	});
+})
+</script>
 <body>
  <jsp:include page="../header.jsp"></jsp:include>
  <section>
@@ -92,11 +129,11 @@
 		 		<select class="form-select">
 		 			<option>제목
 		 		</select>
-		 		<input type="text" class="form-control">
+		 		<input type="text" class="form-control" id="search_input" >
 		 		<button class="btn btn-secondary btn_search">검색</button>
 		 	</div>
 		 	<table class="table">
-		 		<tr>
+		 		<tr class="title_tr">
 		 			<th>번호</th>
 		 			<th>제목</th>
 		 			<th>날짜</th>

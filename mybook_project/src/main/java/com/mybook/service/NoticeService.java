@@ -24,4 +24,5 @@ public interface NoticeService {
 	 NoticeVO getNextNoticeNormal(String rno);
 	 NoticeVO getPrevNoticeSpcl(String rno);
 	 NoticeVO getNextNoticeSpcl(String rno);
+	 ArrayList<NoticeVO>  getNoticeSearchList(String search);
 }
