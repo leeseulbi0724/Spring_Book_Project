@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.request">
+
+	<insert id="request_write" parameterType="com.mybook.vo.RequestVO">
+		insert into mybook_request values(#{id}, #{bname}, #{bauthor}, #{bpublish}, 'r_'||sequ_mybook_request.nextval, sysdate)
+	</insert>
+	
+	<select id="request_total" resultType="java.lang.Integer">
+		select count(*) from mybook_request
+	</select>
+	
+	<select id="request_list" parameterType="hashmap" resultType="com.mybook.vo.RequestVO">
+	select rownum rno, rid, id, bname, bauthor, bpublish, to_char(rdate, 'yyyy-mm-dd') rdate
+		from (select rownum rno, rid, id, bname, bauthor, bpublish, rdate
+			from (select rid, id, bname, bauthor, bpublish, rdate from mybook_request order by rdate desc) order by rdate)
+			where rno between (#{page}-1)*#{perPageNum}+1 and (#{page}*#{perPageNum}) order by rno desc
+	</select>
+
+</mapper>

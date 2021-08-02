@@ -53,6 +53,7 @@
 	.table td:nth-child(2) { text-align:left; }
 	.table tr { border-top:1px solid rgb(238,238,238); }
 	.table td>a { text-decoration:none; color:black; }
+	.table td>a:hover { color:rgb(10,88,202); }
 	
 	.button>div { display:inline-block; }
 	.page-item { background-color:white; }
@@ -80,7 +81,9 @@ $(document).ready(function() {
 					addListHtml += "<tr>";
 					addListHtml += "<td>"+jdata.jlist[i].rno+"</td>";							
 					addListHtml += "<td><a href='board_content.do?bid="+jdata.jlist[i].bid+"'>"+jdata.jlist[i].btitle;
-					addListHtml += "<span style='color:rgb(245,135,140)'> ["+jdata.jlist[i].count +"]</span>";
+					if (jdata.jlist[i].count > 0) {
+						addListHtml += "<span style='color:rgb(245,135,140)'> ["+jdata.jlist[i].count +"]</span>";
+					}
  					if ("${date}" == jdata.jlist[i].bdate) {
 						addListHtml += "<img src='http://localhost:9000/mybook/images/new.png' width=20 height=20 style='vertical-align:bottom; margin-left:8.5px;' class='new'>";
  					}
@@ -124,11 +127,11 @@ $(document).ready(function() {
 		 	</div>
 		 	<div class="search">
 		 		<a href="board_write.do" class="btn write btn_write">등록</a>
-		 		<select class="form-select" id="search">
+		 		<select class="form-select" id="search" >
 		 			<option value="title">제목
 		 			<option value="id">아이디
 		 		</select>
-		 		<input type="text" class="form-control" id="search_input">
+		 		<input type="text" class="form-control" id="search_input" autocomplete="off">
 		 		<button class="btn btn-secondary btn_search">검색</button>
 		 	</div>
 		 	<table class="table">
@@ -156,25 +159,21 @@ $(document).ready(function() {
 			 		</tr>		 		
 		 		</c:forEach>
 		 	</table>
-		 			 	<div class="button">
+		 	<div class="button">
 				<div>
 				<nav aria-label="Page navigation example">
 				<ul class="pagination pagination-sm">
-		    	
 				    <li class="page-item">
 				        <a class="page-link" ><</a>
 				    </li>
-			
 			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 				   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
 				    	<a class="page-link" href="board.do?page=${pageNum }">${pageNum }</a>
 				    </li>
 			    </c:forEach>
-			    
 				    <li class="page-item">
 				        <a class="page-link">></a>
 				    </li>
-				    
 				</ul>
 				</nav>
 				</div>

@@ -12,20 +12,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mybook.commons.Criteria;
+import com.mybook.commons.PageMaker;
+import com.mybook.service.BoardService;
 import com.mybook.service.MypageService;
+import com.mybook.service.RequestService;
 import com.mybook.vo.BellVO;
+import com.mybook.vo.RequestVO;
 
 @Controller
 public class RequestController {
 	
 	@Autowired
 	private MypageService MypageService;
+	@Autowired
+	private RequestService RequestService;
+	@Autowired
+	private BoardService BoardService;
 
 	/**
 	 * 도서 요청
 	 */
 	@RequestMapping(value="/request.do", method=RequestMethod.GET)
-	public ModelAndView request(HttpSession session) throws Exception {
+	public ModelAndView request(HttpSession session, Criteria cri) throws Exception {
 		Date now = new Date();		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String date = format.format(now);
@@ -53,7 +62,18 @@ public class RequestController {
 			mv.addObject("bell_list", bell_list);
 			mv.addObject("b_count", count);		
   		}
-  		
+  		PageMaker pageMaker = new PageMaker();
+ 	    pageMaker.setCri(cri);
+ 	    pageMaker.setTotalCount(RequestService.getRequestTotal());
+ 	        
+ 	    ArrayList<RequestVO> list = RequestService.getRequestList(cri);
+ 	    //이름 가져오기
+ 	    for(int i=0; i<list.size(); i++) {
+ 	    	String name = BoardService.getBoardName(list.get(i).getId());
+ 	    	list.get(i).setName(name);
+ 	    }	    
+ 	   mv.addObject("pageMaker", pageMaker);
+  		mv.addObject("list", list);
   		mv.setViewName("request/request");
 		return mv;
 	}
@@ -91,6 +111,41 @@ public class RequestController {
 			mv.addObject("b_count", count);		
   		}
   		mv.setViewName("request/request_write");
+		return mv;
+	}
+	
+	/**
+	 * 도서 찾기
+	 */
+	@RequestMapping(value="/request_search.do", method=RequestMethod.GET)
+	public String request_search() {
+		return "request/request_search";		
+	}
+	
+	/**
+	 * 도서 요청 글쓰기 DB
+	 */
+	@RequestMapping(value="/request_write_proc.do", method=RequestMethod.POST)
+	public ModelAndView request_write_proc(HttpSession session, RequestVO vo) {
+		ModelAndView mv = new ModelAndView();
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");  		
+  		vo.setId(id);
+		boolean result = RequestService.getRequestWrite(vo);
+		
+		mv.setViewName("redirect:/request.do");
+		return mv;
+	}
+	
+	/**
+	 * 상세보기
+	 */
+	@RequestMapping(value="/request_content.do", method=RequestMethod.GET)
+	public ModelAndView request_content(String rid) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("request/request_content");
+		
 		return mv;
 	}
 }

@@ -48,6 +48,7 @@
 	.table td:nth-child(2) { text-align:left; }
 	.table tbody>tr { border-top:1px solid rgb(238,238,238); }
 	.table td>a { color:black; text-decoration:none; }
+	.table td>a:hover { color:rgb(10,88,202); }
 	
 	.table button {
 		background-color:rgb(109,171,239);

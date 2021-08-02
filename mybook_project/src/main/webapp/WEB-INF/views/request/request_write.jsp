@@ -16,15 +16,40 @@
 	
 	.left ul li:nth-child(3) a { color:rgb(43,129,199); font-weight:bold; }
 
-	.form-control { display:inline-block; margin-bottom:5px; font-size:14px; }
-	.textarea { height:500px; resize:none; }
+	.form-control { display:inline-block; margin-bottom:5px; font-size:14px; width:800px; }
 	
 	.up, .back { margin-top:20px; padding:3px10px; }
 	.up { background-color:rgb(109,171,239); color:white; }
 	.back { background-color:white; border:1px solid lightgray; }
 	.back:hover { background-color:lightgray; }
+	
+	.table { margin-top:20px; font-size:14px; }
+	.table tr { border-bottom:1px solid lightgray; }
+	.table th { font-weight:normal; text-align:left; padding-left:15px; }
+	.table th:first-child { width:100px; background-color:rgb(248,248,248); vertical-align:middle; }
+	
+	.table th>button { padding:3px 10px; font-size:13px; }
 </style>
 </head>
+<script>
+	$(document).ready(function() {
+		 $(".search").click(function() {
+			 var url = "request_search.do";
+	         var name = "popup test";
+	         var option = "width = 500, height = 600, top = 150, left = 500, location = no"
+	         window.open(url, name, option);
+		 });
+		
+		 $(".up").click(function() {
+			 if ($("#bname").val() == "" || $("#bauthor").val() == "" || $("#bpublish").val() == "") {
+				 alert("검색버튼을 통해 내용을 입력해주세요");
+				 $(".search").focus();
+			 } else {
+				 request_write.submit();
+			 }
+		 });
+	});
+</script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 
@@ -49,11 +74,27 @@
 		 		<h3>희망도서 신청</h3>
 		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
-			<input type="text" class="form-control">
-			<textarea class="form-control textarea"></textarea>
-			<input type="file" class="form-control">
-			<a href="#" class="btn up">등록</a>
-			<a href="request.do" class="btn back">취소</a>
+		 	<form name="request_write" action="request_write_proc.do" method="post" enctype="multipart/form-data">
+				<table class="table">				
+			 		<tr>
+			 			<th>책명</th>
+			 			<th>
+			 				<input type="text" class="form-control" name="bname" id="bname" autocomplete="off" placeholder="검색버튼을 이용해주세요">
+			 				<button class="btn btn-secondary search" type="button">검색</button>
+			 			</th>
+			 		</tr>
+			 		<tr>
+			 			<th>저자</th>
+			 			<th><input type="text" placeholder="검색버튼을 이용해주세요" class="form-control" name="bauthor" id="bauthor" autocomplete="off"></th>
+			 		</tr>
+			 		<tr>
+			 			<th>출판사</th>
+			 			<th><input type="text" placeholder="검색버튼을 이용해주세요" class="form-control" name="bpublish" id="bpublish" autocomplete="off"></th>
+			 		</tr>			 		 		
+		 		</table>
+				<button type="button" class="btn up">등록</button>
+				<a href="request.do" class="btn back">취소</a>
+			</form>
 		 </div>
 	</div>
 </section>

@@ -154,7 +154,7 @@ $(document).ready(function() {
 		 	</div>		 	
 	 		<div class="search">
 	 			<img src="http://localhost:9000/mybook/images/search.png" width=30px height=30px >
-	 			<input type="text" class="form-control" placeholder="검색하실 도서명을 입력해주세요" id="search_input">
+	 			<input type="text" class="form-control" placeholder="검색하실 도서명을 입력해주세요" id="search_input" autocomplete="off">
 	 			<button id="search">검색</button>
 	 			<button id="all">전체</button>
 	 			<div class="booklist">
