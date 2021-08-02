@@ -59,7 +59,7 @@
 	.pagination > .active > a.page-link, .pagination > .active > a:hover {  background-color:rgb(109,171,239); border:1px solid rgb(109,171,239); }
 	
 	a>span { color:rgb(245,135,140); }
-	a>img { margin-left:5px; }
+	.new { margin-left:5px; }
 </style>
 </head>
 <body>
@@ -111,7 +111,7 @@
 			 					<span>[${vo.count }]</span>
 			 				</c:if>
 			 				<c:if test="${date eq vo.bdate }">
-			 					<img src="http://localhost:9000/mybook/images/new.png" width=20 height=20 style="vertical-align:bottom">
+			 					<img src="http://localhost:9000/mybook/images/new.png" width=20 height=20 style="vertical-align:bottom" class="new">
 			 				</c:if>
 			 			</a></td>
 			 			<td>${vo.name }**(${vo.id })</td>

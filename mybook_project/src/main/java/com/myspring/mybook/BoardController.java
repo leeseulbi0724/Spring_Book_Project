@@ -1,6 +1,7 @@
 package com.myspring.mybook;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.BoardService;
+import com.mybook.service.MypageService;
 import com.mybook.vo.BellVO;
 import com.mybook.vo.BoardVO;
 
@@ -29,13 +31,42 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService BoardService;
+	
+	@Autowired
+	private MypageService MypageService;
 
 	/**
 	 * 자유게시판
 	 */
 	@RequestMapping(value = "/board.do", method=RequestMethod.GET)
-	public ModelAndView board(Criteria cri) {
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView board(HttpSession session, Criteria cri) throws Exception {
+		Date now = new Date();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+	   	Date Today = format.parse(date);    	 
+	   	
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		ModelAndView mv = new ModelAndView();
+  		
+  		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);		
+  		}
         
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
@@ -63,8 +94,36 @@ public class BoardController {
 	 * 자유게시판 글쓰기
 	 */
 	@RequestMapping(value = "/board_write.do", method=RequestMethod.GET)
-	public String board_write() {
-		return "board/board_write";
+	public ModelAndView board_write(HttpSession session) throws Exception {
+		Date now = new Date();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+	   	Date Today = format.parse(date);    	 
+	   	
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		ModelAndView mv = new ModelAndView();
+  		
+  		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);		
+  		}
+  		mv.setViewName("board/board_write");
+		return mv;
 	}
 	
 	/**
@@ -122,8 +181,35 @@ public class BoardController {
 	 * 자유게시판 상세보기
 	 */
 	@RequestMapping(value="/board_content.do", method=RequestMethod.GET)
-	public ModelAndView board_content(String bid) {
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView board_content(String bid, HttpSession session) throws Exception {
+		Date now = new Date();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+	   	Date Today = format.parse(date);    	 
+	   	
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		ModelAndView mv = new ModelAndView();
+  		
+  		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);		
+  		}
+		
 		String img[] = null;
 		//조회수 올리기
 		BoardService.getBoardHit(bid);
@@ -178,8 +264,34 @@ public class BoardController {
 	 * 게시판 수정
 	 */
 	@RequestMapping(value="/board_update.do", method=RequestMethod.GET)
-	public ModelAndView board_update(String bid) {
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView board_update(String bid, HttpSession session) throws Exception {
+		Date now = new Date();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+	   	Date Today = format.parse(date);    	 
+	   	
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		ModelAndView mv = new ModelAndView();
+  		
+  		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);		
+  		}
 		
 		BoardVO vo = BoardService.getBoardContent(bid);
 		String file[] = vo.getBfile().split(",");

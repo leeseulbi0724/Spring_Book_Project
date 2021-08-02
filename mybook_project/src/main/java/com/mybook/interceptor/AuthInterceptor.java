@@ -20,6 +20,8 @@ import com.mybook.vo.NoticeVO;
 import com.mybook.vo.SessionVO;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
+	@Autowired
+	private MypageService MypageService;	
 
 	/**
 	 * 컨트롤러 실행 전 호출되는 메소드
@@ -40,6 +42,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		return true;
-	}	
+	}
+	
+
 	
 }

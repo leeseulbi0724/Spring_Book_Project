@@ -43,23 +43,26 @@ public class IndexController {
 		ModelAndView mv = new ModelAndView();
 		
 		ArrayList<NoticeVO> spcl_list = NoticeService.getSpclList();
-		ArrayList<BellVO> bell_list = MypageService.getBellList(id);
-		for (int i=0; i<bell_list.size(); i++) {
-			String name[] = bell_list.get(i).getKinds().split("_");
-			if (name[0].equals("b")) {				
-				bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
-				String bdate = bell_list.get(i).getBdate();
-				Date Bdate = format.parse(bdate);    	 
-				long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
-			    bell_list.get(i).setDay(String.valueOf(Day));
-			}
-		}		
-		//알림여부
-		int count = MypageService.getBellResult(id);		
+		
+		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);
+		}
 		
 		mv.addObject("list", spcl_list);
-		mv.addObject("bell_list", bell_list);
-		mv.addObject("b_count", count);
 		mv.setViewName("index");
 		
 		return mv;

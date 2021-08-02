@@ -1,6 +1,8 @@
 package com.myspring.mybook;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mybook.service.BookService;
+import com.mybook.service.MypageService;
+import com.mybook.vo.BellVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.ReviewVO;
 
@@ -24,20 +28,46 @@ public class BookController {
 	
 	@Autowired
 	private BookService BookService;
+	@Autowired
+	private MypageService MypageService;
 	
 	/**
 	 * 대여 검색
 	 */
 	@RequestMapping(value = "/search.do", method=RequestMethod.GET)
-	public ModelAndView search(HttpSession session) {
-		//로그인 회원정보 가져오기
-		String id = (String) session.getAttribute("session_id");
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView search(HttpSession session) throws Exception {
+		Date now = new Date();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+	   	Date Today = format.parse(date);    	 
+	   	
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		ModelAndView mv = new ModelAndView();
+  		
+  		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);		
+  		}
 		
 		ArrayList<BookVO> list = BookService.getBookList();		
 		for (int i=0; i<list.size(); i++) {
-			String date[] = list.get(i).getBdate().split(" ");
-			list.get(i).setYyyy(date[0]);			
+			String day[] = list.get(i).getBdate().split(" ");
+			list.get(i).setYyyy(day[0]);			
 			if (id != null) {
 				BookVO vo = new BookVO();
 				vo.setId(id);   vo.setBid(list.get(i).getBid());
@@ -57,12 +87,36 @@ public class BookController {
 	 * 대여 대여
 	 */
 	@RequestMapping(value = "/rental.do", method=RequestMethod.GET)
-	public ModelAndView rental(String bid, HttpSession session) {
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView rental(String bid, HttpSession session) throws Exception {
+		Date now = new Date();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+	   	Date Today = format.parse(date);    	 
+	   	
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		ModelAndView mv = new ModelAndView();
+  		
+  		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);		
+  		}
 		
 		BookVO vo = BookService.getBookContent(bid);
-		//로그인 회원정보 가져오기
-		String id = (String) session.getAttribute("session_id");
 		//대여정보
 		ArrayList<BookVO> list = BookService.getMemberBookList(id);
 		for (int i=0; i<list.size(); i++) {
@@ -120,10 +174,35 @@ public class BookController {
 	 * 도서 상세정보
 	 */
 	@RequestMapping(value = "/content.do", method=RequestMethod.GET)
-	public ModelAndView content(String bid, HttpSession session) {
-		//로그인 회원정보 가져오기
-		String id = (String) session.getAttribute("session_id");
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView content(String bid, HttpSession session) throws Exception {
+		Date now = new Date();		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(now);
+	   	Date Today = format.parse(date);    	 
+	   	
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		ModelAndView mv = new ModelAndView();
+  		
+  		if (id!= null) {
+			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
+			for (int i=0; i<bell_list.size(); i++) {
+				String name[] = bell_list.get(i).getKinds().split("_");
+				if (name[0].equals("b")) {				
+					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				}
+			}		
+			//알림여부
+			int count = MypageService.getBellResult(id);		
+			mv.addObject("bell_list", bell_list);
+			mv.addObject("b_count", count);		
+  		}
+  		
 		boolean h_result = false;
 		boolean r_result = false;
 		boolean v_result = false;
