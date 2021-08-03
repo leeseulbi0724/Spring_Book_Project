@@ -184,8 +184,8 @@ $(document).ready(function() {
 	 			</c:forEach> 	
 	 			<div class="button">
 		 			<button type="button" id="more_btn">more
-						<img src="http://localhost:9000/myjeju/images/travel/bill_list_btn2.png">
-						<img src="http://localhost:9000/myjeju/images/travel/bill_list_btn.png">
+						<img src="http://localhost:9000/mybook/images/bill_list_btn2.png">
+						<img src="http://localhost:9000/mybook/images/bill_list_btn.png">
 					</button>		
 				</div>
 	 			</div>

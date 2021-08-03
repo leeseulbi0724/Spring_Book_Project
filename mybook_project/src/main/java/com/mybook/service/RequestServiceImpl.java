@@ -31,5 +31,18 @@ public class RequestServiceImpl implements RequestService {
 	public ArrayList<RequestVO> getRequestList(Criteria cri) {
 		return requestDAO.getRequestList(cri);
 	}
+	
+	public RequestVO getRequestContent(String rid) {
+		return requestDAO.getRequestContent(rid);
+	}
+	
+	public boolean getRequestStatus(String rid) {
+		int val= requestDAO.getRequestStatus(rid);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

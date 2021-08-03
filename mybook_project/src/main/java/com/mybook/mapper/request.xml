@@ -7,7 +7,7 @@
 <mapper namespace="mapper.request">
 
 	<insert id="request_write" parameterType="com.mybook.vo.RequestVO">
-		insert into mybook_request values(#{id}, #{bname}, #{bauthor}, #{bpublish}, 'r_'||sequ_mybook_request.nextval, sysdate)
+		insert into mybook_request values(#{id}, #{bname}, #{bauthor}, #{bpublish}, 'r_'||sequ_mybook_request.nextval, sysdate, 0)
 	</insert>
 	
 	<select id="request_total" resultType="java.lang.Integer">
@@ -15,10 +15,18 @@
 	</select>
 	
 	<select id="request_list" parameterType="hashmap" resultType="com.mybook.vo.RequestVO">
-	select rownum rno, rid, id, bname, bauthor, bpublish, to_char(rdate, 'yyyy-mm-dd') rdate
-		from (select rownum rno, rid, id, bname, bauthor, bpublish, rdate
-			from (select rid, id, bname, bauthor, bpublish, rdate from mybook_request order by rdate desc) order by rdate)
+	select rownum rno, rid, id, bname, bauthor, bpublish, to_char(rdate, 'yyyy-mm-dd') rdate, status
+		from (select rownum rno, rid, id, bname, bauthor, bpublish, rdate, status
+			from (select rid, id, bname, bauthor, bpublish, rdate, status from mybook_request order by rdate desc) order by rdate)
 			where rno between (#{page}-1)*#{perPageNum}+1 and (#{page}*#{perPageNum}) order by rno desc
 	</select>
+	
+	<select id="request_content" parameterType="java.lang.String" resultType="com.mybook.vo.RequestVO">
+		select * from mybook_request where rid=#{rid}
+	</select>
+	
+	<update id="request_status" parameterType="java.lang.String">
+		update mybook_request set status=1 where rid=#{rid}
+	</update>
 
 </mapper>

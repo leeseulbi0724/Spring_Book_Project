@@ -20,25 +20,27 @@ import com.mybook.service.BoardService;
 import com.mybook.service.BookService;
 import com.mybook.service.MemberService;
 import com.mybook.service.NoticeService;
+import com.mybook.service.RequestService;
 import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.NoticeVO;
+import com.mybook.vo.RequestVO;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
-	private MemberService MemberService;
-	
+	private MemberService MemberService;	
 	@Autowired
-	private NoticeService NoticeService;
-	
+	private NoticeService NoticeService;	
 	@Autowired
-	private BookService BookService;
-	
+	private BookService BookService;	
 	@Autowired
 	private BoardService BoardService;
+	@Autowired
+	private RequestService RequestService;
+
 
 	/**
 	 * 관리자 로그인
@@ -332,6 +334,8 @@ public class AdminController {
 	public ModelAndView admin_book_update_proc(HttpServletRequest request, BookVO vo) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		String bid = vo.getBid();
+		String date[] = vo.getBdate().split("-");
+		vo.setBdate(date[0]+"년 "+date[1]+"월 "+date[2]+"일");
 		boolean result = false;
 		if (vo.getFile1().getOriginalFilename() != "") {
 			//파일 존재
@@ -397,11 +401,36 @@ public class AdminController {
 	}
 	
 	/**
-	 * 관리자 요청관리
+	 * 관리자 희망도서 관리
 	 */
 	@RequestMapping(value = "/admin_request.do", method=RequestMethod.GET)
-	public String admin_request() {
-		return "admin/request/admin_request";
+	public ModelAndView admin_request(Criteria cri) throws Exception {
+		ModelAndView mv = new ModelAndView();
+        
+	    PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(RequestService.getRequestTotal());
+	        
+	    ArrayList<RequestVO> list =RequestService.getRequestList(cri);
+	    mv.addObject("list", list);
+	    mv.addObject("pageMaker", pageMaker);
+	    mv.setViewName("admin/request/admin_request");
+		
+		return mv;
+	}
+	
+	/**
+	 * 관리자 희망도서 신청
+	 */
+	@RequestMapping(value="/admin_request_content.do", method=RequestMethod.GET)
+	public ModelAndView admin_request_content(String rid) {
+		ModelAndView mv = new ModelAndView();
+		
+		RequestVO vo = RequestService.getRequestContent(rid);
+		mv.addObject("vo", vo);
+		mv.setViewName("admin/request/admin_request_content");
+		
+		return mv;
 	}
 	
 	/**
@@ -428,6 +457,46 @@ public class AdminController {
 	    mv.addObject("pageMaker", pageMaker);
 		mv.addObject("list", list);
 		mv.setViewName("admin/board/admin_board");
+		
+		return mv;
+	}
+	
+	/**
+	 * 관리자 희망도서 등록 DB
+	 */
+	@RequestMapping(value = "/admin_request_write_proc.do", method=RequestMethod.POST) 
+	public ModelAndView admin_request_write_proc(BookVO vo, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		String date[] = vo.getBdate().split("-");
+		vo.setBdate(date[0]+"년 "+date[1]+"월 "+date[2]+"일");
+
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		String attach_path = "\\resources\\upload\\";
+		
+		UUID uuid = UUID.randomUUID();
+		//rfname 중복방지 처리			
+		System.out.println((vo.getFile1().getOriginalFilename()));
+		System.out.println((uuid +"_"+vo.getFile1().getOriginalFilename()));		
+	
+		//DB저장
+		vo.setBfile(vo.getFile1().getOriginalFilename());
+		vo.setBsfile(uuid+ "_"+vo.getFile1().getOriginalFilename());
+		
+		boolean result = BookService.getBookInsert(vo);
+		
+		//DB저장 완료 후 폴더에 저장하기
+		if (result) {
+			System.out.println(root_path + attach_path + uuid +"_"+vo.getFile1().getOriginalFilename());
+			
+			if (vo.getFile1().getOriginalFilename() != "") {
+				File file = new File(root_path + attach_path + uuid
+						+"_"+vo.getFile1().getOriginalFilename()); vo.getFile1().transferTo(file);
+			}
+			
+			result = RequestService.getRequestStatus(vo.getRid());
+		}		
+		
+		mv.setViewName("redirect:admin_request.do");
 		
 		return mv;
 	}

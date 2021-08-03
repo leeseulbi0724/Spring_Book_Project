@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.BoardService;
+import com.mybook.service.BookService;
 import com.mybook.service.MypageService;
 import com.mybook.service.RequestService;
 import com.mybook.vo.BellVO;
@@ -29,6 +30,8 @@ public class RequestController {
 	private RequestService RequestService;
 	@Autowired
 	private BoardService BoardService;
+	@Autowired
+	private BookService BookService;
 
 	/**
 	 * 도서 요청
@@ -144,8 +147,12 @@ public class RequestController {
 	public ModelAndView request_content(String rid) {
 		ModelAndView mv = new ModelAndView();
 		
+		RequestVO vo = RequestService.getRequestContent(rid);
+		
+		mv.addObject("vo", vo);
 		mv.setViewName("request/request_content");
 		
 		return mv;
-	}
+	}	
+	
 }

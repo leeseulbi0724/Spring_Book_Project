@@ -10,5 +10,7 @@ public interface RequestService {
 	boolean getRequestWrite(RequestVO vo);
 	int getRequestTotal();
 	ArrayList<RequestVO> getRequestList(Criteria cri);
+	RequestVO getRequestContent(String rid);
+	boolean getRequestStatus(String rid);
 
 }

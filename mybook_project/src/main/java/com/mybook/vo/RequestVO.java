@@ -3,9 +3,15 @@ package com.mybook.vo;
 public class RequestVO {
 	
 	String id, bname, bauthor, bpublish, rid, rdate, name;
-	int rno;
+	int rno, status;
 	
 	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	public String getName() {
 		return name;
 	}

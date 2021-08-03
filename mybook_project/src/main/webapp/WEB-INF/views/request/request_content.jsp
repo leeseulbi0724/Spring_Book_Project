@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +18,21 @@
 	
 	.left ul li:nth-child(3) a { color:rgb(43,129,199); font-weight:bold; }
 
+	.form-control { display:inline-block; margin-bottom:5px; font-size:14px; width:800px; }
+	#bname, #bauthor, #bpublish { background-color:white; }
+	
+	.back { 
+		background-color:rgb(109,171,239); color:white; 
+		margin-top:20px; padding:3px10px;
+	}
+	.back:hover { background-color:lightgray; }
+	
+	.table { margin-top:20px; font-size:14px; }
+	.table tr { border-bottom:1px solid lightgray; }
+	.table th { font-weight:normal; text-align:left; padding-left:15px; }
+	.table th:first-child { width:100px; background-color:rgb(248,248,248); vertical-align:middle; }
+	
+	.table th>button { padding:3px 10px; font-size:13px; }
 </style>
 </head>
 <body>
@@ -42,7 +59,32 @@
 		 		<h3>희망도서 신청</h3>
 		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
-		 	
+				<table class="table">				
+			 		<tr>
+			 			<th>책명</th>
+			 			<th><input type="text" class="form-control" name="bname" id="bname" value="${vo.bname }" readonly></th>
+			 		</tr>
+			 		<tr>
+			 			<th>저자</th>
+			 			<th><input type="text" class="form-control" name="bauthor" id="bauthor" value="${vo.bauthor }" readonly></th>
+			 		</tr>
+			 		<tr>
+			 			<th>출판사</th>
+			 			<th><input type="text" class="form-control" name="bpublish" id="bpublish" value="${vo.bpublish }" readonly></th>
+			 		</tr>			 		 		
+		 		</table>
+		 		<table class="table">	
+			 		<tr>
+			 			<th>결과</th>
+			 			<c:if test="${vo.status eq 0}">
+			 				<th><span style="color:blue">신청중</span></th>
+			 			</c:if>
+			 			<c:if test="${vo.status eq 1 }">
+			 				<th><span style="color:red">등록완료</span></th>
+			 			</c:if>
+			 		</tr>			 		 		
+		 		</table>
+				<a href="request.do" class="btn back">목록</a>
 		 </div>
 	</div>
 </section>

@@ -48,7 +48,7 @@
 	$(document).ready(function() {
 		$(".request_content").click(function() {
 			if ("${session_id}" == $(this).attr("id")) {
-				location.replace("request_content.do?rid="+$(this).attr("name"));
+				$(this).attr("href","request_content.do?rid="+$(this).attr("name"));
 			} else {
 				alert("작성자만 확인가능합니다");
 			}

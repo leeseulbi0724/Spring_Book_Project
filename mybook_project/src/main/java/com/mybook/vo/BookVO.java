@@ -4,11 +4,17 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class BookVO {
 	
-	String id, bid, bname, bauthor, bpublish, bdate, bcontent, bfile, bsfile, yyyy, mm, dd, startday, endday;
+	String id, bid, bname, bauthor, bpublish, bdate, bcontent, bfile, bsfile, yyyy, mm, dd, startday, endday, rid;
 	int bheart, status;
 	CommonsMultipartFile file1;	
 	
 	
+	public String getRid() {
+		return rid;
+	}
+	public void setRid(String rid) {
+		this.rid = rid;
+	}
 	public String getId() {
 		return id;
 	}

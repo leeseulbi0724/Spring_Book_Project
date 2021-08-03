@@ -1,23 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>도서 관리 | Admin</title>
+<title>희망도서 관리 | Admin</title>
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="http://rawgit.com/jackmoored/autosize/master/dist/autosize.min.js"></script>
 <style>
-	.book { border-bottom:4px solid rgb(76,127,242); }
+	.request { border-bottom:4px solid rgb(76,127,242); }
 	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
-	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
+	.center  p a, .center span { font-size:12px; font-weight:normal; float:left; }
 	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
 	div.box { display:inline-block; margin-top:30px; text-align:center; display:inline-block; width:1000px; }
 	.table { margin-top:20px; font-size:14px; }
@@ -28,16 +26,13 @@
 	input[type=text] { height:30px; display:inline-block; }
 	input[type=file] { height:35px; }
 	
-	#write, #reset { float:right; margin:10px 3px; font-size:12px; }
+	#search { float:right; margin:5px 3px; font-size:12px; }
+	#write  { float:right; margin:10px 3px; font-size:12px; }
 	#list { float:left; margin-top:10px; }
-	
-	.file { background-color:white; position:absolute; margin-top:-27px; margin-left:90px; width:500px; }
 </style>
 </head>
 <script>
 	$(document).ready(function() {		
-		$("#bcontent").css("height", $("#bcontent").prop('scrollHeight')+5);		
-		
 		$("#write").click(function() {
 			if ($("#bname").val() == "") {
 				alert("책명을 입력해주세요");
@@ -54,19 +49,29 @@
 			} else if ($("#bcontent").val() == "") {
 				alert("설명을 입력해주세요");
 				$("#bcontent").focus();
-			} else if ($(".file").text() == "") {
+			} else if ($("#bfile").val() == "") {
 				alert("이미지를 첨부해주세요");
 				$("#bfile").focus();
 			} else {
-				admin_book.submit();
+				admin_request.submit();
 			}
 		});
 		
-		$("#bfile").change(function() {
-			if (window.FileReader) {
-				var filename = $(this)[0].files[0].name;
-				$(".file").text("").text(filename);
-			}
+		$("#search").click(function() {
+				$.ajax({
+					method:"GET",
+					url:"https://dapi.kakao.com/v3/search/book?target=title",
+					data:{query:$("#bname").val() },
+					headers:{Authorization:"KakaoAK 18270a8d7ab06d0e6f58f0a0a1a28cc0"},				
+					success : function(msg) {
+						var date = msg.documents[0].datetime.split("T");
+						$("#bdate").val(date[0]);
+						$("#bcontent").val(msg.documents[0].contents);
+						$(".img").append("<a href='"+msg.documents[0].thumbnail+"' target='_blank'>파일 다운로드</a>");
+						$("#bfile").val(msg.documents[0].thumbnail);
+					}
+				})
+			
 		});
 	});
 </script>
@@ -74,45 +79,48 @@
 <jsp:include page="../admin_main.jsp"></jsp:include>
 
 <section class="center">
-	<h3>도서 수정</h3>
-	<p><a>도서</a><span>></span><a>도서 목록</a><span>></span><a>도서 수정</a></p>
+	<h3>희망도서 목록</h3>
+	<p><a>희망도서</a><span>></span><a>희망도서 목록</a><span>></span><a>희망도서 신청</a></p>
 	<div class="list_box">			
 		<div class="box">
-		<form name="admin_book" action="admin_book_update_proc.do" method="post" enctype="multipart/form-data">
-		<table class="table">
+		<form name="admin_request" action="admin_request_write_proc.do" method="post" enctype="multipart/form-data">
+			<table class="table">
+			<input type="hidden" value="${vo.rid }" name="rid">
 		 		<tr>
 		 			<th>책명</th>
-		 			<th><input type="text" class="form-control" name="bname" id="bname" value="${vo.bname }"></th>
+		 			<th><input type="text" class="form-control" name="bname" id="bname" value="${vo.bname }" readonly></th>
 		 		</tr>
 		 		<tr>
 		 			<th>저자</th>
-		 			<th><input type="text" class="form-control" name="bauthor" id="bauthor" value="${vo.bauthor }"></th>
+		 			<th><input type="text" class="form-control" name="bauthor" id="bauthor" value="${vo.bauthor }"  readonly></th>
 		 		</tr>
 		 		<tr>
 		 			<th>출판사</th>
-		 			<th><input type="text" class="form-control" name="bpublish" id="bpublish" value="${vo.bpublish }"></th>
-		 		</tr>	
+		 			<th><input type="text" class="form-control" name="bpublish" id="bpublish" value="${vo.bpublish }"  readonly></th>
+		 		</tr>			 		
+		 	</table>
+		 	<button type="button" class="btn btn-secondary"  id="search">검색</button>	
+		 	<table class="table">
 		 		<tr>
-		 			<th>출간일</th>		 			
-		 			<th>
-		 				<input type="date" class="form-control" name="bdate" id="bdate" value="${vo.yyyy }-${vo.mm}-${vo.dd}" >
-		 			</th>
+		 			<th>출간일</th>
+		 			<th><input type="text" class="form-control" name="bdate" id="bdate" ></th>
 		 		</tr>	 		
 		 			<tr>
 		 			<td colspan="2">
-		 				<textarea style="resize: none;" placeholder="설명" class="form-control" name="bcontent" id="bcontent">${vo.bcontent }</textarea>		 					
+		 				<textarea style="resize: none;" placeholder="설명" class="form-control" name="bcontent" id="bcontent"></textarea>		 					
 		 			</td>
 		 		</tr>
 		 		<tr>
-		 			<th>이미지</th>
-		 			<th><input type="file" class="form-control" name="file1" id="bfile">
-		 			<div class="file">${vo.bfile }</div>
+		 			<th>이미지 다운로드</th>
+		 			<th class="img"></th>		 			
+		 		</tr>
+		 		<tr>
+		 			<th>이미지 업로드</th>
+		 			<th><input type="file" class="form-control" name="file1" id="bfile"></th>		 			
 		 		</tr>
 		 	</table>
-		 	<input type="hidden" value="${vo.bid }" name="bid">
-		 	<a class="btn btn-secondary" href="admin_book.do" role="button" id="list">목록</a>
-		 	<button type="button" class="btn btn-primary"  id="write">수정</button>
-			<button type="reset" class="btn btn-secondary"  id="reset">취소</button>	
+		 	<a class="btn btn-secondary" href="admin_request.do" role="button" id="list">목록</a>
+		 	<button type="button" class="btn btn-primary"  id="write">도서 등록</button>			
 		</form>
 		</div>
 	</div>

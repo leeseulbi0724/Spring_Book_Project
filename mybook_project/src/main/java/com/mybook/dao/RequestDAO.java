@@ -31,5 +31,13 @@ public class RequestDAO {
 		List<RequestVO> list = sqlSession.selectList(namespace+".request_list", cri);		
 		return (ArrayList<RequestVO>)list;
 	}
+	
+	public RequestVO getRequestContent(String rid) {
+		return sqlSession.selectOne(namespace+".request_content", rid);
+	}
+	
+	public int getRequestStatus(String rid) {
+		return sqlSession.update(namespace+".request_status", rid);
+	}
 
 }

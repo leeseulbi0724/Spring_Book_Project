@@ -49,8 +49,8 @@
 			<input type="text" class="form-control" id="search">
 		</div>
 		<div class="container">	
-		<table class="table table-striped">
-			<thead>
+		<table class="table table-hover">
+			<thead class="table-light">
 				<tr>
 					<th>번호</th>
 					<th>제목</th>
