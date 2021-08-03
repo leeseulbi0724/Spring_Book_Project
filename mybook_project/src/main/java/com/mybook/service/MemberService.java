@@ -24,5 +24,7 @@ public interface MemberService {
 	boolean getInfoDelete(String id);
 	boolean getInfoDeleteReset(String id);
 	boolean getMemberDrop(String id);
+	ArrayList<MemberVO> getMemberSearchList(String search, String category);
+	ArrayList<MemberVO> getMemberSearchList(String search, String category, Criteria cri);
 
 }

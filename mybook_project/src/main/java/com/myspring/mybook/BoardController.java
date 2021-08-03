@@ -456,7 +456,7 @@ public class BoardController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/board_search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
-	public String travel_proc(String search, String category) {
+	public String board_search_proc(String search, String category) {
 		System.out.print(search);
 		ArrayList<BoardVO> list = BoardService.getBoardSearchList(search, category);
 		//이름 가져오기

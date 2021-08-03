@@ -1,6 +1,7 @@
 package com.mybook.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mybook.commons.Criteria;
+import com.mybook.vo.BoardVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.SessionVO;
 
@@ -104,6 +106,23 @@ public class MemberDAO {
 	/** 雀盔呕硼 贸府 - 包府磊 **/
 	public int getMemberDrop(String id) {
 		return sqlSession.delete(namespace+".member_drop", id);
+	}
+	
+	/** 包府磊 ajax **/
+	public ArrayList<MemberVO> getMemberSearchList(String search, String category) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("search", search);
+		param.put("category", category);
+		List<MemberVO> list = sqlSession.selectList(namespace+".member_search_count", param);
+		return (ArrayList<MemberVO>)list;
+	}
+	public ArrayList<MemberVO> getMemberSearchList(String search, String category, Criteria cri) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("search", search);
+		param.put("category", category);
+		param.put("cri", cri);
+		List<MemberVO> list = sqlSession.selectList(namespace+".member_search_list", param);
+		return (ArrayList<MemberVO>)list;
 	}
 	
 

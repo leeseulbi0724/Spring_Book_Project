@@ -19,7 +19,7 @@
 	
 	.search { float:right; margin:10px; }
 	#s_select { width:100px; display:inline-block; font-size:12px; border-radius:15px; }
-	#search {
+	#search_input {
   		width:200px; display:inline-block; font-size:12px; border-radius:15px;
 	}
 	
@@ -31,29 +31,30 @@
 	#request { margin:0; padding:0; font-size:13px; padding:0 10px; }
 	.button { text-align:center; margin-top:-80px; }
 	.button>div { display:inline-block; }
+	
+	#search_btn { padding:3px 10px; font-size:13px; }
 </style>
 </head>
 <script>
-			$(function(){
-			  $("button[id^='request']").on("click", drop);
-		    });
-		  
-		    function drop() {
-		    	var id = $(this).attr("name");   
-		    	var con_test = confirm("회원탈퇴 처리를 하시겠습니까?"); 
-	        	if(con_test == true){   
-		         $.ajax({
-		                type: "post",
-		                url: "member_drop.do",
-		                data:{id:id},
-		                dataType: 'json',
-		                success: function (result) {
-		                    location.reload();
-		                },
+ $(document).ready(function() {
+	 $("button[id=request]").click(function() {
+	    	var id = $(this).attr("name");   
+	    	var con_test = confirm("회원탈퇴 처리를 하시겠습니까?"); 
+	       	if(con_test == true){   
+	         $.ajax({
+	                type: "post",
+	                url: "member_drop.do",
+	                data:{id:id},
+	                dataType: 'json',
+	                success: function (result) {
+	                    location.reload();
+	                },
 
-		            });
-	        	}
-		    };
+	        });
+	 	}
+ 	});	 
+		
+ })
 </script>
 <body>
 <jsp:include page="../admin_main.jsp"></jsp:include>
@@ -63,11 +64,14 @@
 	<p><a>회원</a><span>></span><a>회원 목록</a></p>
 	<div class="list_box">
 		<div class="search">
-			<select class="form-select" id="s_select" >
-				<option>아이디
-				<option>이름
-			</select>
-			<input type="text" class="form-control" id="search">
+			<form action="admin_user.do" method="post" >
+				<select class="form-select" id="s_select"  name="category">
+					<option value="id">아이디
+					<option value="name">이름
+				</select>
+				<input type="text" class="form-control" id="search_input" name="search_input">
+				<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
+			</form>
 		</div>
 		<div class="container">	
 		<table class="table table-striped table-hover">
@@ -81,7 +85,7 @@
 					<th>탈퇴신청</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="tbody">
 			<c:forEach var = "vo"  items="${list}" varStatus="status">
 				<tr>
 					<td>${vo.id }</td>
@@ -102,6 +106,7 @@
 		</table>
 		</div>
 	</div>
+	<c:if test="${count eq 'all' }">
 		<div class="button">
 			<div>
 			<nav aria-label="Page navigation example">
@@ -125,6 +130,32 @@
 			</nav>
 			</div>
 		</div>
+	</c:if>
+	<c:if test="${count eq 'search' }">
+		<div class="button">
+			<div>
+			<nav aria-label="Page navigation example">
+			<ul class="pagination">
+	    	<c:if test="${pageMaker.prev }">
+			    <li class="page-item">
+			        <a class="page-link" href="admin_user.do?page=${pageMaker.startPage -1 }">이전</a>
+			    </li>
+		    </c:if>
+		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
+			    	<a class="page-link" href="admin_user.do?page=${pageNum }&search_input=${search_input}&category=${category}">${pageNum }</a>
+			    </li>
+		    </c:forEach>
+		    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			    <li class="page-item">
+			        <a class="page-link" href="admin_user.do??page=${pageMaker.endPage+1 }">다음</a>
+			    </li>
+		    </c:if>
+			</ul>
+			</nav>
+			</div>
+		</div>
+	</c:if>
 </section>
 </body>
 </html>

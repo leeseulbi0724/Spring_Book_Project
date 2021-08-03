@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.BoardService;
@@ -61,17 +64,32 @@ public class AdminController {
 	/**
 	 * 包府磊 雀盔包府
 	 */
-	@RequestMapping(value = "/admin_user.do", method=RequestMethod.GET)
-	public ModelAndView admin_user(Criteria cri) throws Exception {
-		ModelAndView mv = new ModelAndView();
-        
-	    PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
-	    pageMaker.setTotalCount(MemberService.getCountResult());
-	        
-	    ArrayList<MemberVO> list =MemberService.getMemberList(cri);
-	    mv.addObject("list", list);
-	    mv.addObject("pageMaker", pageMaker);
+	@RequestMapping(value = "/admin_user.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView admin_user(Criteria cri, String search_input, String category) throws Exception {
+		ModelAndView mv = new ModelAndView();        
+
+	    if (search_input == null || search_input.equals("") || search_input.equals("null")) {
+		    PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setTotalCount(MemberService.getCountResult());		     
+		    System.out.print(MemberService.getCountResult());
+		    ArrayList<MemberVO> list =MemberService.getMemberList(cri);
+		    mv.addObject("list", list);
+		    mv.addObject("pageMaker", pageMaker);
+		    mv.addObject("count", "all");
+	    } else {
+		    PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+	    	ArrayList<MemberVO> list = MemberService.getMemberSearchList(search_input, category);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = MemberService.getMemberSearchList(search_input, category, cri);
+	    	mv.addObject("list", list);
+		    mv.addObject("pageMaker", pageMaker);
+		    mv.addObject("count", "search");
+		    mv.addObject("search_input", search_input);
+		    mv.addObject("category", category);
+	    }
+	    
 	    mv.setViewName("admin/user/admin_user");
 		
 		return mv;
@@ -88,6 +106,7 @@ public class AdminController {
 		
 		return result;
 	}
+	
 	
 	/**
 	 * 包府磊 傍瘤荤亲包府

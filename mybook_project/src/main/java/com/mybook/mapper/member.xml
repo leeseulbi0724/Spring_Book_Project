@@ -93,5 +93,40 @@
 		delete from mybook_member where id=#{id}
 	</delete>
 	
+	<!-- 관리자 ajax -->
+		<select id="member_search_count" parameterType="map" resultType="com.mybook.vo.MemberVO">	
+		<choose>
+			<when test='category.equals("id")'>				    			
+    			select rno, id, name, birth, email, hp, mdate, id_del
+				from (select rownum rno, id, name, birth, email, hp, mdate, id_del
+				from(select rownum rno, id, name, birth, email, hp, mdate, id_del
+    			from(select id, name, birth, email, hp, mdate, id_del from mybook_member order by mdate desc) order by mdate) order by rno desc) where id like '%'||#{search}||'%'
+    		</when>
+			<otherwise>
+				select rno, id, name, birth, email, hp, mdate, id_del
+				from (select rownum rno, id, name, birth, email, hp, mdate, id_del
+				from(select rownum rno, id, name, birth, email, hp, mdate, id_del
+    			from(select id, name, birth, email, hp, mdate, id_del from mybook_member order by mdate desc) order by mdate) order by rno desc) where name like '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="member_search_list" parameterType="map" resultType="com.mybook.vo.MemberVO">
+	<choose>
+		<when test='category.equals("id")'>				    			
+    			select rownum rno, id, name, birth, hp, email, mdate, id_del
+					from (select rownum rno, id, name, birth, hp, email, mdate, id_del 
+						from (select id, name, birth, hp, email, mdate, id_del from mybook_member order by mdate) where id like '%'||#{search}||'%') 
+							where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum})
+    		</when>
+			<otherwise>
+				select rownum rno, id, name, birth, hp, email, mdate, id_del
+					from (select rownum rno, id, name, birth, hp, email, mdate, id_del 
+						from (select id, name, birth, hp, email, mdate, id_del from mybook_member order by mdate) where name like '%'||#{search}||'%') 
+							where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum})
+			</otherwise>
+		</choose>
+	</select>
+	
 
 </mapper>

@@ -165,5 +165,13 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
+	//°ü¸®ÀÚ - ajax
+	public ArrayList<MemberVO> getMemberSearchList(String search, String category) {
+		return memberDAO.getMemberSearchList(search, category);
+	}
+	public ArrayList<MemberVO> getMemberSearchList(String search, String category, Criteria cri) {
+		return memberDAO.getMemberSearchList(search, category, cri);
+	}
+	
 
 }
