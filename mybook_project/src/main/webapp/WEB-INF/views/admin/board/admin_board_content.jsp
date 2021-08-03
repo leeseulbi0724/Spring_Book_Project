@@ -41,6 +41,40 @@
 	#list { margin-top:10px; margin-left:10px; }
 </style>
 </head>
+<script>
+	$(document).ready(function() {
+		$("#delete").click(function() {
+			if (confirm("게시물을 삭제하시겠습니까?")) {	
+				$.ajax({
+	                type: "post",
+	                url: "board_delete.do",             
+	                data:{bid:"${vo.bid}"},
+	                dataType: 'json',
+	                success: function (result) {
+	                	alert("게시물이 삭제되었습니다");
+	                	location.replace("admin_board.do");
+	                },
+	           }); 
+			} 
+		});
+		
+		$(".comment_delete").click(function() {
+			var cid = $(this).attr("id");
+			if (confirm("댓글을 삭제하시겠습니까?")) {	
+				$.ajax({
+	                type: "post",
+	                url: "board_comment_delete.do",             
+	                data:{cid:cid},
+	                dataType: 'json',
+	                success: function (result) {
+	                	alert("댓글이 삭제되었습니다");
+	                	location.reload();
+	                },
+	           });
+			}
+		});
+	});
+</script>
 <body>
 <jsp:include page="../admin_main.jsp"></jsp:include>
 
@@ -92,7 +126,7 @@
 		 		</c:forEach>		 		
 		 	</div>	 
 		 	<a href="admin_board.do" class="btn btn-secondary" id="list">목록</a>	
-		 	<a class="btn btn-primary" id="delete">삭제</a>	
+		 	<a class="btn btn-primary" id="delete"  >삭제</a>	
 	</div>
 </section>
 </body>

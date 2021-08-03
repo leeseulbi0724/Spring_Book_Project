@@ -390,14 +390,17 @@ public class BoardController {
 		String attach_path = "\\resources\\upload\\";
 		
 		BoardVO vo = BoardService.getBoardContent(bid);
-		String img[] = vo.getBsfile().split(",");
 		
-		for (int i=0; i<img.length; i++) {
-			String old_name = img[i];
-			File old_file = new File(root_path+attach_path+old_name);
-			if ( old_file.exists()) {
-				old_file.delete();
-			}			
+		if (vo.getBfile() != null) {
+			String img[] = vo.getBsfile().split(",");
+			
+			for (int i=0; i<img.length; i++) {
+				String old_name = img[i];
+				File old_file = new File(root_path+attach_path+old_name);
+				if ( old_file.exists()) {
+					old_file.delete();
+				}			
+			}
 		}
 		
 		boolean result = BoardService.getBoardDelete(bid);
