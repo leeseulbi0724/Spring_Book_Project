@@ -39,8 +39,23 @@
 	}
 	.chat img { margin-top:10px; }
 	.chat .name { font-weight:bold; font-size:18px; }
+	
+	.btn_write { 
+		background-color:rgb(109,171,239); color:white; float:left;
+		font-size:14px; padding:2px 5px; margin-bottom:14px;
+	}
 </style>
 </head>
+<script>
+	$(document).ready(function() {
+		 $(".btn_write").click(function() {
+			 var url = "online_write.do";
+	         var name = "popup test";
+	         var option = "width = 500, height = 600, top = 100, left = 500, location = no"
+	         window.open(url, name, option);
+		 });
+	});
+</script>
 <body>
  <jsp:include page="../header.jsp"></jsp:include>
  <section>
@@ -65,10 +80,10 @@
 		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>
 		 	<div class="search">
-		 		<p>총 <span>4</span>개 방</p>
+		 		<a class="btn btn_write">방 개설</a>	
 		 		<select class="form-select">
 		 			<option>방이름
-		 		</select>
+		 		</select>		 		
 		 		<input type="text" class="form-control">
 		 		<button class="btn btn-secondary btn_search">검색</button>
 		 	</div>

@@ -40,6 +40,7 @@
 	<beans:bean id="RoomService" class="com.mybook.service.RoomServiceImpl"></beans:bean> 	
 	<beans:bean id="BoardService" class="com.mybook.service.BoardServiceImpl"></beans:bean> 	
 	<beans:bean id="RequestService" class="com.mybook.service.RequestServiceImpl"></beans:bean> 	
+	<beans:bean id="OnlineService" class="com.mybook.service.OnlineServiceImpl"></beans:bean> 	
 	
 	<!-- spring-donwload bean -->
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
@@ -110,6 +111,10 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/mypage_review*"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/online_write*"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>

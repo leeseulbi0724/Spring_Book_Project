@@ -4,22 +4,28 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mybook.service.MypageService;
+import com.mybook.service.OnlineService;
 import com.mybook.vo.BellVO;
+import com.mybook.vo.OnlineVO;
 
 @Controller
 public class OnlineController {
 	
 	@Autowired
 	private MypageService MypageService;
+	@Autowired
+	private OnlineService OnlineService;
 	
 	/**
 	 * 온라인 토론
@@ -55,6 +61,46 @@ public class OnlineController {
   		}
   		
   		mv.setViewName("online/online");
+		return mv;
+	}
+	
+	/**
+	 * 온라인 토론방 개설
+	 */
+	@RequestMapping(value="/online_write.do", method=RequestMethod.GET)
+	public String online_write() {
+		return "online/online_write";
+	}
+	
+	/**
+	 * 토론방 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value="/online_write_proc.do", method=RequestMethod.POST)
+	public boolean online_write_proc(HttpSession session, HttpServletRequest request) {
+		String name = request.getParameter("name");
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		OnlineVO vo = new OnlineVO();
+  		vo.setId(id);   vo.setOname(name);
+  		
+		boolean result = OnlineService.getOnlineWrite(vo);
+		
+		return result;
+	}
+	
+	/**
+	 * 토론방 
+	 */
+	@RequestMapping(value="/online_content.do", method=RequestMethod.GET)
+	public ModelAndView online_write_proc(HttpSession session, String name) {		
+		ModelAndView mv = new ModelAndView();
+	   	//로그인 회원정보 가져오기
+  		String id = (String) session.getAttribute("session_id");
+  		
+  		mv.addObject("name", name);
+  		mv.setViewName("online/online_content");
+		
 		return mv;
 	}
 }
