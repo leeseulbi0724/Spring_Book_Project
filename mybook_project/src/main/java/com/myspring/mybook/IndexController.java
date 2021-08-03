@@ -27,8 +27,6 @@ public class IndexController {
 	private NoticeService NoticeService;	
 	@Autowired
 	private MypageService MypageService;	
-	@Autowired
-	private BookService BookService;
 
 	/**
 	 * 메인화면

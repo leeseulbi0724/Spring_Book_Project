@@ -298,19 +298,21 @@ public class BoardController {
   		}
 		
 		BoardVO vo = BoardService.getBoardContent(bid);
-		String file[] = vo.getBfile().split(",");
-		String sfile[] = vo.getBsfile().split(",");
-		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
-		for (int i=0; i<file.length; i++) {
-			BoardVO bvo = new BoardVO();
-			bvo.setBfile(file[i]);	bvo.setBsfile(sfile[i]);
-			list.add(bvo);
+		if (vo.getBfile()!= null) {
+			String file[] = vo.getBfile().split(",");
+			String sfile[] = vo.getBsfile().split(",");
+			ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+			for (int i=0; i<file.length; i++) {
+				BoardVO bvo = new BoardVO();
+				bvo.setBfile(file[i]);	bvo.setBsfile(sfile[i]);
+				list.add(bvo);
+			}
+			mv.addObject("list", list);
 		}
 		
 		
 		mv.setViewName("board/board_update");		
 		mv.addObject("vo", vo);
-		mv.addObject("list", list);
 		
 		return mv;
 	}

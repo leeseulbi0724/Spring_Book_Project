@@ -112,10 +112,6 @@
 			<mapping path="/mypage_review*"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
-		<interceptor>
-			<mapping path="/online_write*"/>
-			<beans:ref bean="authInterceptor"/>
-		</interceptor>
 	</interceptors>
 	
 	<context:component-scan base-package="com.myspring.mybook" />

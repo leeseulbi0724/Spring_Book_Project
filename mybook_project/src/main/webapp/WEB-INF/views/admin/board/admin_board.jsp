@@ -27,11 +27,14 @@
   		width:200px; display:inline-block; font-size:12px; border-radius:15px;
 	}
 	
-	.table { text-align:center; font-size:14px; }	
-	#request { margin:0; padding:0; font-size:13px; padding:0 10px; }
+	.table th:nth-child(2) { width:600px; }
+	.table th:last-child { width:100px; }
 	
 	.button { text-align:center; margin-top:-80px; }
 	.button>div { display:inline-block; }
+	
+	.table { text-align:center; font-size:14px; }	
+	#content { font-size:13px; padding:0 10px; }
 </style>
 </head>
 <body>
@@ -70,7 +73,7 @@
 			 			<td>${vo.bdate }</td>
 			 			<td>${vo.bhit }</td>
 			 			<td>${vo.count }</td>
-			 			<td><button type="button" class="btn btn-secondary"  id="request" >내용보기</button></td>				
+			 			<td><a href="admin_board_content.do?bid=${vo.bid }" class="btn btn-secondary"  id="content"  >내용보기</a></td>				
 			 		</tr>		 		
 		 		</c:forEach>
 			</tbody>

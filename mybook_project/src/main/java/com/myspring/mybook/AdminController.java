@@ -500,5 +500,33 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+	/**
+	 * 게시판 상세보기
+	 */
+	@RequestMapping(value="/admin_board_content.do", method=RequestMethod.GET)
+	public ModelAndView admin_board_content(String bid) {
+		ModelAndView mv = new ModelAndView();
+		ArrayList<BoardVO> img_list = new ArrayList<BoardVO>();
+		
+		BoardVO vo = BoardService.getBoardContent(bid);
+		if (vo.getBfile() != null) {			
+			String img []= vo.getBsfile().split(",");
+			for (int i=0; i<img.length; i++) {
+				BoardVO bvo = new BoardVO();
+				String name[ ] = img[i].split("_");
+				bvo.setBfile(name[1]);
+				bvo.setBsfile(img[i]);
+				img_list.add(bvo);
+			}
+		}
+		ArrayList<BoardVO> list = BoardService.getBoardCommentContent(bid);
+		
+		mv.addObject("vo", vo);
+		mv.addObject("list", list);
+		mv.addObject("img_list", img_list);
+		mv.setViewName("admin/board/admin_board_content");
+		return mv;
+	}
 
 }
