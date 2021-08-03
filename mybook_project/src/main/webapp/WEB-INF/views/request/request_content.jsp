@@ -51,7 +51,6 @@
 		 		<li><a href="notice.do">공지사항</a></li>
 		 		<li><a href="board.do">자유 게시판</a></li>
 		 		<li><a href="request.do">희망도서 신청</a></li>
-		 		<li><a href="online.do">온라인 토론</a></li>
 		 	</ul>
 		 </div>
 		 <div class="center">
