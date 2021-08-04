@@ -40,5 +40,25 @@
 	<update id="room_update2" parameterType="java.lang.String">
 		update mybook_room_list set status=0 where seat_number=#{seat_number}
 	</update>
+	
+	<delete id="room_delete">
+		delete from mybook_room
+	</delete>
+	
+	<update id="room_delete_result">
+		update mybook_room_list set status=0
+	</update>
+	
+	<update id="room_no_result" parameterType="java.lang.String">
+		update mybook_room_list set status=2 where seat_number=#{num}
+	</update>
+	
+	<update id="room_yes_result" parameterType="java.lang.String">
+		update mybook_room_list set status=0 where seat_number=#{num}
+	</update>
+	
+	<select id="room_ing_result"  resultType="java.lang.Integer">
+		select count(*) from mybook_room_list where status=1
+	</select>
 
 </mapper>

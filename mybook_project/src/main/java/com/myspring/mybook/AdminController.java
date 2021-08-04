@@ -604,10 +604,54 @@ public class AdminController {
 	public ModelAndView admin_room() {
 		ModelAndView mv = new ModelAndView();
 		ArrayList<RoomVO> list = RoomService.getRoomResult();
-		
+		//사용중인 좌석여부확인
+		boolean result = RoomService.getRoomIngResult();
 		mv.addObject("list", list);
+		mv.addObject("result", result);
 		mv.setViewName("admin/room/admin_room");
 		return mv;
+	}
+	
+	/**
+	 * 열람실해제 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value="/admin_room_reset.do", method=RequestMethod.GET)
+	public boolean admin_room_reset() {
+		boolean result = RoomService.getRoomDelete();
+		if (result) {
+			result = RoomService.getRoomDeleteResult();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 열람실좌석 사용불가 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value="/admin_room_no.do", method=RequestMethod.POST)
+	public boolean admin_room_no(HttpServletRequest request) {		
+		String number = request.getParameter("number");
+		
+		boolean result = RoomService.getRoomNoResult(number);
+
+		
+		return result;
+	}
+	
+	/**
+	 * 열람실좌석 사용가능 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value="/admin_room_yes.do", method=RequestMethod.POST)
+	public boolean admin_room_yes(HttpServletRequest request) {		
+		String number = request.getParameter("number");
+		
+		boolean result = RoomService.getRoomYesResult(number);
+
+		
+		return result;
 	}
 
 }

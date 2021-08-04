@@ -31,8 +31,9 @@
 		width:40px; height:40px;
 		font-size:14px;
 	 }
-	 .seat_box .no { background-color:rgb(245,129,135); color:black; }
+	 .seat_box .no { background-color:rgb(255,185,185); color:black; }
 	 .seat_box .yes { background-color:white; }
+	 .seat_box .no_x { background-color:lightgray; }
 	 .seat_box .choice { 
 	 	background-color:lightgray; 
 	 	color:white; 
@@ -60,6 +61,7 @@
 		margin:10px 0 15px 0;
 		text-decoration:none;
 	}
+	
 </style>
 </head>
 <script>
@@ -72,21 +74,21 @@
 				$(".choice").css("background-color","rgb(43,129,199)")
 				$(".choice").attr("disabled",false);		
 				number = $(this).text();
-				
-				$(".choice").click(function() {				
-					if ("${now}" >= "18:00") {
-						alert("열람실 이용이 마감되어 예약이 불가능합니다");
-					} else {				
-						$("#modal").fadeIn(300);
-						$(".modal1").fadeIn(300);
-						$(".number").html("선택하신 좌석은 <strong style='color:rgb(43,129,199)'>"+number+"</strong> 번입니다");
-					}					
-					
-				});
 			}  else {
 				alert("이미 사용중인 좌석이 있습니다");
 			}
 		});		
+		
+		$(".choice").click(function() {				
+			if ("${now}" >= "18:00") {
+				alert("열람실 이용이 마감되어 예약이 불가능합니다");
+			} else {				
+				$("#modal").fadeIn(300);
+				$(".modal1").fadeIn(300);
+				$(".number").html("선택하신 좌석은 <strong style='color:rgb(43,129,199)'>"+number+"</strong> 번입니다");
+			}					
+			
+		});
 		
 		$(".app").click(function() {
 			if ($("#time").val() >= "18:00" || $("#time").val() < "09:00") {
@@ -150,6 +152,9 @@
 			 			<c:if test= "${vo.status eq 1 }">
 			 				<button id="btn" disabled class="no">사용</button>
 			 			</c:if>
+			 			<c:if test= "${vo.status eq 2 }">
+		 					<button id="btn" disabled class="no no_x">금지</button>
+		 				</c:if>
 			 		</c:forEach>
 				 	<br><button disabled class="choice" >좌석 선택하기</button>
 			 	</div>

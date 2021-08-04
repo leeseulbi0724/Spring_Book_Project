@@ -66,5 +66,50 @@ public class RoomServiceImpl implements RoomService {
 		}
 		return result;
 	}
+	
+	public boolean getRoomDelete () {
+		int val = roomDAO.getRoomDelete();
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean getRoomDeleteResult() {
+		int val = roomDAO.getRoomDeleteResult();
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean getRoomNoResult(String num) {
+		int val = roomDAO.getRoomNoResult(num);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean getRoomYesResult(String num) {
+		int val = roomDAO.getRoomYesResult(num);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean getRoomIngResult() {
+		int val = roomDAO.getRoomIngResult();
+		boolean result = false;
+		if (val==0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

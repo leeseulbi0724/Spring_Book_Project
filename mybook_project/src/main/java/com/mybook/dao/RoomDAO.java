@@ -46,5 +46,25 @@ public class RoomDAO {
 	public int getRoomUpdate2(String number) {
 		return sqlSession.update(namespace+".room_update2", number);
 	}
+	
+	public int getRoomDelete () {
+		return sqlSession.delete(namespace+".room_delete");
+	}
+	
+	public int getRoomDeleteResult() {
+		return sqlSession.update(namespace+".room_delete_result");
+	}
+	
+	public int getRoomNoResult(String num) {
+		return sqlSession.update(namespace+".room_no_result", num);
+	}
+	
+	public int getRoomYesResult(String num) {
+		return sqlSession.update(namespace+".room_yes_result", num);
+	}
+	
+	public int getRoomIngResult() {
+		return sqlSession.selectOne(namespace+".room_ing_result");
+	}
 
 }
