@@ -60,9 +60,15 @@ public class MypageController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("°Ô½ÃÆÇ")) {
 					bell_list.get(i).setContent("È¸¿ø´ÔÀÇ °Ô½Ã±Û¿¡ ´ñ±ÛÀÌ ´Þ·È½À´Ï´Ù");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("Èñ¸Áµµ¼­")) {
+					bell_list.get(i).setContent("È¸¿ø´ÔÀÌ ½ÅÃ»ÇÏ½Å Èñ¸Áµµ¼­°¡ µî·ÏµÇ¾ú½À´Ï´Ù");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -101,9 +107,15 @@ public class MypageController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("°Ô½ÃÆÇ")) {
 					bell_list.get(i).setContent("È¸¿ø´ÔÀÇ °Ô½Ã±Û¿¡ ´ñ±ÛÀÌ ´Þ·È½À´Ï´Ù");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("Èñ¸Áµµ¼­")) {
+					bell_list.get(i).setContent("È¸¿ø´ÔÀÌ ½ÅÃ»ÇÏ½Å Èñ¸Áµµ¼­°¡ µî·ÏµÇ¾ú½À´Ï´Ù");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -138,9 +150,15 @@ public class MypageController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("°Ô½ÃÆÇ")) {
 					bell_list.get(i).setContent("È¸¿ø´ÔÀÇ °Ô½Ã±Û¿¡ ´ñ±ÛÀÌ ´Þ·È½À´Ï´Ù");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("Èñ¸Áµµ¼­")) {
+					bell_list.get(i).setContent("È¸¿ø´ÔÀÌ ½ÅÃ»ÇÏ½Å Èñ¸Áµµ¼­°¡ µî·ÏµÇ¾ú½À´Ï´Ù");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -192,9 +210,15 @@ public class MypageController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("°Ô½ÃÆÇ")) {
 					bell_list.get(i).setContent("È¸¿ø´ÔÀÇ °Ô½Ã±Û¿¡ ´ñ±ÛÀÌ ´Þ·È½À´Ï´Ù");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("Èñ¸Áµµ¼­")) {
+					bell_list.get(i).setContent("È¸¿ø´ÔÀÌ ½ÅÃ»ÇÏ½Å Èñ¸Áµµ¼­°¡ µî·ÏµÇ¾ú½À´Ï´Ù");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -228,9 +252,15 @@ public class MypageController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("°Ô½ÃÆÇ")) {
 					bell_list.get(i).setContent("È¸¿ø´ÔÀÇ °Ô½Ã±Û¿¡ ´ñ±ÛÀÌ ´Þ·È½À´Ï´Ù");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("Èñ¸Áµµ¼­")) {
+					bell_list.get(i).setContent("È¸¿ø´ÔÀÌ ½ÅÃ»ÇÏ½Å Èñ¸Áµµ¼­°¡ µî·ÏµÇ¾ú½À´Ï´Ù");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -378,9 +408,15 @@ public class MypageController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("°Ô½ÃÆÇ")) {
 					bell_list.get(i).setContent("È¸¿ø´ÔÀÇ °Ô½Ã±Û¿¡ ´ñ±ÛÀÌ ´Þ·È½À´Ï´Ù");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("Èñ¸Áµµ¼­")) {
+					bell_list.get(i).setContent("È¸¿ø´ÔÀÌ ½ÅÃ»ÇÏ½Å Èñ¸Áµµ¼­°¡ µî·ÏµÇ¾ú½À´Ï´Ù");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -421,9 +457,15 @@ public class MypageController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("°Ô½ÃÆÇ")) {
 					bell_list.get(i).setContent("È¸¿ø´ÔÀÇ °Ô½Ã±Û¿¡ ´ñ±ÛÀÌ ´Þ·È½À´Ï´Ù");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("Èñ¸Áµµ¼­")) {
+					bell_list.get(i).setContent("È¸¿ø´ÔÀÌ ½ÅÃ»ÇÏ½Å Èñ¸Áµµ¼­°¡ µî·ÏµÇ¾ú½À´Ï´Ù");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);

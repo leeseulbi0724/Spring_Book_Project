@@ -51,5 +51,17 @@ public class RequestServiceImpl implements RequestService {
 	public ArrayList<RequestVO> getRequestSearchList(String search, Criteria cri) {
 		return requestDAO.getRequestSearchList(search, cri);
 	}
+	public boolean getRequestBell(RequestVO vo) {
+		int val = requestDAO.getRequestBell(vo);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public String getRequestNameResult(String name) {
+		return requestDAO.getRequestNameResult(name);
+	}
 
 }

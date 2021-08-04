@@ -32,7 +32,8 @@
 	.table th { font-weight:normal; text-align:left; padding-left:15px; }
 	.table th:first-child { width:100px; background-color:rgb(248,248,248); vertical-align:middle; }
 	
-	.table th>button { padding:3px 10px; font-size:13px; }
+	.table th>a{ padding:3px 10px; font-size:13px; margin-left:10px; }
+	
 </style>
 </head>
 <body>
@@ -74,12 +75,12 @@
 		 		</table>
 		 		<table class="table">	
 			 		<tr>
-			 			<th>결과</th>
+			 			<th>신청결과</th>
 			 			<c:if test="${vo.status eq 0}">
 			 				<th><span style="color:blue">신청중</span></th>
 			 			</c:if>
 			 			<c:if test="${vo.status eq 1 }">
-			 				<th><span style="color:red">등록완료</span></th>
+			 				<th><span style="color:red">등록완료</span><a href="content.do?bid=${bid }" class="btn btn-outline-secondary">상세보기</a></th>
 			 			</c:if>
 			 		</tr>			 		 		
 		 		</table>

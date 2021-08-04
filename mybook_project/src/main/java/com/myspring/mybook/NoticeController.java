@@ -32,11 +32,9 @@ import com.mybook.vo.NoticeVO;
 public class NoticeController {
 	
 	@Autowired
-	private NoticeService NoticeService;	
-	
+	private NoticeService NoticeService;		
 	@Autowired
-	private DownloadView downloadView;	
-	
+	private DownloadView downloadView;
 	@Autowired
 	private MypageService MypageService;
 	
@@ -58,9 +56,15 @@ public class NoticeController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("게시판")) {
 					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("희망도서")) {
+					bell_list.get(i).setContent("회원님이 신청하신 희망도서가 등록되었습니다");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -109,9 +113,15 @@ public class NoticeController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("게시판")) {
 					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("희망도서")) {
+					bell_list.get(i).setContent("회원님이 신청하신 희망도서가 등록되었습니다");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -170,40 +180,6 @@ public class NoticeController {
 		mv.addObject("downloadFile", file);
 		mv.addObject("downloadFile2", file2);
 		return mv;
-	}
-	
-	/**
-	 * 공지사항 ajax
-	 */
-	/*@ResponseBody
-	@RequestMapping(value="/notice_search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
-	public String travel_proc(String search) {
-		System.out.print(search);
-		ArrayList<NoticeVO> list = NoticeService.getNoticeSearchList(search);
-		
-		JsonObject jdata = new JsonObject();
-		JsonArray jlist = new JsonArray();
-		Gson gson = new Gson();
-		
-		for(NoticeVO vo : list) {
-			JsonObject jobj = new JsonObject();
-			jobj.addProperty("nid", vo.getNid());
-			jobj.addProperty("ntitle", vo.getNtitle());
-			jobj.addProperty("ndate", vo.getNdate());
-			jobj.addProperty("ncount", vo.getNcount());
-			jobj.addProperty("ncategory", vo.getNcategory());
-			jobj.addProperty("search", search);
-			jobj.addProperty("rno", vo.getRno());
-			
-			jlist.add(jobj);
-		}
-		
-		jdata.add("jlist", jlist);
-
-		return gson.toJson(jdata);
-		
-	}*/
-
-	
+	}	
 
 }

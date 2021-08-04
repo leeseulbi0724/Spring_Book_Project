@@ -56,9 +56,15 @@ public class BoardController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("게시판")) {
 					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("희망도서")) {
+					bell_list.get(i).setContent("회원님이 신청하신 희망도서가 등록되었습니다");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -123,9 +129,15 @@ public class BoardController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("게시판")) {
 					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("희망도서")) {
+					bell_list.get(i).setContent("회원님이 신청하신 희망도서가 등록되었습니다");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -210,9 +222,15 @@ public class BoardController {
   		if (id!= null) {
 			ArrayList<BellVO> bell_list = MypageService.getBellList(id);
 			for (int i=0; i<bell_list.size(); i++) {
-				String name[] = bell_list.get(i).getKinds().split("_");
-				if (name[0].equals("b")) {				
+				String name = bell_list.get(i).getCategory();
+				if (name.equals("게시판")) {
 					bell_list.get(i).setContent("회원님의 게시글에 댓글이 달렸습니다");		
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} else if (name.equals("희망도서")) {
+					bell_list.get(i).setContent("회원님이 신청하신 희망도서가 등록되었습니다");	
 					String bdate = bell_list.get(i).getBdate();
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
@@ -462,46 +480,5 @@ public class BoardController {
 		
 		return result;
 	}
-	
-	/**
-	 * 공지사항 ajax
-	 */
-	/*@ResponseBody
-	@RequestMapping(value="/board_search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
-	public String board_search_proc(String search, String category) {
-		System.out.print(search);
-		ArrayList<BoardVO> list = BoardService.getBoardSearchList(search, category);
-		//이름 가져오기
-	    for(int i=0; i<list.size(); i++) {
-	    	String name = BoardService.getBoardName(list.get(i).getId());
-	    	list.get(i).setName(name);
-	    	//댓글 갯수가져오기
-	    	int count = BoardService.getCommentCount(list.get(i).getBid());
-	    	list.get(i).setCount(count);
-	    }	    
-		
-		JsonObject jdata = new JsonObject();
-		JsonArray jlist = new JsonArray();
-		Gson gson = new Gson();
-		
-		for(BoardVO vo : list) {
-			JsonObject jobj = new JsonObject();
-			jobj.addProperty("id", vo.getId());
-			jobj.addProperty("bid", vo.getBid());
-			jobj.addProperty("btitle", vo.getBtitle());
-			jobj.addProperty("name", vo.getName());
-			jobj.addProperty("count", vo.getCount());
-			jobj.addProperty("bdate", vo.getBdate());
-			jobj.addProperty("bhit", vo.getBhit());
-			jobj.addProperty("search", search);
-			jobj.addProperty("rno", vo.getRno());
-			
-			jlist.add(jobj);
-		}
-		
-		jdata.add("jlist", jlist);
 
-		return gson.toJson(jdata);
-		
-	}*/
 }

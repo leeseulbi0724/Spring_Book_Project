@@ -55,5 +55,14 @@ public class RequestDAO {
 		List<RequestVO> list = sqlSession.selectList(namespace+".request_search_list", param);
 		return (ArrayList<RequestVO>)list;
 	}
+	
+	//등록 후 알림메세지
+	public int getRequestBell(RequestVO vo) {
+		return sqlSession.insert(namespace+".request_bell", vo);
+	}
+	
+	public String getRequestNameResult(String name) {
+		return sqlSession.selectOne(namespace+".request_name", name);
+	}
 
 }

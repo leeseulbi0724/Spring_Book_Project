@@ -45,5 +45,13 @@
   						from(select rid, id, bname, bauthor, bpublish, rdate, status from mybook_request order by rdate desc) order by rdate) order by rno desc) where id like '%'||#{search}||'%')
 							where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum}) 		
 	</select>
+	
+	<insert id="request_bell" parameterType="com.mybook.vo.RequestVO">
+		insert into mybook_bell values(#{id}, #{rid}, 1, sysdate, '희망도서')
+	</insert>
+	
+	<select id="request_name" parameterType="java.lang.String" resultType="java.lang.String">
+		select bid from mybook_book where bname=#{name}
+	</select>
 
 </mapper>

@@ -556,6 +556,11 @@ public class AdminController {
 			}
 			
 			result = RequestService.getRequestStatus(vo.getRid());
+			
+			if (result) {
+				RequestVO rvo = RequestService.getRequestContent(vo.getRid());
+				result = RequestService.getRequestBell(rvo);
+			}
 		}		
 		
 		mv.setViewName("redirect:admin_request.do");

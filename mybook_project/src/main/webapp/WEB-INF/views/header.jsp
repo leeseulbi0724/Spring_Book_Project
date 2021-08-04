@@ -192,8 +192,8 @@
 									<c:if test="${vo.category eq '게시판' }">
 										<a href="board_content.do?bid=${vo.kinds }">
 									</c:if>
-									<c:if test="${vo.category eq '도서' }">
-										<a href="mypage_book.do">
+									<c:if test="${vo.category eq '희망도서' }">
+										<a href="request_content.do?rid=${vo.kinds }">
 									</c:if>
 										<div>${vo.content }
 											<c:if test="${vo.day eq 0 }">
