@@ -438,6 +438,72 @@ public class AdminController {
 	}
 	
 	/**
+	 * 도서 상세보기
+	 */
+	@RequestMapping(value="/admin_book_content.do", method=RequestMethod.GET)
+	public ModelAndView admin_book_content(String bid) {
+		ModelAndView mv = new ModelAndView();
+		int sum = 0;
+		
+		BookVO vo = BookService.getBookContent(bid);
+		int count = BookService.getReviewCount(bid);
+		if (count != 0 ) {
+			sum = BookService.getReviewSum(bid);			
+		}
+		
+		mv.addObject("vo", vo);
+		mv.addObject("sum", sum);
+		mv.addObject("count", count);
+		mv.setViewName("admin/book/admin_book_content");
+		return mv;
+	}
+	
+	/**
+	 * 도서 대여중인 회원
+	 */
+	@RequestMapping(value="/admin_book_rental.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView admin_book_rental(String bid, String search, Criteria cri) {
+		ModelAndView mv = new ModelAndView();
+		
+		ArrayList<BookVO> list = new ArrayList<BookVO>();
+		
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    
+	    if (search == null || search.equals("") || search.equals("null")) {			
+	    	 pageMaker.setTotalCount(BookService.getBookRentalListCount(bid));
+	    	 list =BookService.getBookRentalList(bid);
+			 mv.addObject("count", "all");
+		} else {
+			list = BookService.getBookRentalSearchList(search, bid);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = BookService.getBookRentalSearchList(search, bid, cri);
+		    mv.addObject("count", "search");
+		    mv.addObject("search", search);
+		}	 
+		
+		mv.addObject("list", list);
+		mv.addObject("bid", bid);
+		mv.addObject("pageMaker", pageMaker);
+		mv.setViewName("admin/book/admin_book_rental");
+		return mv;
+	}
+	
+	/**
+	 * 반납 알림 DB
+	 */
+	@ResponseBody
+	@RequestMapping(value="/admin_rental_bell.do", method=RequestMethod.POST)
+	public boolean admin_rental_bell(HttpServletRequest request) {
+		String bid = request.getParameter("bid");
+		String id = request.getParameter("id");	
+		
+		boolean result = BookService.getRentalBell(id, bid);
+		
+		return result;
+	}
+	
+	/**
 	 * 관리자 희망도서 관리
 	 */
 	@RequestMapping(value = "/admin_request.do", method= {RequestMethod.GET, RequestMethod.POST})

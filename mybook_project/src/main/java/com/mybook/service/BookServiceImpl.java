@@ -254,5 +254,30 @@ public class BookServiceImpl implements BookService {
 	public ArrayList<BookVO> getBookSearchList(String search, String category, Criteria cri) {
 		return bookDAO.getBookSearchList(search, category, cri);
 	}
+	
+	public ArrayList<BookVO> getBookRentalList(String bid) {
+		return bookDAO.getBookRentalList(bid);
+	}
+	
+	public int getBookRentalListCount(String bid) {
+		return bookDAO.getBookRentalListCount(bid);
+	}
+	
+	public ArrayList<BookVO> getBookRentalSearchList(String search, String bid, Criteria cri) {
+		return bookDAO.getBookRentalSearchList(search, bid, cri);
+	}
+	
+	public ArrayList<BookVO> getBookRentalSearchList(String search, String bid) {
+		return bookDAO.getBookRentalSearchList(search, bid);		
+	}
+	
+	public boolean getRentalBell(String id, String bid) {
+		int val = bookDAO.getRentalBell(id, bid);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

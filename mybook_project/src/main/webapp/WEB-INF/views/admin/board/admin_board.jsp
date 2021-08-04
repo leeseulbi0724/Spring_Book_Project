@@ -48,7 +48,7 @@
 				<option value="id">아이디
 				<option value="title">제목				
 			</select>
-			<input type="text" class="form-control" id="search" name="search">
+			<input type="text" class="form-control" id="search" name="search" autocomplete="off" >
 			<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
 			</form>
 		</div>

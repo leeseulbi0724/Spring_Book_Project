@@ -14,7 +14,7 @@
 	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
-	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
+	.center  p>a, .center span { font-size:12px; font-weight:normal; float:left; }
 	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }
 	
 	.search { float:right; margin:10px; }
@@ -32,8 +32,9 @@
 	table th:nth-child(4) { width:150px; }
 	table th:nth-child(5) { width:50px; }
 	table th:nth-child(6), table th:nth-child(7) { width:70px; }
+	table td>a { text-decoration:none; color:black; text-align:center; }
  
-	#write { margin:10px 0 10px 10px; }
+	#write { margin:10px 0 10px 10px; font-size:12px; font-weight:normal; float:left; }
 	
 	#delete, #update { margin:0; font-size:13px; padding:0 10px; }
 	
@@ -82,7 +83,7 @@
 				<option value="name">도서명
 				<option value="author">저자
 			</select>
-			<input type="text" class="form-control" id="search" name="search">
+			<input type="text" class="form-control" id="search" name="search" autocomplete="off" >
 			<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
 		</form>
 		</div>
@@ -102,7 +103,7 @@
 			<tbody>
 			<c:forEach var = "vo"  items="${list}" varStatus="status">	
 				<tr>
-					<td>${vo.bname }</td>
+					<td><a href="admin_book_content.do?bid=${vo.bid}">${vo.bname }</a></td>
 					<td>${vo.bauthor }</td>
 					<td>${vo.bpublish }</td>
 					<td>${vo.bdate }</td>

@@ -61,7 +61,7 @@
 <jsp:include page="../admin_main.jsp"></jsp:include>
 
 <section class="center">
-	<h3>도서 목록</h3>
+	<h3>도서 등록</h3>
 	<p><a>도서</a><span>></span><a>도서 목록</a><span>></span><a>도서 등록</a></p>
 	<div class="list_box">			
 		<div class="box">

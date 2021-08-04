@@ -63,44 +63,6 @@
 	.new { margin-left:5px; }
 </style>
 </head>
-<script>
-/* $(document).ready(function() {	
-	$(".btn_search").click(function() {
-		var addListHtml="";
-	    var search = $("#search_input").val();		
-	    var category = $("#search").val();
-	    $.ajax({
-			type:"GET",
-			url:"board_search_proc.do",
-			data:{
-				search:search, category:category
-			},
-			success:function(result){				
-				var jdata = JSON.parse(result);
-				for(var i in jdata.jlist){				
-					addListHtml += "<tr>";
-					addListHtml += "<td>"+jdata.jlist[i].rno+"</td>";							
-					addListHtml += "<td><a href='board_content.do?bid="+jdata.jlist[i].bid+"'>"+jdata.jlist[i].btitle;
-					if (jdata.jlist[i].count > 0) {
-						addListHtml += "<span style='color:rgb(245,135,140)'> ["+jdata.jlist[i].count +"]</span>";
-					}
- 					if ("${date}" == jdata.jlist[i].bdate) {
-						addListHtml += "<img src='http://localhost:9000/mybook/images/new.png' width=20 height=20 style='vertical-align:bottom; margin-left:8.5px;' class='new'>";
- 					}
- 					addListHtml += "</a></td>";
-					addListHtml += "<td>"+jdata.jlist[i].name+"**("+jdata.jlist[i].id+")</td>"
-					addListHtml += "<td>"+jdata.jlist[i].bdate+"</td>";
-					addListHtml += "<td>"+jdata.jlist[i].bhit+"</td>";
-					addListHtml += "</tr>";
-				}
-				
-				$(".table").children().find(".title_tr").nextAll().remove();
-				$(".table").append(addListHtml);			
-			}
-		}); 
-	});
-}) */
-</script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 

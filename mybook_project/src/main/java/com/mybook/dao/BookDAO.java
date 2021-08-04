@@ -189,4 +189,39 @@ public class BookDAO {
 		List<BookVO> list = sqlSession.selectList(namespace+".admin_book_search_list", param);
 		return (ArrayList<BookVO>)list;
 	}
+	
+	//해당 도서 대여중인 회원
+	public ArrayList<BookVO> getBookRentalList(String bid) {
+		List<BookVO> list = sqlSession.selectList(namespace+".book_rental_list", bid);
+		return (ArrayList<BookVO>)list;
+	}
+	
+	//해당 도서 대여중인 회원 카운트
+	public int getBookRentalListCount(String bid) {
+		return sqlSession.selectOne(namespace+".book_rental_list_count", bid);
+	}
+	
+	///관리자 ajax -- 대여중인 회원
+	public ArrayList<BookVO> getBookRentalSearchList(String search, String bid) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("search", search);
+		param.put("bid", bid);
+		List<BookVO> list = sqlSession.selectList(namespace+".admin_book_rental_count", param);
+		return (ArrayList<BookVO>)list;
+	}
+	public ArrayList<BookVO> getBookRentalSearchList(String search, String bid, Criteria cri) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("search", search);
+		param.put("cri", cri);
+		param.put("bid", bid);
+		List<BookVO> list = sqlSession.selectList(namespace+".admin_book_rental_list", param);
+		return (ArrayList<BookVO>)list;
+	}
+	
+	public int getRentalBell(String id, String bid) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("id", id);
+		param.put("bid", bid);
+		return sqlSession.insert(namespace+".admin_rental_bell", param);
+	}
 }

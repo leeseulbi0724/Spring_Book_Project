@@ -195,6 +195,9 @@
 									<c:if test="${vo.category eq '희망도서' }">
 										<a href="request_content.do?rid=${vo.kinds }">
 									</c:if>
+									<c:if test="${vo.category eq '대여' }">
+										<a href="mypage_book.do">
+									</c:if>
 										<div>${vo.content }
 											<c:if test="${vo.day eq 0 }">
 												<span>오늘</span>

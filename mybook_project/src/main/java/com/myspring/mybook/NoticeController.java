@@ -69,7 +69,13 @@ public class NoticeController {
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
 				    bell_list.get(i).setDay(String.valueOf(Day));
-				}
+				} else if (name.equals("대여")) {
+					bell_list.get(i).setContent("회원님이 대여하신 도서의 반납일이 지났습니다");	
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} 
 			}		
 			//알림여부
 			int count = MypageService.getBellResult(id);		
@@ -126,7 +132,13 @@ public class NoticeController {
 					Date Bdate = format.parse(bdate);    	 
 					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
 				    bell_list.get(i).setDay(String.valueOf(Day));
-				}
+				} else if (name.equals("대여")) {
+					bell_list.get(i).setContent("회원님이 대여하신 도서의 반납일이 지났습니다");	
+					String bdate = bell_list.get(i).getBdate();
+					Date Bdate = format.parse(bdate);    	 
+					long Day = (Today.getTime() - Bdate.getTime()) / (24*60*60*1000);
+				    bell_list.get(i).setDay(String.valueOf(Day));
+				} 
 			}		
 			//알림여부
 			int count = MypageService.getBellResult(id);		

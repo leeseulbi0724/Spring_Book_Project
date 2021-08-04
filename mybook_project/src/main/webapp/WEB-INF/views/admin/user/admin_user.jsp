@@ -69,7 +69,7 @@
 					<option value="id">아이디
 					<option value="name">이름
 				</select>
-				<input type="text" class="form-control" id="search_input" name="search">
+				<input type="text" class="form-control" id="search_input" name="search" autocomplete="off" >
 				<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
 			</form>
 		</div>
