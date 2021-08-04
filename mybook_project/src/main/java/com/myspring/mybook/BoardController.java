@@ -41,8 +41,8 @@ public class BoardController {
 	/**
 	 * 자유게시판
 	 */
-	@RequestMapping(value = "/board.do", method=RequestMethod.GET)
-	public ModelAndView board(HttpSession session, Criteria cri) throws Exception {
+	@RequestMapping(value = "/board.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView board(HttpSession session, Criteria cri, String search, String category) throws Exception {
 		Date now = new Date();		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String date = format.format(now);
@@ -72,10 +72,22 @@ public class BoardController {
   		}
         
 	    PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
-	    pageMaker.setTotalCount(BoardService.getBoardCount());
-	        
-	    ArrayList<BoardVO> list = BoardService.getBoardList(cri);
+	    pageMaker.setCri(cri);	   
+	    ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+	    
+	    if (search == null || search.equals("") || search.equals("null")) {			
+	    	 pageMaker.setTotalCount(BoardService.getBoardCount());
+		     list = BoardService.getBoardList(cri);
+			 mv.addObject("count", "all");
+		} else {
+			list = BoardService.getBoardSearchList(search, category);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = BoardService.getBoardSearchList(search, category, cri);
+		    mv.addObject("count", "search");
+		    mv.addObject("search", search);
+		    mv.addObject("category", category);
+		}	        	        	        
+	   
 	    //이름 가져오기
 	    for(int i=0; i<list.size(); i++) {
 	    	String name = BoardService.getBoardName(list.get(i).getId());
@@ -454,7 +466,7 @@ public class BoardController {
 	/**
 	 * 공지사항 ajax
 	 */
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value="/board_search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
 	public String board_search_proc(String search, String category) {
 		System.out.print(search);
@@ -491,5 +503,5 @@ public class BoardController {
 
 		return gson.toJson(jdata);
 		
-	}
+	}*/
 }

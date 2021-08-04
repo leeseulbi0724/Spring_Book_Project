@@ -27,8 +27,8 @@
   		width:200px; display:inline-block; font-size:12px; border-radius:15px;
 	}
 	.table { text-align:center; font-size:14px; }	
-	table th:first-child { width:500px; }
-	table th:nth-child(2) { wdith:400px; }
+	table th:first-child { width:600px; }
+	table th:nth-child(2) { wdith:300px; }
 	table th:nth-child(4) { width:150px; }
 	table th:nth-child(5) { width:50px; }
 	table th:nth-child(6), table th:nth-child(7) { width:70px; }
@@ -39,6 +39,8 @@
 	
 	.button { text-align:center; margin-top:-80px; }
 	.button>div { display:inline-block; }
+	
+	#search_btn { padding:3px 10px; font-size:13px; }
 </style>
 </head>
 <script>
@@ -75,11 +77,14 @@
 	<div class="list_box">
 	<a href="admin_book_write.do" class="btn btn-primary" id="write">등록</a>
 		<div class="search">
-			<select class="form-select" id="s_select" >
-				<option>도서명
-				<option>저자
+		<form action="admin_book.do" method="post" >
+			<select class="form-select" id="s_select"  name="category">
+				<option value="name">도서명
+				<option value="author">저자
 			</select>
-			<input type="text" class="form-control" id="search">
+			<input type="text" class="form-control" id="search" name="search">
+			<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
+		</form>
 		</div>
 		<div class="container">	
 		<table class="table table-striped table-hover">
@@ -110,29 +115,36 @@
 		</table>
 		</div>
 	</div>
+		<c:if test="${count eq 'all' }">
 		<div class="button">
 			<div>
 			<nav aria-label="Page navigation example">
 			<ul class="pagination">
-	    	<c:if test="${pageMaker.prev }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_book.do?page=${pageMaker.startPage -1 }">이전</a>
-			    </li>
-		    </c:if>
 		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
 			    	<a class="page-link" href="admin_book.do?page=${pageNum }">${pageNum }</a>
 			    </li>
 		    </c:forEach>
-		    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_book.do??page=${pageMaker.endPage+1 }">다음</a>
-			    </li>
-		    </c:if>
 			</ul>
 			</nav>
 			</div>
 		</div>
+	</c:if>
+	<c:if test="${count eq 'search' }">
+		<div class="button">
+			<div>
+			<nav aria-label="Page navigation example">
+			<ul class="pagination">
+		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
+			    	<a class="page-link" href="admin_book.do?page=${pageNum }&search=${search}&category=${category}">${pageNum }</a>
+			    </li>
+		    </c:forEach>
+			</ul>
+			</nav>
+			</div>
+		</div>
+	</c:if>
 </section>
 </body>
 </html>

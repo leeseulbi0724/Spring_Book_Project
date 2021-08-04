@@ -246,5 +246,13 @@ public class BookServiceImpl implements BookService {
 		}
 		return result;
 	}
+	
+	public ArrayList<BookVO> getBookSearchList(String search, String category) {
+		return bookDAO.getBookSearchList(search, category);
+	}
+	
+	public ArrayList<BookVO> getBookSearchList(String search, String category, Criteria cri) {
+		return bookDAO.getBookSearchList(search, category, cri);
+	}
 
 }

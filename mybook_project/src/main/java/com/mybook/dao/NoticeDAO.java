@@ -1,7 +1,9 @@
 package com.mybook.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.mybook.commons.Criteria;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.NoticeVO;
+import com.mybook.vo.RequestVO;
 
 @Repository
 public class NoticeDAO {
@@ -105,10 +108,23 @@ public class NoticeDAO {
 		return sqlSession.selectOne(namespace+".notice_next_spcl", rno);
 	}
 	
-	//공지사항 ajax
+	/*
+	 * //공지사항 ajax public ArrayList<NoticeVO> getNoticeSearchList(String search) {
+	 * List<NoticeVO> list = sqlSession.selectList(namespace+".notice_search_list",
+	 * search); return (ArrayList)list; }
+	 */
+	
+	///관리자 ajax
 	public ArrayList<NoticeVO> getNoticeSearchList(String search) {
-		List<NoticeVO> list = sqlSession.selectList(namespace+".notice_search_list", search);
-		return (ArrayList)list;
+		List<NoticeVO> list = sqlSession.selectList(namespace+".notice_search_count", search);
+		return (ArrayList<NoticeVO>)list;
+	}
+	public ArrayList<NoticeVO> getNoticeSearchList(String search, Criteria cri) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("search", search);
+		param.put("cri", cri);
+		List<NoticeVO> list = sqlSession.selectList(namespace+".notice_search_list", param);
+		return (ArrayList<NoticeVO>)list;
 	}
 
 }

@@ -28,10 +28,13 @@
 	}
 	
 	.table { text-align:center; font-size:14px; }	
+	.table th:nth-child(2) { width:700px; }
 	#request { margin:0; padding:0; font-size:13px; padding:0 10px; }
 
 	.button { text-align:center; margin-top:-80px; }
 	.button>div { display:inline-block; }
+	
+	#search_btn { padding:3px 10px; font-size:13px; }
 </style>
 </head>
 <body>
@@ -42,11 +45,13 @@
 	<p><a>희망도서</a><span>></span><a>희망도서 목록</a></p>
 	<div class="list_box">
 		<div class="search">
+		<form action="admin_request.do" method="post">
 			<select class="form-select" id="s_select" >
 				<option>아이디
-				<option>이름
 			</select>
-			<input type="text" class="form-control" id="search">
+			<input type="text" class="form-control" id="search" name="search">
+			<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
+		</form>
 		</div>
 		<div class="container">	
 		<table class="table table-hover">
@@ -82,29 +87,36 @@
 		</table>
 		</div>
 	</div>
+	<c:if test="${count eq 'all' }">
 		<div class="button">
 			<div>
 			<nav aria-label="Page navigation example">
 			<ul class="pagination">
-	    	<c:if test="${pageMaker.prev }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_request.do?page=${pageMaker.startPage -1 }">이전</a>
-			    </li>
-		    </c:if>
 		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
 			    	<a class="page-link" href="admin_request.do?page=${pageNum }">${pageNum }</a>
 			    </li>
 		    </c:forEach>
-		    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_request.do??page=${pageMaker.endPage+1 }">다음</a>
-			    </li>
-		    </c:if>
 			</ul>
 			</nav>
 			</div>
 		</div>
+	</c:if>
+	<c:if test="${count eq 'search' }">
+		<div class="button">
+			<div>
+			<nav aria-label="Page navigation example">
+			<ul class="pagination">
+		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
+			    	<a class="page-link" href="admin_request.do?page=${pageNum }&search=${search}">${pageNum }</a>
+			    </li>
+		    </c:forEach>
+			</ul>
+			</nav>
+			</div>
+		</div>
+	</c:if>
 </section>
 </body>
 </html>

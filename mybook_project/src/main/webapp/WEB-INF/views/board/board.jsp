@@ -64,7 +64,7 @@
 </style>
 </head>
 <script>
-$(document).ready(function() {	
+/* $(document).ready(function() {	
 	$(".btn_search").click(function() {
 		var addListHtml="";
 	    var search = $("#search_input").val();		
@@ -99,7 +99,7 @@ $(document).ready(function() {
 			}
 		}); 
 	});
-})
+}) */
 </script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -126,12 +126,14 @@ $(document).ready(function() {
 		 	</div>
 		 	<div class="search">
 		 		<a href="board_write.do" class="btn write btn_write">등록</a>
-		 		<select class="form-select" id="search" >
-		 			<option value="title">제목
-		 			<option value="id">아이디
-		 		</select>
-		 		<input type="text" class="form-control" id="search_input" autocomplete="off">
-		 		<button class="btn btn-secondary btn_search">검색</button>
+		 		<form atcion="board.do" method="post">
+			 		<select class="form-select" id="search" name="category" >
+			 			<option value="title">제목
+			 			<option value="id">아이디
+			 		</select>
+			 		<input type="text" class="form-control" id="search_input" autocomplete="off" name="search">
+			 		<button class="btn btn-secondary btn_search">검색</button>
+		 		</form>
 		 	</div>
 		 	<table class="table">
 		 		<tr class="title_tr">
@@ -158,25 +160,48 @@ $(document).ready(function() {
 			 		</tr>		 		
 		 		</c:forEach>
 		 	</table>
-		 	<div class="button">
-				<div>
-				<nav aria-label="Page navigation example">
-				<ul class="pagination pagination-sm">
-				    <li class="page-item">
-				        <a class="page-link" ><</a>
-				    </li>
-			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-				   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
-				    	<a class="page-link" href="board.do?page=${pageNum }">${pageNum }</a>
-				    </li>
-			    </c:forEach>
-				    <li class="page-item">
-				        <a class="page-link">></a>
-				    </li>
-				</ul>
-				</nav>
+		 	<c:if test="${count eq 'all' }">
+			 	<div class="button">
+					<div>
+					<nav aria-label="Page navigation example">
+					<ul class="pagination pagination-sm">
+					    <li class="page-item">
+					        <a class="page-link" ><</a>
+					    </li>
+				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+					   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
+					    	<a class="page-link" href="board.do?page=${pageNum }">${pageNum }</a>
+					    </li>
+				    </c:forEach>
+					    <li class="page-item">
+					        <a class="page-link">></a>
+					    </li>
+					</ul>
+					</nav>
+					</div>
 				</div>
-			</div>
+			</c:if>
+			<c:if test="${count eq 'search' }">
+			 	<div class="button">
+					<div>
+					<nav aria-label="Page navigation example">
+					<ul class="pagination pagination-sm">
+					    <li class="page-item">
+					        <a class="page-link" ><</a>
+					    </li>
+				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+					   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
+					    	<a class="page-link" href="board.do?page=${pageNum }&category=${category}&search=${search}">${pageNum }</a>
+					    </li>
+				    </c:forEach>
+					    <li class="page-item">
+					        <a class="page-link">></a>
+					    </li>
+					</ul>
+					</nav>
+					</div>
+				</div>
+			</c:if>
 		 </div>
 	</div>
 </section>

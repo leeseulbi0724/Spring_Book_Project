@@ -126,9 +126,11 @@ public class NoticeServiceImpl implements NoticeService {
 		 return noticeDAO.getNextNoticeSpcl(rno);
 	 }
 	 
-	 public ArrayList<NoticeVO>  getNoticeSearchList(String search) {
+	 public ArrayList<NoticeVO> getNoticeSearchList(String search) {
 		 return noticeDAO.getNoticeSearchList(search);
 	 }
-
+	 public ArrayList<NoticeVO> getNoticeSearchList(String search, Criteria cri) {
+		 return noticeDAO.getNoticeSearchList(search, cri);
+	 }
 
 }

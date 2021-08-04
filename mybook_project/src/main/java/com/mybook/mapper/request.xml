@@ -28,5 +28,22 @@
 	<update id="request_status" parameterType="java.lang.String">
 		update mybook_request set status=1 where rid=#{rid}
 	</update>
+	
+	<!-- 관리자 ajax -->
+	<select id="request_search_count" parameterType="map" resultType="com.mybook.vo.RequestVO">	
+		select rno, rid, id, bname, bauthor, bpublish, to_char(rdate, 'yyyy-mm-dd') rdate, status
+			from (select rownum rno, rid, id, bname, bauthor, bpublish, rdate, status
+				from(select rownum rno, rid, id, bname, bauthor, bpublish, rdate, status
+  					from(select rid, id, bname, bauthor, bpublish, rdate, status from mybook_request order by rdate desc) order by rdate) order by rno desc) where id like '%'||#{search}||'%'
+	</select>
+	
+	<select id="request_search_list" parameterType="map" resultType="com.mybook.vo.RequestVO">	    			
+  		select rno, rid, id, bname, bauthor, bpublish, to_char(rdate, 'yyyy-mm-dd') rdate, status
+			from (select rno, rid, id, bname, bauthor, bpublish, rdate, status
+				from (select rownum rno, rid, id, bname, bauthor, bpublish, rdate, status
+					from(select rownum rno, rid, id, bname, bauthor, bpublish, rdate, status
+  						from(select rid, id, bname, bauthor, bpublish, rdate, status from mybook_request order by rdate desc) order by rdate) order by rno desc) where id like '%'||#{search}||'%')
+							where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum}) 		
+	</select>
 
 </mapper>

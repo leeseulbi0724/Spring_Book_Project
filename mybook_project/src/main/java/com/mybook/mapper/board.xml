@@ -74,7 +74,7 @@
 	</update>
 	
 	<!-- 게시판항리스트 - 검색 -->
-	<select id="board_search_list" parameterType="map" resultType="com.mybook.vo.BoardVO">	
+	<select id="board_search_count" parameterType="map" resultType="com.mybook.vo.BoardVO">	
 		<choose>
 			<when test='category.equals("id")'>				    			
     			select rno, id, bid, btitle, bhit, bdate
@@ -87,6 +87,27 @@
 				from (select rownum rno, id, bid, btitle, bhit, to_char(bdate, 'yyyy-mm-dd') bdate
 				from(select rownum rno, id, bid, btitle, bhit, bdate
     			from(select id, bid, btitle, bhit, bdate from mybook_board order by bdate desc) order by bdate) order by rno desc) where btitle like '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="board_search_list" parameterType="map" resultType="com.mybook.vo.BoardVO">
+	<choose>
+		<when test='category.equals("id")'>				    			
+    			select rno, id, bid, btitle, bhit, to_char(bdate, 'yyyy-mm-dd') bdate
+					from (select rno, id, bid, btitle, bhit, bdate
+						from (select rownum rno, id, bid, btitle, bhit, bdate
+							from(select rownum rno, id, bid, btitle, bhit, bdate
+		    					from(select id, bid, btitle, bhit, bdate from mybook_board order by bdate desc) order by bdate) order by rno desc) where id like '%'||#{search}||'%')
+									where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum})
+    		</when>
+			<otherwise>
+				select rno,  id, bid, btitle, bhit, to_char(bdate, 'yyyy-mm-dd') bdate
+					from (select rno, id, bid, btitle, bhit, bdate
+						from (select rownum rno, id, bid, btitle, bhit, bdate
+							from(select rownum rno, id, bid, btitle, bhit, bdate
+		    					from(select id, bid, btitle, bhit, bdate from mybook_board order by bdate desc) order by bdate) order by rno desc) where btitle like '%'||#{search}||'%')
+									where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum})
 			</otherwise>
 		</choose>
 	</select>

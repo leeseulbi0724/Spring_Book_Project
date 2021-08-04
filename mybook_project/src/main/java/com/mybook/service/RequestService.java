@@ -12,5 +12,7 @@ public interface RequestService {
 	ArrayList<RequestVO> getRequestList(Criteria cri);
 	RequestVO getRequestContent(String rid);
 	boolean getRequestStatus(String rid);
+	ArrayList<RequestVO> getRequestSearchList(String search);
+	ArrayList<RequestVO> getRequestSearchList(String search, Criteria cri);
 
 }

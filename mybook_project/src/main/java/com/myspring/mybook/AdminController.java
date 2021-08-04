@@ -65,31 +65,25 @@ public class AdminController {
 	 * 관리자 회원관리
 	 */
 	@RequestMapping(value = "/admin_user.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView admin_user(Criteria cri, String search_input, String category) throws Exception {
+	public ModelAndView admin_user(Criteria cri, String search, String category) throws Exception {
 		ModelAndView mv = new ModelAndView();        
-
-	    if (search_input == null || search_input.equals("") || search_input.equals("null")) {
-		    PageMaker pageMaker = new PageMaker();
-		    pageMaker.setCri(cri);
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+	    if (search == null || search.equals("") || search.equals("null")) {		   
 		    pageMaker.setTotalCount(MemberService.getCountResult());		     
-		    System.out.print(MemberService.getCountResult());
-		    ArrayList<MemberVO> list =MemberService.getMemberList(cri);
-		    mv.addObject("list", list);
-		    mv.addObject("pageMaker", pageMaker);
+		    list =MemberService.getMemberList(cri);		    
 		    mv.addObject("count", "all");
-	    } else {
-		    PageMaker pageMaker = new PageMaker();
-		    pageMaker.setCri(cri);
-	    	ArrayList<MemberVO> list = MemberService.getMemberSearchList(search_input, category);
+	    } else {		   
+	    	list = MemberService.getMemberSearchList(search, category);
 	    	pageMaker.setTotalCount(list.size());
-	    	list = MemberService.getMemberSearchList(search_input, category, cri);
-	    	mv.addObject("list", list);
-		    mv.addObject("pageMaker", pageMaker);
+	    	list = MemberService.getMemberSearchList(search, category, cri);
 		    mv.addObject("count", "search");
-		    mv.addObject("search_input", search_input);
+		    mv.addObject("search", search);
 		    mv.addObject("category", category);
 	    }
-	    
+	    mv.addObject("list", list);		  
+	    mv.addObject("pageMaker", pageMaker);
 	    mv.setViewName("admin/user/admin_user");
 		
 		return mv;
@@ -111,15 +105,27 @@ public class AdminController {
 	/**
 	 * 관리자 공지사항관리
 	 */
-	@RequestMapping(value = "/admin_notice.do", method=RequestMethod.GET)
-	public ModelAndView admin_notice(Criteria cri) throws Exception {
+	@RequestMapping(value = "/admin_notice.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView admin_notice(Criteria cri, String search) throws Exception {
 		ModelAndView mv = new ModelAndView();
         
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
-	    pageMaker.setTotalCount(NoticeService.getCountResult());
-	        
-	    ArrayList<NoticeVO> list =NoticeService.getNoticeList(cri);
+	    
+	    ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
+	    
+	    if (search == null || search.equals("") || search.equals("null")) {			
+	    	 pageMaker.setTotalCount(NoticeService.getCountResult());
+	    	 list =NoticeService.getNoticeList(cri);
+			 mv.addObject("count", "all");
+		} else {
+			list = NoticeService.getNoticeSearchList(search);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = NoticeService.getNoticeSearchList(search, cri);
+		    mv.addObject("count", "search");
+		    mv.addObject("search", search);
+		}	 
+	    
 	    mv.addObject("list", list);
 	    mv.addObject("pageMaker", pageMaker);
 	    mv.setViewName("admin/notice/admin_notice");
@@ -265,17 +271,28 @@ public class AdminController {
 	/**
 	 * 관리자 도서관리
 	 */
-	@RequestMapping(value = "/admin_book.do", method=RequestMethod.GET)
-	public ModelAndView admin_book(Criteria cri) throws Exception {
+	@RequestMapping(value = "/admin_book.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView admin_book(Criteria cri, String search, String category) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		
-		  PageMaker pageMaker = new PageMaker();
-		  pageMaker.setCri(cri);
-		  pageMaker.setTotalCount(BookService.getBookCount());
-		    
-		 ArrayList<BookVO> list =BookService.getBookList(cri);
+		 ArrayList<BookVO> list = new ArrayList<BookVO>();
 		 
-		 mv.addObject("list", list);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		if (search == null || search.equals("") || search.equals("null")) {			
+			 pageMaker.setTotalCount(BookService.getBookCount());		    
+			 list =BookService.getBookList(cri);			
+			  mv.addObject("count", "all");
+		} else {
+			list = BookService.getBookSearchList(search, category);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = BookService.getBookSearchList(search, category, cri);
+		    mv.addObject("count", "search");
+		    mv.addObject("search", search);
+		    mv.addObject("category", category);
+		}
+		
+		mv.addObject("list", list);
 		 mv.addObject("pageMaker", pageMaker);
 		 mv.setViewName("admin/book/admin_book");
 		return mv;
@@ -422,15 +439,27 @@ public class AdminController {
 	/**
 	 * 관리자 희망도서 관리
 	 */
-	@RequestMapping(value = "/admin_request.do", method=RequestMethod.GET)
-	public ModelAndView admin_request(Criteria cri) throws Exception {
+	@RequestMapping(value = "/admin_request.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView admin_request(Criteria cri, String search) throws Exception {
 		ModelAndView mv = new ModelAndView();
         
 	    PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
-	    pageMaker.setTotalCount(RequestService.getRequestTotal());
-	        
-	    ArrayList<RequestVO> list =RequestService.getRequestList(cri);
+	    pageMaker.setCri(cri);	   
+	    
+	    ArrayList<RequestVO> list = new ArrayList<RequestVO>();	   
+		
+		if (search == null || search.equals("") || search.equals("null")) {			
+			 pageMaker.setTotalCount(RequestService.getRequestTotal());    
+			 list =RequestService.getRequestList(cri);		
+			 mv.addObject("count", "all");
+		} else {
+			list = RequestService.getRequestSearchList(search);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = RequestService.getRequestSearchList(search, cri);
+		    mv.addObject("count", "search");
+		    mv.addObject("search", search);
+		}	        
+	    
 	    mv.addObject("list", list);
 	    mv.addObject("pageMaker", pageMaker);
 	    mv.setViewName("admin/request/admin_request");
@@ -455,15 +484,29 @@ public class AdminController {
 	/**
 	 * 관리자 게시판관리
 	 */
-	@RequestMapping(value = "/admin_board.do", method=RequestMethod.GET)
-	public ModelAndView admin_board(Criteria cri) {
-		ModelAndView mv = new ModelAndView();
-        
+	@RequestMapping(value = "/admin_board.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView admin_board(Criteria cri, String search, String category) {
+		ModelAndView mv = new ModelAndView();       
+
+	    
 	    PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
-	    pageMaker.setTotalCount(BoardService.getBoardCount());
-	        
-	    ArrayList<BoardVO> list = BoardService.getBoardList(cri);
+	    pageMaker.setCri(cri);	   
+	    
+	    ArrayList<BoardVO> list = new ArrayList<BoardVO>();	   
+		
+		if (search == null || search.equals("") || search.equals("null")) {			
+		     pageMaker.setTotalCount(BoardService.getBoardCount());
+		     list = BoardService.getBoardList(cri);
+			 mv.addObject("count", "all");
+		} else {
+			list = BoardService.getBoardSearchList(search, category);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = BoardService.getBoardSearchList(search, category, cri);
+		    mv.addObject("count", "search");
+		    mv.addObject("search", search);
+		    mv.addObject("category", category);
+		}	        	        
+	  
 	    //이름 가져오기
 	    for(int i=0; i<list.size(); i++) {
 	    	String name = BoardService.getBoardName(list.get(i).getId());

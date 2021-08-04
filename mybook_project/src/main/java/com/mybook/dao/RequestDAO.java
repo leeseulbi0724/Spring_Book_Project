@@ -1,7 +1,9 @@
 package com.mybook.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mybook.commons.Criteria;
 import com.mybook.vo.BoardVO;
+import com.mybook.vo.BookVO;
 import com.mybook.vo.RequestVO;
 
 @Repository
@@ -38,6 +41,19 @@ public class RequestDAO {
 	
 	public int getRequestStatus(String rid) {
 		return sqlSession.update(namespace+".request_status", rid);
+	}
+	
+	///°ü¸®ÀÚ ajax
+	public ArrayList<RequestVO> getRequestSearchList(String search) {
+		List<RequestVO> list = sqlSession.selectList(namespace+".request_search_count", search);
+		return (ArrayList<RequestVO>)list;
+	}
+	public ArrayList<RequestVO> getRequestSearchList(String search, Criteria cri) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("search", search);
+		param.put("cri", cri);
+		List<RequestVO> list = sqlSession.selectList(namespace+".request_search_list", param);
+		return (ArrayList<RequestVO>)list;
 	}
 
 }

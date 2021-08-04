@@ -24,4 +24,5 @@ public interface BoardService {
 	BoardVO getCommentContent(String cid);
 	boolean getCommentUpdate(BoardVO vo);
 	ArrayList<BoardVO> getBoardSearchList(String search, String category);
+	ArrayList<BoardVO> getBoardSearchList(String search, String category, Criteria cri);
 }

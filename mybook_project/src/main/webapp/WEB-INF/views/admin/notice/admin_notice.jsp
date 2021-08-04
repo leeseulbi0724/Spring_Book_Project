@@ -15,29 +15,33 @@
 	.center { width:1319.2px; height:705px; float:left;  }
 	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
 	.center p { float:right; margin-top:-35px; margin-right:20px; }
-	.center  a, .center span, .center button { font-size:12px; font-weight:normal; float:left; }
+	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
 	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }
 	
-	.search { margin:10px; float:right; }
-	#write, #delete { margin:10px 0 10px 10px; }
-	
+	.search { float:right; margin:10px; }
 	#s_select { width:100px; display:inline-block; font-size:12px; border-radius:15px; }
 	#search {
-  		 width:200px; display:inline-block; font-size:12px; border-radius:15px;
-	}
+		background-image : url('http://localhost:9000/homeproject/images/search.png'); 
+  		background-repeat:no-repeat;
+  		background-size: 20px;
+  		background-position:right;
+  		width:200px; display:inline-block; font-size:12px; border-radius:15px;
+	}	
+		
+	#write { margin:10px 0 10px 10px; }
+	
 	.button { text-align:center; }
 	.table { text-align:center; font-size:14px; border:none; }	
 	td>a { color:black; text-decoration:none; }
 	
 	thead th:nth-child(2) { width:800px; }
 	thead th:nth-child(5), thead th:nth-child(6) { width:80px; }
-	
-	.spcl>tr { }
-	
 	#delete, #update { margin:0; padding:0; font-size:13px; padding:0 10px; }
 	
 	.button { text-align:center; margin-top:-80px; }
 	.button>div { display:inline-block; }
+	
+	#search_btn { padding:3px 10px; font-size:13px; }
 </style>
 </head>
 <script>
@@ -72,12 +76,15 @@
 	<h3>공지사항 목록</h3>
 	<p><a>공지사항</a><span>></span><a>공지사항 목록</a></p>
 	<div class="list_box">
-		<a href="admin_notice_write.do" class="btn btn-primary" id="write">등록</a>
+	<a href="admin_notice_write.do" class="btn btn-primary" id="write">등록</a>
 		<div class="search">
-			<select class="form-select" id="s_select">
+		<form action="admin_notice.do" method="post" >
+			<select class="form-select" id="s_select"  name="category">
 				<option>제목
 			</select>
-			<input type="text" class="form-control" id="search">
+			<input type="text" class="form-control" id="search" name="search">
+			<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
+		</form>
 		</div>
 		<div class="container">	
 		<form name="admin_delete" action="process/admin_delete_process.jsp" method="post" enctype= "multipart/form-data">		
@@ -108,29 +115,36 @@
 		</form>		
 		</div>
 	</div>
-			<div class="button">
+				<c:if test="${count eq 'all' }">
+		<div class="button">
 			<div>
 			<nav aria-label="Page navigation example">
 			<ul class="pagination">
-	    	<c:if test="${pageMaker.prev }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_notice.do?page=${pageMaker.startPage -1 }">이전</a>
-			    </li>
-		    </c:if>
 		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
 			    	<a class="page-link" href="admin_notice.do?page=${pageNum }">${pageNum }</a>
 			    </li>
 		    </c:forEach>
-		    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_notice.do??page=${pageMaker.endPage+1 }">다음</a>
-			    </li>
-		    </c:if>
 			</ul>
 			</nav>
 			</div>
 		</div>
+	</c:if>
+	<c:if test="${count eq 'search' }">
+		<div class="button">
+			<div>
+			<nav aria-label="Page navigation example">
+			<ul class="pagination">
+		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
+			    	<a class="page-link" href="admin_notice.do?page=${pageNum }&search=${search}">${pageNum }</a>
+			    </li>
+		    </c:forEach>
+			</ul>
+			</nav>
+			</div>
+		</div>
+	</c:if>
 </section>
 </body>
 </html>

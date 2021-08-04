@@ -121,13 +121,22 @@
 				from (select rownum rno, nid, ncategory, ntitle, ncontent, ndate, ncount, nfile, nsfile
 					from (select * from mybook_notice where ncategory='spcl' order by ndate desc) order by ndate) order by rno desc) where rno=#{rno}+1
 	</select>
+		
+	<!-- 관리자 ajax -->
+	<select id="notice_search_count" parameterType="map" resultType="com.mybook.vo.NoticeVO">	
+		select rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, to_char(ndate, 'yyyy-mm-dd') ndate
+			from (select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+				from(select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+  					from(select nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate from mybook_notice order by ndate desc) order by ndate) order by rno desc) where ntitle like '%'||#{search}||'%'
+	</select>
 	
-	<!-- 공지사항리스트 - 검색 -->
-	<select id="notice_search_list" parameterType="java.lang.String" resultType="com.mybook.vo.NoticeVO">		
-			select rno, nid, ncategory, ntitle, ndate, ncount
-				from(select rno, nid, ncategory, ntitle, ndate, ncount
-    			from(select rownum rno, nid, ncategory, ntitle, ndate, ncount from mybook_notice order by ndate desc)
-    			where ntitle like '%'||#{search}||'%') 
+	<select id="notice_search_list" parameterType="map" resultType="com.mybook.vo.NoticeVO">	    			
+  		select rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+			from (select rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+				from (select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+					from(select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+  						from(select nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate from mybook_notice order by ndate desc) order by ndate) order by rno desc) where ntitle like '%'||#{search}||'%')
+							where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum}) 		
 	</select>
 	
 </mapper>

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import com.mybook.commons.Criteria;
 import com.mybook.vo.BoardVO;
+import com.mybook.vo.BookVO;
 import com.mybook.vo.NoticeVO;
+import com.mybook.vo.RequestVO;
 
 @Repository
 public class BoardDAO {
@@ -103,13 +105,28 @@ public class BoardDAO {
 		return sqlSession.update(namespace+".comment_update", vo);
 	}
 	
-	//ajax
+	/*
+	 * //ajax public ArrayList<BoardVO> getBoardSearchList(String search, String
+	 * category) { Map<String, String> param = new HashMap<String, String>();
+	 * param.put("search", search); param.put("category", category); List<BoardVO>
+	 * list = sqlSession.selectList(namespace+".board_search_list", param); return
+	 * (ArrayList<BoardVO>)list; }
+	 */
+	
+	///°ü¸®ÀÚ ajax
 	public ArrayList<BoardVO> getBoardSearchList(String search, String category) {
-		Map<String, String> param = new HashMap<String, String>();
+		Map<Object, Object> param = new HashMap<Object, Object>();
 		param.put("search", search);
 		param.put("category", category);
+		List<BoardVO> list = sqlSession.selectList(namespace+".board_search_count", param);
+		return (ArrayList<BoardVO>)list;
+	}
+	public ArrayList<BoardVO> getBoardSearchList(String search, String category, Criteria cri) {
+		Map<Object, Object> param = new HashMap<Object, Object>();
+		param.put("search", search);
+		param.put("category", category);
+		param.put("cri", cri);
 		List<BoardVO> list = sqlSession.selectList(namespace+".board_search_list", param);
 		return (ArrayList<BoardVO>)list;
 	}
-
 }

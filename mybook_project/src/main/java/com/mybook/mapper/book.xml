@@ -157,5 +157,41 @@
 		insert into mybook_bell values(#{id}, #{kinds}, 1, sysdate, #{category})
 	</insert>
 	
+	
+	<!-- 관리자 ajax -->
+		<select id="book_search_count" parameterType="map" resultType="com.mybook.vo.BookVO">	
+		<choose>
+			<when test='category.equals("name")'>				    			
+    			select rno, bid, bname, bauthor, bpublish, bdate, bheart
+				from (select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+				from(select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+    			from(select bid, bname, bauthor, bpublish, bdate, bheart from mybook_book order by bname desc) order by bdate) order by rno desc) where bname like '%'||#{search}||'%'
+    		</when>
+			<otherwise>
+				select rno, bid, bname, bauthor, bpublish, bdate, bheart
+				from (select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+				from(select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+    			from(select bid, bname, bauthor, bpublish, bdate, bheart from mybook_book order by bname desc) order by bdate) order by rno desc) where bauthor like '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="admin_book_search_list" parameterType="map" resultType="com.mybook.vo.BookVO">
+	<choose>
+		<when test='category.equals("name")'>				    			
+    			select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+					from (select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+						from (select bid, bname, bauthor, bpublish, bdate, bheart from mybook_book order by bname) where bname like '%'||#{search}||'%') 
+							where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum})
+    		</when>
+			<otherwise>
+				select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+					from (select rownum rno, bid, bname, bauthor, bpublish, bdate, bheart
+						from (select bid, bname, bauthor, bpublish, bdate, bheart from mybook_book order by bname) where bauthor like '%'||#{search}||'%') 
+							where rno between (#{cri.page}-1)*#{cri.perPageNum}+1 and (#{cri.page}*#{cri.perPageNum})
+			</otherwise>
+		</choose>
+	</select>
+	
 
 </mapper>

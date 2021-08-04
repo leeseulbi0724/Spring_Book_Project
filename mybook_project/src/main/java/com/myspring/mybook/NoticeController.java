@@ -175,7 +175,7 @@ public class NoticeController {
 	/**
 	 * 공지사항 ajax
 	 */
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value="/notice_search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
 	public String travel_proc(String search) {
 		System.out.print(search);
@@ -202,7 +202,7 @@ public class NoticeController {
 
 		return gson.toJson(jdata);
 		
-	}
+	}*/
 
 	
 

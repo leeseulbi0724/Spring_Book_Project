@@ -65,7 +65,7 @@
 	
 </style>
 </head>
-<script>
+<!-- <script>
 $(document).ready(function() {
 	
 	$(".btn_search").click(function() {
@@ -101,7 +101,7 @@ $(document).ready(function() {
 		}); 
 	});
 })
-</script>
+</script> -->
 <body>
  <jsp:include page="../header.jsp"></jsp:include>
  <section>

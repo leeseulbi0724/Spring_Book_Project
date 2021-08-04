@@ -69,7 +69,7 @@
 					<option value="id">아이디
 					<option value="name">이름
 				</select>
-				<input type="text" class="form-control" id="search_input" name="search_input">
+				<input type="text" class="form-control" id="search_input" name="search">
 				<button type="submit" class="btn btn-secondary" id="search_btn">검색</button>
 			</form>
 		</div>
@@ -111,21 +111,11 @@
 			<div>
 			<nav aria-label="Page navigation example">
 			<ul class="pagination">
-	    	<c:if test="${pageMaker.prev }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_user.do?page=${pageMaker.startPage -1 }">이전</a>
-			    </li>
-		    </c:if>
 		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
 			    	<a class="page-link" href="admin_user.do?page=${pageNum }">${pageNum }</a>
 			    </li>
 		    </c:forEach>
-		    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_user.do??page=${pageMaker.endPage+1 }">다음</a>
-			    </li>
-		    </c:if>
 			</ul>
 			</nav>
 			</div>
@@ -136,21 +126,11 @@
 			<div>
 			<nav aria-label="Page navigation example">
 			<ul class="pagination">
-	    	<c:if test="${pageMaker.prev }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_user.do?page=${pageMaker.startPage -1 }">이전</a>
-			    </li>
-		    </c:if>
 		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 			   <li class="page-item ${pageMaker.cri.page == pageNum? "active":"" }">
-			    	<a class="page-link" href="admin_user.do?page=${pageNum }&search_input=${search_input}&category=${category}">${pageNum }</a>
+			    	<a class="page-link" href="admin_user.do?page=${pageNum }&search=${search}&category=${category}">${pageNum }</a>
 			    </li>
 		    </c:forEach>
-		    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li class="page-item">
-			        <a class="page-link" href="admin_user.do??page=${pageMaker.endPage+1 }">다음</a>
-			    </li>
-		    </c:if>
 			</ul>
 			</nav>
 			</div>
