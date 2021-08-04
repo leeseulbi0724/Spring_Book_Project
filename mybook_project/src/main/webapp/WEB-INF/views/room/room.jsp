@@ -63,52 +63,54 @@
 </style>
 </head>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function() {		
+		var number;
 		$("[id^=btn]").click(function() {
 			if (${result}) {
 				$("[id^=btn]").css("border","1px solid lightgray");
 				$(this).css("border","2px solid");
 				$(".choice").css("background-color","rgb(43,129,199)")
 				$(".choice").attr("disabled",false);		
+				number = $(this).text();
+				
+				$(".choice").click(function() {				
+					if ("${now}" >= "18:00") {
+						alert("열람실 이용이 마감되어 예약이 불가능합니다");
+					} else {				
+						$("#modal").fadeIn(300);
+						$(".modal1").fadeIn(300);
+						$(".number").html("선택하신 좌석은 <strong style='color:rgb(43,129,199)'>"+number+"</strong> 번입니다");
+					}					
+					
+				});
 			}  else {
 				alert("이미 사용중인 좌석이 있습니다");
 			}
-			
-			var number = $(this).text();
-			
-			$(".choice").click(function() {				
-				if ("${now}" >= "18:00") {
-					alert("열람실 이용이 마감되어 예약이 불가능합니다");
-				} else {				
-					$("#modal").fadeIn(300);
-					$(".modal1").fadeIn(300);
-					$(".number").html("선택하신 좌석은 <strong style='color:rgb(43,129,199)'>"+number+"</strong> 번입니다");
-				}	
-				
-				$(".app").click(function() {
-					if ($("#time").val() >= "18:00" || $("#time").val() < "09:00") {
-						alert("열람실 이용시간은 09:00~18:00 입니다");
-					} else {
-						var con_test = confirm("선택하신 좌석을 예약하시겠습니까?"); 
-			        	if(con_test == true){
-			        		var time = $("#time").val();
-			        		  $.ajax({
-					                type: "post",
-					                url: "room_proc.do",
-					                data:{number:number, time:time},
-					                dataType: 'json',
-					                success: function (result) {
-					                   if (result) {
-					                	   alert("예약 신청이 완료되었습니다");
-					                	   location.reload();
-					                   }
-					                },		
-					           });
-			        	}
-					}
-				});
-			});
-		});			
+		});		
+		
+		$(".app").click(function() {
+			if ($("#time").val() >= "18:00" || $("#time").val() < "09:00") {
+				alert("열람실 이용시간은 09:00~18:00 입니다");
+			} else {
+				alert(number);
+				var con_test = confirm("선택하신 좌석을 예약하시겠습니까?"); 
+	        	if(con_test == true){
+	        		var time = $("#time").val();
+	        		  $.ajax({
+			                type: "post",
+			                url: "room_proc.do",
+			                data:{number:number, time:time},
+			                dataType: 'json',
+			                success: function (result) {
+			                   if (result) {
+			                	   alert("예약 신청이 완료되었습니다");
+			                	   location.reload();
+			                   }
+			                },		
+			           });
+	        	}
+			}
+		});
 		
 		$("#modal, .close").on('click',function(){
 			  $("#modal").fadeOut(300);

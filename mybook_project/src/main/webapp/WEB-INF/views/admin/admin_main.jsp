@@ -63,6 +63,7 @@
 		<li class="request"><a href="admin_request.do">희망도서 관리</a></li>
 		<li class="board"><a href="admin_board.do">게시판 관리</a></li>
 		<li class="notice"><a href="admin_notice.do">공지사항 관리</a></li>
+		<li class="room"><a href="admin_room.do">열람실 관리</a></li>
 		<li class="logout"><a class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">로그아웃</a>
 	</ul>
 </section>

@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.mybook.commons.Criteria;
 import com.mybook.commons.PageMaker;
 import com.mybook.service.BoardService;
@@ -24,11 +21,13 @@ import com.mybook.service.BookService;
 import com.mybook.service.MemberService;
 import com.mybook.service.NoticeService;
 import com.mybook.service.RequestService;
+import com.mybook.service.RoomService;
 import com.mybook.vo.BoardVO;
 import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.NoticeVO;
 import com.mybook.vo.RequestVO;
+import com.mybook.vo.RoomVO;
 
 @Controller
 public class AdminController {
@@ -43,6 +42,8 @@ public class AdminController {
 	private BoardService BoardService;
 	@Autowired
 	private RequestService RequestService;
+	@Autowired
+	private RoomService RoomService;
 
 
 	/**
@@ -593,6 +594,19 @@ public class AdminController {
 		mv.addObject("list", list);
 		mv.addObject("img_list", img_list);
 		mv.setViewName("admin/board/admin_board_content");
+		return mv;
+	}
+	
+	/**
+	 * 열람실관리
+	 */
+	@RequestMapping(value="/admin_room.do", method=RequestMethod.GET)
+	public ModelAndView admin_room() {
+		ModelAndView mv = new ModelAndView();
+		ArrayList<RoomVO> list = RoomService.getRoomResult();
+		
+		mv.addObject("list", list);
+		mv.setViewName("admin/room/admin_room");
 		return mv;
 	}
 
