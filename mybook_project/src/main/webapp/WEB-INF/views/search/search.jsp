@@ -93,43 +93,55 @@ $(document).ready(function() {
 	});
 	
 	$("#search").click(function() {
-		var addListHtml="";
-        var search = $("#search_input").val();		
-        $.ajax({
-			type:"GET",
-			url:"search_proc.do",
-			data:{
-				search:search
-			},
-			success:function(result){
-				var jdata = JSON.parse(result);
-				
-				if(jdata.jlist == null){
-					$("#more_btn").remove();
-				}
-				for(var i in jdata.jlist){
-					addListHtml += "<div class='book_div' id='book_div' style='background-image:url(http://localhost:9000/mybook/upload/" +jdata.jlist[i].bsfile+")'"+">";
-					addListHtml += "	<div>";
-					addListHtml += "<p ><strong class='bname'>" + jdata.jlist[i].bname + "</strong></p>";
-					addListHtml += "<p>" + jdata.jlist[i].bauthor +" 지음<br>"+ jdata.jlist[i].bpublish +"<br>" + jdata.jlist[i].yyyy + "</p>";
-					addListHtml += "<div>";
-					addListHtml += "<a href='rental.do?bid="+jdata.jlist[i].bid+"'" +" class='rental' id='" +  jdata.jlist[i].status + "' style='margin-right:5px'>대여하기</a>";
-					addListHtml += "<a href='content.do?bid="+jdata.jlist[i].bid+"'"+" class='detail' >상세정보</a>";
-					addListHtml += "</div>";
-					addListHtml += "</div>";
-					addListHtml += "</div>";
-				}
-				$(".booklist").children().remove();
-				$(".booklist").append(addListHtml);
-				$(".book_div").hover(function() {
-					$(this).children().css("display","block");
-				}, function() {
-					$(this).children().css("display","none");
-				});
-			}
-		}); 
-	});
+		search_ajax();
+	});	
+
 });	
+
+function enterkey() {
+    if (window.event.keyCode == 13) {
+         // 엔터키가 눌렸을 때 실행할 내용
+   	 search_ajax();
+    }
+}
+
+function search_ajax() {
+	var addListHtml="";
+    var search = $("#search_input").val();		
+    $.ajax({
+		type:"GET",
+		url:"search_proc.do",
+		data:{
+			search:search
+		},
+		success:function(result){
+			var jdata = JSON.parse(result);
+			
+			if(jdata.jlist == null){
+				$("#more_btn").remove();
+			}
+			for(var i in jdata.jlist){
+				addListHtml += "<div class='book_div' id='book_div' style='background-image:url(http://localhost:9000/mybook/upload/" +jdata.jlist[i].bsfile+")'"+">";
+				addListHtml += "	<div>";
+				addListHtml += "<p ><strong class='bname'>" + jdata.jlist[i].bname + "</strong></p>";
+				addListHtml += "<p>" + jdata.jlist[i].bauthor +" 지음<br>"+ jdata.jlist[i].bpublish +"<br>" + jdata.jlist[i].yyyy + "</p>";
+				addListHtml += "<div>";
+				addListHtml += "<a href='rental.do?bid="+jdata.jlist[i].bid+"'" +" class='rental' id='" +  jdata.jlist[i].status + "' style='margin-right:5px'>대여하기</a>";
+				addListHtml += "<a href='content.do?bid="+jdata.jlist[i].bid+"'"+" class='detail' >상세정보</a>";
+				addListHtml += "</div>";
+				addListHtml += "</div>";
+				addListHtml += "</div>";
+			}
+			$(".booklist").children().remove();
+			$(".booklist").append(addListHtml);
+			$(".book_div").hover(function() {
+				$(this).children().css("display","block");
+			}, function() {
+				$(this).children().css("display","none");
+			});
+		}
+	}); 
+}
 </script>
 <body>
  <jsp:include page="../header.jsp"></jsp:include>
@@ -154,7 +166,7 @@ $(document).ready(function() {
 		 	</div>		 	
 	 		<div class="search">
 	 			<img src="http://localhost:9000/mybook/images/search.png" width=30px height=30px >
-	 			<input type="text" class="form-control" placeholder="검색하실 도서명을 입력해주세요" id="search_input" autocomplete="off">
+	 			<input type="text" class="form-control" placeholder="검색하실 도서명을 입력해주세요" id="search_input" autocomplete="off" onkeyup="enterkey();">
 	 			<button id="search">검색</button>
 	 			<button id="all">전체</button>
 	 			<div class="booklist">

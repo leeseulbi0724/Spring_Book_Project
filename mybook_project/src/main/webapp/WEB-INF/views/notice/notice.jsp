@@ -93,7 +93,7 @@
 			 		<select class="form-select">
 			 			<option>제목
 			 		</select>
-			 		<input type="text" class="form-control" id="search_input"  name="search">
+			 		<input type="text" class="form-control" id="search_input"  name="search" autocomplete="off" >
 			 		<button class="btn btn-secondary btn_search" type="submit">검색</button>
 		 		</form>
 		 	</div>
