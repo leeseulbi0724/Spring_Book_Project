@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 | Admin</title>
+<link rel="shortcut icon" type="image⁄x-icon" href="http://localhost:9000/mybook/images/icon.png">
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
 <style>
 	.notice { border-bottom:4px solid rgb(76,127,242); }

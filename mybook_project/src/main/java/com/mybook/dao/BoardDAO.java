@@ -105,14 +105,6 @@ public class BoardDAO {
 		return sqlSession.update(namespace+".comment_update", vo);
 	}
 	
-	/*
-	 * //ajax public ArrayList<BoardVO> getBoardSearchList(String search, String
-	 * category) { Map<String, String> param = new HashMap<String, String>();
-	 * param.put("search", search); param.put("category", category); List<BoardVO>
-	 * list = sqlSession.selectList(namespace+".board_search_list", param); return
-	 * (ArrayList<BoardVO>)list; }
-	 */
-	
 	///°ü¸®ÀÚ ajax
 	public ArrayList<BoardVO> getBoardSearchList(String search, String category) {
 		Map<Object, Object> param = new HashMap<Object, Object>();

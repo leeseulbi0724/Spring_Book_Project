@@ -268,6 +268,14 @@ public class AdminController {
 			return result;
 	}
 	
+	/**
+	 * 관리자 도서검색
+	 */
+	@RequestMapping(value="/admin_book_search.do", method=RequestMethod.GET)
+	public String admin_book_search() {
+		return "admin/book/admin_book_search";
+	}
+	
 	
 	/**
 	 * 관리자 도서관리

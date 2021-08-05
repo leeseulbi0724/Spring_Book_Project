@@ -112,15 +112,17 @@
 					<fmt:parseNumber value="${start.time / (1000*60*60*24)}" integerOnly="true" var="startday"></fmt:parseNumber>
 					<fmt:parseDate value="${vo.endday }" var="end" pattern="yyyy-MM-dd"/>
 					<fmt:parseNumber value="${end.time / (1000*60*60*24)}" integerOnly="true" var="endday"></fmt:parseNumber>
+					<fmt:parseDate value="${date }" var="n" pattern="yyyy-MM-dd"/>
+					<fmt:parseNumber value="${n.time / (1000*60*60*24)}" integerOnly="true" var="now"></fmt:parseNumber>
 						<td>${vo.id }</td>
 						<td>${vo.startday }</td>
 						<td>${vo.endday }</td>
 						<c:if test = "${date > vo.endday }">
-							<td>D+${endday-startday } <br><span style="color:red">대여일이 지났습니다</span></td>		
+							<td>D+${endday-now } <br><span style="color:red">대여일이 지났습니다</span></td>		
 							<td><button class="btn btn-danger bell"  type="button" name="${vo.id }" id="${vo.bid }">알림전송</button></td>			
 						</c:if>	
 						<c:if test = "${date < vo.endday }">
-							<td>D-${endday-startday }</td>					
+							<td>D-${endday-now }</td>					
 							<td><button type="button" class="btn btn-secondary bell"  disabled>알림전송</button></td>
 						</c:if>					
 				</tr>

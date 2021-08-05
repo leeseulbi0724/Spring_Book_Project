@@ -66,6 +66,8 @@
 					headers:{Authorization:"KakaoAK 18270a8d7ab06d0e6f58f0a0a1a28cc0"},				
 					success : function(msg) {
 						 for(var i=0; i<10; i++){							
+							var date = new Array();
+							date = msg.documents[i].datetime.split("T");
 							var html = "";
 							html += "<div class='box'>";
 							html += "<div class='img'>";
@@ -77,6 +79,8 @@
 							html += "<p><strong>출판사</strong> "+msg.documents[i].publisher+"</p>";
 							html += "<button class='" + msg.documents[i].publisher +"' id='"+msg.documents[i].title +"' name='" +msg.documents[i].authors + "'>선택하기</button>"
 							html += "<input type='hidden' value='"+msg.documents[i].contents+"'>";
+							html += "<input type='hidden' value='"+date[0] +"'>";
+							html += "<input type='hidden' value='"+msg.documents[i].thumbnail+"'>";
 							html += "</div>";
 							html += "</div>";
 							$(".div").append(html);
@@ -89,7 +93,8 @@
 								opener.document.getElementById("bname").value = document.getElementById("bname").value;
 								opener.document.getElementById("bauthor").value = document.getElementById("bauthors").value;
 								opener.document.getElementById("bpublish").value = document.getElementById("bpublisher").value;
-								
+								opener.document.getElementById("bcontent").value = $(this).next().val();
+								opener.document.getElementById("bdate").value = $(this).next().next().val();
 								window.close();
 								
 							});

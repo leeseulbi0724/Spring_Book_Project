@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>도서 관리 | Admin</title>
+<link rel="shortcut icon" type="image⁄x-icon" href="http://localhost:9000/mybook/images/icon.png">
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
@@ -28,6 +29,7 @@
 	
 	#write, #reset { float:right; margin:10px 3px; font-size:12px; }
 	#list { float:left; margin-top:10px; }
+	#search { float:right; margin:5px 3px; font-size:12px; }
 </style>
 </head>
 <script>
@@ -55,6 +57,13 @@
 				admin_book.submit();
 			}
 		});
+		
+		$("#search").click(function() {
+			 var url = "admin_book_search.do";
+	         var name = "popup test";
+	         var option = "width = 500, height = 600, top = 150, left = 500, location = no"
+	         window.open(url, name, option);
+		 });
 	});
 </script>
 <body>
@@ -66,6 +75,7 @@
 	<div class="list_box">			
 		<div class="box">
 		<form name="admin_book" action="admin_book_write_proc.do" method="post" enctype="multipart/form-data">
+		<button type="button" class="btn btn-outline-secondary"  id="search">도서검색</button>	
 		<table class="table">
 		 		<tr>
 		 			<th>책명</th>
@@ -89,7 +99,7 @@
 		 			</td>
 		 		</tr>
 		 		<tr>
-		 			<th>이미지</th>
+		 			<th>이미지 업로드</th>
 		 			<th><input type="file" class="form-control" name="file1" id="bfile">
 		 		</tr>
 		 	</table>
