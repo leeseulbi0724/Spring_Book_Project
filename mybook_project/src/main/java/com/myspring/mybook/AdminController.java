@@ -27,6 +27,7 @@ import com.mybook.vo.BookVO;
 import com.mybook.vo.MemberVO;
 import com.mybook.vo.NoticeVO;
 import com.mybook.vo.RequestVO;
+import com.mybook.vo.ReviewVO;
 import com.mybook.vo.RoomVO;
 
 @Controller
@@ -458,10 +459,12 @@ public class AdminController {
 		if (count != 0 ) {
 			sum = BookService.getReviewSum(bid);			
 		}
+		ArrayList<ReviewVO> list = BookService.getReivewList(bid);
 		
 		mv.addObject("vo", vo);
 		mv.addObject("sum", sum);
 		mv.addObject("count", count);
+		mv.addObject("list", list);
 		mv.setViewName("admin/book/admin_book_content");
 		return mv;
 	}

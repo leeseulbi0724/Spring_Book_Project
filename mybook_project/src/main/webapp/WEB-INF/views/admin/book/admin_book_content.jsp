@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 %>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,18 +19,19 @@
 	.center>p { float:right; margin-top:-35px; margin-right:20px; }
 	.center>p>a, .center>p>span { font-size:12px; font-weight:normal; float:left; }
 	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
-	div.box { display:inline-block; margin-top:30px; text-align:center; width:1000px; }
+	div.box { display:inline-block; margin-top:30px; text-align:center; width:1100px; margin-left:100px; }
 
 	.detail { 
-		width:100%; height:350px; 
-		margin-top:70px;
+		width:900px; height:350px; 
+		margin-top:70px; margin-left:-130px;
+		display:inline-block; float:left;
 	}
 	.img { 
 		border:1px solid lightgray; 
 		display:inline-block;
 		width:200px; height:300px;
 		float:left;
-		margin-left:85px;
+		margin-left:50px;
 	}
 	.text {
 		display:inline-block;
@@ -50,6 +52,24 @@
 	.star-rating span{ background-position:left bottom; line-height:0; vertical-align:top; }
 	
 	#rental { margin:10px 0 10px 10px; font-size:12px; font-weight:normal; }
+	
+	.review { 
+		border:1px solid lightgray; 
+		display:inline-block; 
+		width:300px; height:300px; 
+		margin-top:70px; 
+		overflow:auto;
+		overflow-x:hidden; 
+	}	
+	.review_text { 
+		width:100%;
+		display:inline-block; 
+		border-bottom:1px solid lightgray; 
+		text-align:left;
+		padding:10px 20px;
+	 }
+	.review_text p:first-child { color:gray; }
+	.review_text strong { color:black; }	
 </style>
 </head>
 <body>
@@ -79,6 +99,22 @@
 		 			</p>		 		
 		 			<p class="book_text">${vo.bcontent }</p>
 		 		</div>
+		 	</div>		 	
+		 	<div class="review">
+		 		<c:forEach var = "vo"  items="${list}">		
+		 			<div class="review_text">
+		 				<p>
+		 					<img src="http://localhost:9000/mybook/images/star${vo.star }.gif" width=100px height=18 > ${vo.rdate }
+		 				</p>
+		 				<p><strong>${vo.id }</strong></p>
+		 				<p>${vo.content }</p>
+		 			</div>	 	
+		 		</c:forEach>		
+		 		<c:if test="${empty list }">
+		 			<div class="review_text">
+		 				<p>작성된 후기가 없습니다</p>
+		 			</div>
+		 		</c:if>
 		 	</div>
 		 	<a href="admin_book_rental.do?bid=${vo.bid }" class="btn btn-primary" id="rental">대여중인 회원</a>
 		</div>
