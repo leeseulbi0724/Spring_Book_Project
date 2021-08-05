@@ -18,5 +18,6 @@ public interface RoomService {
 	boolean getRoomNoResult(String num);
 	boolean getRoomYesResult(String num);
 	boolean getRoomIngResult();
+	boolean getUserRoomIng(RoomVO vo);
 
 }

@@ -134,14 +134,13 @@ $(document).ready(function() {
 		  $(".modal-con").fadeOut(300);
 	});
 	
-	/* $(".room_ing").click(function() {
-		var seat = $(this).attr("name");
+	$(".room_ing").click(function() {
 		var con_test = confirm("연장하시겠습니까? (운영시간내에 최대 3시간입니다)"); 
     	if(con_test == true){   
          $.ajax({
                 type: "post",
                 url: "room_ing_proc.do",
-                data:{seat:seat},
+                data:{end:"${vo.end_time }"},
                 dataType: 'json',
                 success: function (result) {
                    if (result) {
@@ -152,7 +151,7 @@ $(document).ready(function() {
 
             });
 		}
-	}); */
+	});
 
 })
 </script>
@@ -211,7 +210,7 @@ $(document).ready(function() {
 			 			<th>${vo.start_time }</th>
 			 			<th>${vo.end_time }</th>
 			 			<th><button id="cancle" name="${vo.seat_number }">취소하기</button></th>
-			 			<th><button id="ing" class="room_ing" name="${vo.seat_number }">연장하기</button></th>
+			 			<th><button id="ing" class="room_ing">연장하기</button></th>
 			 		</tr>
 			 	</c:if>
 		 		<c:if test = "${result eq true }">

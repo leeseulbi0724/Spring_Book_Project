@@ -66,5 +66,9 @@ public class RoomDAO {
 	public int getRoomIngResult() {
 		return sqlSession.selectOne(namespace+".room_ing_result");
 	}
+	
+	public int getUserRoomIng(RoomVO vo) {
+		return sqlSession.update(namespace+".user_room_ing", vo);
+	}
 
 }

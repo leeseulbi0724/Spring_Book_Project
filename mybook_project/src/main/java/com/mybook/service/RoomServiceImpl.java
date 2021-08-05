@@ -111,5 +111,14 @@ public class RoomServiceImpl implements RoomService {
 		}
 		return result;
 	}
+	
+	public boolean getUserRoomIng(RoomVO vo) {
+		int val = roomDAO.getUserRoomIng(vo);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

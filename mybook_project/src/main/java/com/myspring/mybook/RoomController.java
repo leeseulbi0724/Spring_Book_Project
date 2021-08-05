@@ -126,5 +126,27 @@ public class RoomController {
 		
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/room_ing_proc.do", method=RequestMethod.POST)
+	public boolean room_ing_proc(HttpSession session, HttpServletRequest request) {		
+		//로그인 회원정보 가져오기
+		String id = (String) session.getAttribute("session_id");
+		String end = request.getParameter("end");
+		
+		RoomVO vo = new RoomVO();
+		vo.setId(id);
+		
+		String time[] = end.split(":");
+		if (Integer.parseInt(time[0]) >= 15) {
+			vo.setEnd_time("18:00");
+		} else {
+			vo.setEnd_time((Integer.parseInt(time[0])+3)+":"+time[1]);
+		}
+		
+		boolean result = RoomService.getUserRoomIng(vo);
+		
+		return result;
+	}
 
 }

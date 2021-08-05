@@ -94,7 +94,6 @@
 			if ($("#time").val() >= "18:00" || $("#time").val() < "09:00") {
 				alert("열람실 이용시간은 09:00~18:00 입니다");
 			} else {
-				alert(number);
 				var con_test = confirm("선택하신 좌석을 예약하시겠습니까?"); 
 	        	if(con_test == true){
 	        		var time = $("#time").val();
