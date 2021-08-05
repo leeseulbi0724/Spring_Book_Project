@@ -46,5 +46,6 @@ public interface BookService {
 	ArrayList<BookVO> getBookRentalSearchList(String search, String bid, Criteria cri);
 	ArrayList<BookVO> getBookRentalSearchList(String search, String bid);
 	boolean getRentalBell(String id, String bid);
+	ArrayList<BookVO> getBookBest();
 
 }

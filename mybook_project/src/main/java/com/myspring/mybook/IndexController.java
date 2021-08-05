@@ -27,6 +27,8 @@ public class IndexController {
 	private NoticeService NoticeService;	
 	@Autowired
 	private MypageService MypageService;	
+	@Autowired
+	private BookService BookService;
 
 	/**
 	 * 메인화면
@@ -76,6 +78,13 @@ public class IndexController {
 			mv.addObject("b_count", count);
 		}
 		
+		ArrayList<BookVO> blist = BookService.getBookBest();
+		for (int i=0; i<blist.size(); i++) {
+			BookVO vo = BookService.getBookContent(blist.get(i).getBid());
+			blist.get(i).setBname(vo.getBname());
+		}
+		
+		mv.addObject("blist", blist);
 		mv.addObject("list", spcl_list);
 		mv.setViewName("index");
 		

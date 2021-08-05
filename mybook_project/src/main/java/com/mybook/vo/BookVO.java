@@ -5,10 +5,22 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 public class BookVO {
 	
 	String id, bid, bname, bauthor, bpublish, bdate, bcontent, bfile, bsfile, yyyy, mm, dd, startday, endday, rid;
-	int bheart, status;
+	int bheart, status, rank, rno;
 	CommonsMultipartFile file1;	
 	
 	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
 	public String getRid() {
 		return rid;
 	}

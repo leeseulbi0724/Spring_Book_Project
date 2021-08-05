@@ -99,13 +99,13 @@ $(document).ready(function() {
 	 <div class="menu_div">
 		 <div>
 		 	<a href="index.do"><img src="http://localhost:9000/mybook/images/home_icon.png" width=15 height=15></a>>
-		 	<a href="search.do">이용안내</a>><a href="search.do">도서 검색</a>><a href="rental.do?bid=${vo.bid }">도서 대여</a>
+		 	<a href="search.do">이용안내</a>><a href="search.do">도서 목록</a>><a href="rental.do?bid=${vo.bid }">도서 대여</a>
 		 </div>
 	 </div>
 	 <div class="content">
 		 <div class="left">
 		 	<ul>
-		 		<li><a href="search.do">도서 검색</a></li>
+		 		<li><a href="search.do">도서 대여</a></li>
 		 		<li><a href="room.do">열람실 예약</a></li>
 		 	</ul>
 		 </div>

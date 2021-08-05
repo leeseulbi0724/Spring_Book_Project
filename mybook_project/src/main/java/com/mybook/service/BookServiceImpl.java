@@ -279,5 +279,9 @@ public class BookServiceImpl implements BookService {
 		}
 		return result;
 	}
+	
+	public ArrayList<BookVO> getBookBest() {
+		return bookDAO.getBookBest();
+	}
 
 }

@@ -46,7 +46,7 @@
 	</delete>
 	
 	<update id="room_delete_result">
-		update mybook_room_list set status=0
+		update mybook_room_list set status=0 where status=1
 	</update>
 	
 	<update id="room_no_result" parameterType="java.lang.String">

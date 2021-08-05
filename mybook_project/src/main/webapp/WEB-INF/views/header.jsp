@@ -228,7 +228,7 @@
 					<div class="dropmenu">
 						<div>
 						<ul class="drop_book">												
-							<li><a href="search.do">도서 검색</a></li>
+							<li><a href="search.do">도서 대여</a></li>
 							<li><a href="room.do">열람실 예약</a></li>
 						</ul>
 						<ul class="drop_com">
@@ -243,7 +243,7 @@
 					<div class="dropmenu">
 						<div>
 						<ul class="drop_book">												
-							<li><a href="search.do">도서 검색</a></li>
+							<li><a href="search.do">도서 대여</a></li>
 							<li><a href="room.do">열람실 예약</a></li>
 						</ul>
 						<ul class="drop_com">

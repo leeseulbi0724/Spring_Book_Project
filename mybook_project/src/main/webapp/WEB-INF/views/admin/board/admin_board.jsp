@@ -74,7 +74,7 @@
 			 			<td>${vo.id }</td>
 			 			<td>${vo.bdate }</td>
 			 			<td>${vo.bhit }</td>
-			 			<td>${vo.count }</td>
+			 			<td>${vo.count }개</td>
 			 			<td><a href="admin_board_content.do?bid=${vo.bid }" class="btn btn-secondary"  id="content"  >내용보기</a></td>				
 			 		</tr>		 		
 		 		</c:forEach>

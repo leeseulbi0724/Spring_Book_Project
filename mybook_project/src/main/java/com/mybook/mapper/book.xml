@@ -221,5 +221,12 @@
 		insert into mybook_bell values(#{id}, #{bid}, 1, sysdate, '대여')
 	</insert>
 	
+	<select id="book_best" resultType="com.mybook.vo.BookVO">
+		<![CDATA[ select rno, rank, bid
+			from (select rownum rno, rank, bid 
+			from (SELECT count(*) rank, bid FROM MYBOOK_rental
+			group by bid order by rank desc)) where rno <=5 ]]>
+	</select>
+	
 
 </mapper>

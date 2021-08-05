@@ -224,4 +224,9 @@ public class BookDAO {
 		param.put("bid", bid);
 		return sqlSession.insert(namespace+".admin_rental_bell", param);
 	}
+	
+	public ArrayList<BookVO> getBookBest() {
+		List<BookVO> list = sqlSession.selectList(namespace+".book_best");
+		return (ArrayList<BookVO>)list;
+	}
 }

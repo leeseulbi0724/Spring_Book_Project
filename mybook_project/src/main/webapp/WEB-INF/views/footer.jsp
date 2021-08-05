@@ -12,12 +12,13 @@
 		text-align:center;
 		margin-top:90px;
 	}
-	footer p { padding:40px 0; }
+	footer p { padding:30px 0; }
 </style>
 </head>
 <body>
 <footer>	
-	<p>Copyright 2021 Raon library. All rights reserved</p>
+	<p>Copyright 2021 Raon library. All rights reserved<br><br>
+	연락처 | 010-9369-2489 <br>이메일 | tmfql4428@naver.com</p>
 </footer>
 </body>
 </html>

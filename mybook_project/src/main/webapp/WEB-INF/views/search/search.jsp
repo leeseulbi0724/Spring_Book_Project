@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
-<title>도서 검색 | 라온 도서관</title>
+<title>도서 대여 | 라온 도서관</title>
 <style>	
 	.book { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
 	.home, .com  {	color:rgb(162,162,162); }
@@ -149,19 +149,19 @@ function search_ajax() {
 	 <div class="menu_div">
 		 <div>
 		 	<a href="index.do"><img src="http://localhost:9000/mybook/images/home_icon.png" width=15 height=15></a>>
-		 	<a href="search.do">이용안내</a>><a href="search.do">도서 검색</a>
+		 	<a href="search.do">이용안내</a>><a href="search.do">도서 목록</a>
 		 </div>
 	 </div>
 	 <div class="content">
 		 <div class="left">
 		 	<ul>
-		 		<li><a href="search.do">도서 검색</a></li>
+		 		<li><a href="search.do">도서 대여</a></li>
 		 		<li><a href="room.do">열람실 예약</a></li>
 		 	</ul>
 		 </div>
 		 <div class="center">
 		 	<div class="title">
-		 		<h3>도서 검색</h3>
+		 		<h3>도서 목록</h3>
 		 		<img src="http://localhost:9000/mybook/images/title_back.gif" height=100% >
 		 	</div>		 	
 	 		<div class="search">

@@ -227,16 +227,11 @@
 			 			<strong>${vo.name}**(${vo.id })</strong></p>
 			 			<p>${vo.ccontent }</p>
 			 			<p style="color:gray">
-			 				${vo.cdate }
-			 				<a class="comment_reply" >답글</a>			 					
+			 				${vo.cdate }		 					
 			 				<c:if test="${session_id eq vo.id }">
 			 					<a class="comment_update" id="${vo.cid }">수정</a>
 			 					<a class="comment_delete" id="${vo.cid }">삭제</a>			 					
 			 				</c:if>
-<!-- 			 				<div class='reply'>
-								<textarea style="width:800px" class="form-control" id="com_textarea"></textarea>
-								<button class='btn write' style='display:inline-block'>등록</button>
-							</div> -->
 			 			</p>
 			 		</div>
 		 		</c:forEach>
