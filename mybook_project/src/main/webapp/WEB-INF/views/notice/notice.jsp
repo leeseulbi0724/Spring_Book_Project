@@ -65,43 +65,6 @@
 	
 </style>
 </head>
-<!-- <script>
-$(document).ready(function() {
-	
-	$(".btn_search").click(function() {
-		var addListHtml="";
-	    var search = $("#search_input").val();		
-	    $.ajax({
-			type:"GET",
-			url:"notice_search_proc.do",
-			data:{
-				search:search
-			},
-			success:function(result){
-				var jdata = JSON.parse(result);
-				
-				/*if(jdata.jlist == null){
-					$("#more_btn").remove();
-				}*/
-				for(var i in jdata.jlist){
-					addListHtml += "<tr>";
-					if (jdata.jlist[i].ncategroy == 'spcl') {
-						addListHtml += "<td><button>공지</button></td>";
-					} else {
-						addListHtml += "<td></td>";
-					}				
-					addListHtml += "<td><a href='notice_content.do?nid="+jdata.jlist[i].nid+"&rno="+jdata.jlist[i].rno+"&type="+jdata.jlist[i].ncategory+">"+jdata.jlist.nttitle+"</a></td>";
-					addListHtml += "<td>"+jdata.jlist[i].ndate+"</td>";
-					addListHtml += "<td>"+jdata.jlist[i].ncount+"</td>";		
-					addListHtml += "</tr>";
-				}
-				
-				$(".table").append(addListHtml);			
-			}
-		}); 
-	});
-})
-</script> -->
 <body>
  <jsp:include page="../header.jsp"></jsp:include>
  <section>
@@ -126,11 +89,13 @@ $(document).ready(function() {
 		 	</div>
 		 	<div class="search">
 		 		<p>총 <span>${total }</span>건</p>
-		 		<select class="form-select">
-		 			<option>제목
-		 		</select>
-		 		<input type="text" class="form-control" id="search_input" >
-		 		<button class="btn btn-secondary btn_search">검색</button>
+		 		<form action="notice.do" method="get">
+			 		<select class="form-select">
+			 			<option>제목
+			 		</select>
+			 		<input type="text" class="form-control" id="search_input"  name="search">
+			 		<button class="btn btn-secondary btn_search" type="submit">검색</button>
+		 		</form>
 		 	</div>
 		 	<table class="table">
 		 		<tr class="title_tr">
@@ -139,6 +104,7 @@ $(document).ready(function() {
 		 			<th>날짜</th>
 		 			<th>조회수</th>
 		 		</tr>
+		 		<c:if test="${count eq 'all' }">
 		 		<tbody>
 		 		<c:forEach var = "vo"  items="${spcl_list}" varStatus="status">				
 					<tr>
@@ -158,7 +124,23 @@ $(document).ready(function() {
 				 			<td>${vo.ncount }</td>
 				 		</tr>	
 					</c:forEach>		
-		 		</tbody>	
+		 		</tbody>
+		 	</c:if>
+		 	<c:if test="${count eq 'search' }">
+		 		<c:forEach var = "vo"  items="${list}" varStatus="status">				
+						<tr>
+							<c:if test="${vo.ncategory eq 'spcl' }">
+								<td><button>공지</button></td>
+							</c:if>
+							<c:if test="${vo.ncategory eq 'normal' }">
+				 				<td>${vo.rno }</td>
+				 			</c:if>
+				 			<td><a href="notice_content.do?nid=${vo.nid}&rno=${vo.rno}&type=${vo.ncategory}">${vo.ntitle }</a></td>
+				 			<td>${vo.ndate }</td>
+				 			<td>${vo.ncount }</td>
+				 		</tr>	
+				</c:forEach>
+		 	</c:if>	
 		 	</table>
 		 	<div class="button">
 				<div>

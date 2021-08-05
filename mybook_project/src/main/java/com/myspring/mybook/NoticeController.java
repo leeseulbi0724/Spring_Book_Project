@@ -42,7 +42,7 @@ public class NoticeController {
 	 * 공지사항
 	 */
 	@RequestMapping(value = "/notice.do", method=RequestMethod.GET)
-	public ModelAndView notice(Criteria cri, HttpSession session) throws Exception {
+	public ModelAndView notice(Criteria cri, HttpSession session, String search) throws Exception {
 		Date now = new Date();		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String date = format.format(now);
@@ -83,19 +83,31 @@ public class NoticeController {
 			mv.addObject("b_count", count);		
   		}
 		
-		ArrayList<NoticeVO> spcl_list = NoticeService.getSpclList();
-        
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
+	    
+	    if (search == null || search.equals("") || search.equals("null")) {			
+	    	 pageMaker.setTotalCount(NoticeService.getCountResult());
+	    	 ArrayList<NoticeVO> spcl_list = NoticeService.getSpclList();
+	    	 ArrayList<NoticeVO> normal_list = NoticeService.getNormalList(cri);
+			 mv.addObject("count", "all");
+			 mv.addObject("normal_list", normal_list);
+			 mv.addObject("spcl_list", spcl_list);
+		} else {
+			ArrayList<NoticeVO> list = NoticeService.getNoticeSearchList(search);
+	    	pageMaker.setTotalCount(list.size());
+	    	list = NoticeService.getNoticeSearchList(search, cri);
+		    mv.addObject("count", "search");
+		    mv.addObject("search", search);
+		    mv.addObject("list", list);
+		}	 
 	    pageMaker.setTotalCount(NoticeService.getNormalCountResult());
 	        
-	    ArrayList<NoticeVO> normal_list =NoticeService.getNormalList(cri);
+	   
 	    int count = NoticeService.getCountResult();
-	    
-	    mv.addObject("normal_list", normal_list);
 	    mv.addObject("pageMaker", pageMaker);
 	    mv.addObject("total", count);
-		mv.addObject("spcl_list", spcl_list);
+		
 		mv.setViewName("notice/notice");
 		
 		return mv;

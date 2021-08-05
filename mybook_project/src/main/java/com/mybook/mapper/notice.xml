@@ -131,7 +131,7 @@
 	</select>
 	
 	<select id="notice_search_list" parameterType="map" resultType="com.mybook.vo.NoticeVO">	    			
-  		select rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
+  		select rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, to_char(ndate, 'yyyy-mm-dd') ndate
 			from (select rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
 				from (select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
 					from(select rownum rno, nid, ncategory, ntitle, ncontent, ncount, nsfile, nfile, ndate
