@@ -53,5 +53,13 @@
 	<select id="request_name" parameterType="java.lang.String" resultType="java.lang.String">
 		select bid from mybook_book where bname=#{name}
 	</select>
+	
+	<update id="request_update" parameterType="com.mybook.vo.RequestVO">
+		update mybook_request set bname=#{bname}, bauthor=#{bauthor}, bpublish=#{bpublish} where rid=#{rid}
+	</update>
+	
+	<delete id="request_delete" parameterType="java.lang.String">
+		delete from mybook_request where rid=#{rid}
+	</delete>
 
 </mapper>

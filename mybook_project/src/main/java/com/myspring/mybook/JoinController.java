@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mybook.service.MemberService;
 import com.mybook.vo.MemberVO;
@@ -28,16 +29,15 @@ public class JoinController {
 	 * 회원가입 DB연동
 	 */
 	@RequestMapping ( value = "/join_proc.do", method=RequestMethod.POST)
-	public String join_proc(MemberVO vo) {
-		String result = "";
+	public ModelAndView join_proc(MemberVO vo) {
+		ModelAndView mv = new ModelAndView();
 		
 		boolean value = memberService.getJoinResult(vo);
-		
-		if ( value ) {
-			result= "index";
+		if (value) {
+			mv.setViewName("redirect:/success.do");
 		}
 		
-		return result;
+		return mv;
 	}
 	
 	/**
@@ -57,6 +57,14 @@ public class JoinController {
 		
 		return result;
 		
+	}
+	
+	/**
+	 * 성공
+	 */
+	@RequestMapping(value="/success.do", method=RequestMethod.GET)
+	public String success() {
+		return "join/success";
 	}
 
 }

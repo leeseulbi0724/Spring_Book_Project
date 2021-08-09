@@ -168,20 +168,22 @@ public class BoardController {
 	/**
 	 * 자유게시판 글쓰기 DB
 	 */
+	
+	
 	@RequestMapping(value = "/board_write_proc.do", method=RequestMethod.POST)
 	public ModelAndView board_write_proc(HttpSession session, MultipartHttpServletRequest request, @RequestParam("file") MultipartFile[] file) throws Exception {
-		ModelAndView mv = new ModelAndView();		
+		ModelAndView mv = new ModelAndView();	
 		//로그인 회원정보 가져오기
 		String id = (String) session.getAttribute("session_id");
 		
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		System.out.print(root_path);
-		String attach_path = "\\resources\\upload\\";
+		String attach_path = "\\resources\\upload\\"; //이미지 저장할 경로
 		String fileOriginName = ""; 
-		String fileMultiName = "";
-		String fileMultiUplodaName= "";
+		String fileMultiName = ""; //저장할 파일명
+		String fileMultiUplodaName= ""; //폴더에 저장할 파일명
 		
-		UUID uuid = UUID.randomUUID();
+		UUID uuid = UUID.randomUUID(); //이미지가 서로 겹치지 않게 하기 위한 용도
 
 		for(int i=0; i<file.length; i++) { 
 			fileOriginName = file[i].getOriginalFilename(); 
@@ -200,13 +202,13 @@ public class BoardController {
 				}
 			} 
 		}
-
+		
 		BoardVO vo = new BoardVO();
 		vo.setBfile(fileMultiName);
 		vo.setBsfile(fileMultiUplodaName);
 		vo.setBtitle(request.getParameter("btitle"));
 		vo.setBcontent(request.getParameter("bcontent"));
-		vo.setId(id);
+		vo.setId(id);		
 		
 		boolean result = BoardService.getBoardWrite(vo);
 		
@@ -302,10 +304,10 @@ public class BoardController {
 
 		boolean result = BoardService.getBoardComment(vo);
 		
-		if (result) {
+		if (result) { 
 			vo.setId(request.getParameter("id"));
 			vo.setCategory("게시판");
-			result = BoardService.getCommentBell(vo);
+			result = BoardService.getCommentBell(vo); //댓글 알림을 위해 알림 테이블에도 저장
 		}
 		
 		return result;
@@ -368,6 +370,7 @@ public class BoardController {
 	/**
 	 * 게시판 수정 DB
 	 */
+	
 	@RequestMapping(value="/board_update_proc.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView board_update_proc(MultipartHttpServletRequest request, @RequestParam("file") MultipartFile[] file) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -375,12 +378,12 @@ public class BoardController {
 		System.out.println("파일이름" + request.getParameter("bfile"));
 		System.out.print("파일경로" + request.getParameter("bsfile"));
 		
-		String fileOldName=request.getParameter("bfile");
-		String fileOldRoot = request.getParameter("bsfile");
+		String fileOldName=request.getParameter("bfile"); //기존에 있던 파일이름
+		String fileOldRoot = request.getParameter("bsfile"); //기존에 있던 파일이름(폴더에 저장되는 이름)
 		
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		System.out.print(root_path);
-		String attach_path = "\\resources\\upload\\";
+		String attach_path = "\\resources\\upload\\"; //이미지 저장 경로
 		String fileOriginName = ""; 
 		String fileMultiName = "";
 		String fileMultiUplodaName= "";
@@ -390,7 +393,7 @@ public class BoardController {
 		System.out.print(file.length);
 
 		for(int i=0; i<file.length; i++) { 
-			fileOriginName = file[i].getOriginalFilename(); 
+			fileOriginName = file[i].getOriginalFilename(); //추가된 파일
 			System.out.println("기존 파일명 : "+fileOriginName); 
 			File f = new File(root_path + attach_path + uuid +"_"+ fileOriginName); 
 			file[i].transferTo(f);
@@ -405,18 +408,18 @@ public class BoardController {
 			}
 		}
 		
-		String old_name = request.getParameter("old_name");
-		String old[] = old_name.split(",");
+		String old_name = request.getParameter("old_name"); //삭제한 파일이름을 old_name으로 가져옴
+		String old[] = old_name.split(","); 
 		for (int i=0; i<old.length; i++) {
 			File old_file = new File(root_path+attach_path+old[i]);
 			if ( old_file.exists()) {
-				old_file.delete();
+				old_file.delete(); //수정되어 삭제된 파일을 폴더에서도 삭제
 			}
 		}
 
 		BoardVO vo = new BoardVO();
-		vo.setBfile(fileOldName+fileMultiName);
-		vo.setBsfile(fileOldRoot+fileMultiUplodaName);
+		vo.setBfile(fileOldName+fileMultiName); //기존파일+추가파일
+		vo.setBsfile(fileOldRoot+fileMultiUplodaName); //기존파일+추가파일
 		vo.setBid(request.getParameter("bid"));
 		vo.setBtitle(request.getParameter("btitle"));
 		vo.setBcontent(request.getParameter("bcontent"));
@@ -435,9 +438,9 @@ public class BoardController {
 	public boolean board_delete(HttpServletRequest request) {
 		String bid = request.getParameter("bid");			
 		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String attach_path = "\\resources\\upload\\";
+		String attach_path = "\\resources\\upload\\"; //이미지 저장 경로
 		
-		BoardVO vo = BoardService.getBoardContent(bid);
+		BoardVO vo = BoardService.getBoardContent(bid); 
 		
 		if (vo.getBfile() != null) {
 			String img[] = vo.getBsfile().split(",");
@@ -446,12 +449,12 @@ public class BoardController {
 				String old_name = img[i];
 				File old_file = new File(root_path+attach_path+old_name);
 				if ( old_file.exists()) {
-					old_file.delete();
+					old_file.delete(); //삭제 게시물의 이미지를 폴더에서 삭제
 				}			
 			}
 		}
 		
-		boolean result = BoardService.getBoardDelete(bid);
+		boolean result = BoardService.getBoardDelete(bid); //게시물 삭제
 		
 		return result;
 	}

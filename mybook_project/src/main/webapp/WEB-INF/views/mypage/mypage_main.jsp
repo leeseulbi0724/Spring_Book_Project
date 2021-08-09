@@ -10,48 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
-<style>
-	.one { border-bottom:2px solid rgb(43,129,199); }	
-	.four, .three, .two { border-bottom:2px solid lightgray; }
-	
-	.content { 
-		background-color:rgb(248,249,251); 
-		width:100%; height:500px; 
-		margin-bottom:-100px; 
-		border-top:1px solid lightgray;
-		text-align:center;
-	}
-	.content>div { display:inline-block; margin-top:50px; }
-	
-	.img { 
-		border:1px solid lightgray; 
-		display:inline-block; 
-		background-color:white; 
-		width:300px; height:300px; 
-		margin-top:20px; float:left;
-	}
-	.img>img { margin-top:40px; }
-	.img>button {	margin:5px; padding:2px 10px; }
-	#file { display:none; }
-	
-	.box_div { display:inline-block; width:600px; margin-top:20px; float:left; }
-	.box {
-		border:1px solid lightgray; 
-		display:inline-block; 
-		background-color:white; 
-		width:600px; height:94px; 
-		margin-left:10px;
-		margin-bottom:9px;
-		text-decoration:none;
-	}
-	.box>p:first-child {
-		margin:10px;
-		font-size:20px;
-	}
-	.box>p:last-child { color:gray; }
-	
-	#change { display:none; }
-</style>
+<link href="http://localhost:9000/mybook/css/mypage/mypage_main.css" rel="stylesheet" >
 </head>
 <script>
 $(function () {
@@ -68,6 +27,8 @@ $(function () {
 			});
 		}
 	});
+	
+	
 });
 </script>
 <body>

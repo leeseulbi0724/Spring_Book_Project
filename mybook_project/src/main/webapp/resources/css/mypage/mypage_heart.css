@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+	.one { border-bottom:2px solid rgb(43,129,199); }	
+	.four, .three, .two { border-bottom:2px solid lightgray; }
+	
+	.content { 
+		background-color:rgb(248,249,251); 
+		width:100%;
+		margin-bottom:-100px; 
+		border-top:1px solid lightgray;
+		text-align:center;
+	}
+	.content>div { display:inline-block; margin-top:50px; }
+	.box { 
+		display:inline-block; 
+		width:900px; 
+		padding:20px 0;
+		text-align:center;
+	}
+	.box>div { display:inline-block; }
+	.heart {
+		background-color:white;
+		width:190px; 	height:190px;
+		margin-top:-10px;
+		border-radius:20px; float:left;
+		color:lightgray;
+		position :relative;
+		border:1px solid lightgray;		
+		margin:5px 15px;
+	}
+	.heart>img { width:15%; height:15%; position:absolute; bottom:0; margin-bottom:5px; margin-left:-15px; }
+	.heart>p { color:black; }

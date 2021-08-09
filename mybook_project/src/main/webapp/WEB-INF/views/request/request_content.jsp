@@ -36,6 +36,24 @@
 	
 </style>
 </head>
+<script>
+	$(document).ready(function() {
+		$(".delete").click(function() {
+			if (confirm("신청을 삭제하시겠습니까?")) {	
+				$.ajax({
+	                type: "post",
+	                url: "request_delete.do", 
+	                data:{rid:"${vo.rid}"},
+	                dataType: 'json',
+	                success: function (result) {
+	                	alert("신청이 삭제되었습니다");
+	                	location.replace("request.do");
+	                },
+	           }); 
+			} 
+		});
+	});
+</script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 
@@ -85,6 +103,10 @@
 			 		</tr>			 		 		
 		 		</table>
 				<a href="request.do" class="btn back">목록</a>
+				<c:if test="${vo.status eq 0 }">
+					<a href="request_update.do?rid=${vo.rid }" class="btn back update">수정</a>
+					<button class="btn back delete">삭제</button>
+				</c:if>
 		 </div>
 	</div>
 </section>

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.home, .book, .com { color:rgb(162,162,162); }
+	.home, .book, .com { color:rgb(162,162,162); }
 	body { text-align:center; }
 	section { height:800px; text-align:center; }
 	.join_box { 

@@ -15,52 +15,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/modal.css" rel="stylesheet" >
-<style>
-	.four { border-bottom:2px solid rgb(43,129,199); }	
-	.one, .three, .two { border-bottom:2px solid lightgray; }
-	
-	.content { 
-		background-color:rgb(248,249,251); 
-		width:100%; 
-		margin-bottom:-100px; 
-		border-top:1px solid lightgray;
-	}
-	.center { display:inline-block; width:1000px; margin:50px 0; }
-	
-	.table { background-color:white; width:1000px; }
-	.table th { font-weight:normal; border-top:1px solid lightgray; border-bottom:1px solid lightgray; }
-	.table tr:first-child td { background-color:rgb(222,225,230); }
-	 .table tr:nth-child(2) td {
-		 background-color:rgb(247,248,249); 
-		 border-bottom:1px solid lightgray;
-	}
-	.table th:first-child { width:600px; }
-	.table th:last-child, .table th:nth-child(4) { width:100px; }
-	.book_table th>a { text-decoration:none; color:black; }
-	#ing { background-color:#4fa9de; color:white; margin:5px; padding:2px 10px; border:none; border-radius:4px; }
-	#cancle, #return { background-color:rgb(247,248,249); margin:5px; padding:2px 10px; border:none; border-radius:4px; }
-	#ing:hover { background-color:rgb(23,86,123); }
-	#return:hover, #cancle:hover { background-color:rgb(222,225,230); }
-	
-	.con>div { width:400px; }
-	.con>div>p { float:left; font-size:18px; margin:10px 0; }
-	.book_ex { 
-		display:inline-block; 
-		background-color:#4fa9de; color:white; 
-		text-decoration:none;
-		padding:5px 10px;
-		border-radius:4px;
-		cursor:pointer;
-		margin-left:5px; margin-top:10px;
-		border:none;		
-	}
-	.form-control { display:inline-block; width:300px; }
-</style>
+<link href="http://localhost:9000/mybook/css/mypage/mypage_book.css" rel="stylesheet" >
 </head>
 <script>
-$(document).ready(function() {	
-	$("button[id=return]").click(function() {	
-		var bid = $(this).attr("name");
+$(document).ready(function() {
+	
+	$("button[id=return]").click(function() {	//반납 버튼 클릭 시
+		var bid = $(this).attr("name"); //해당 반납 버튼 name값에 도서 시퀀스 저장
     	var con_test = confirm("해당 도서를 반납하시겠습니까?"); 
     	if(con_test == true){   
          $.ajax({
@@ -74,7 +35,6 @@ $(document).ready(function() {
                 	   location.reload();
                    }
                 },
-
             });
     	}	
 	});
@@ -113,10 +73,10 @@ $(document).ready(function() {
 			$("#book_date").focus();
 		} else {
 			var day = $("#book_date").val();
-			 $.ajax({
+			 $.ajax({//
 	                type: "post",
 	                url: "book_ex_proc.do",
-	                data:{bid:bid, day:day},
+	                data:{bid:bid, day:day}, //연장날짜와 해당 도서 시퀀스 값
 	                dataType: 'json',
 	                success: function (result) {
 	                   if (result) {

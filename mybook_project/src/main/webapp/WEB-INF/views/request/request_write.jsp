@@ -9,27 +9,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/request/request_write.css" rel="stylesheet" >
 <title>희망도서 신청 | 라온 도서관</title>
-<style>	
-	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .book {	color:rgb(162,162,162); }
-	
-	.left ul li:nth-child(3) a { color:rgb(43,129,199); font-weight:bold; }
-
-	.form-control { display:inline-block; margin-bottom:5px; font-size:14px; width:800px; }
-	
-	.up, .back { margin-top:20px; padding:3px10px; }
-	.up { background-color:rgb(109,171,239); color:white; }
-	.back { background-color:white; border:1px solid lightgray; }
-	.back:hover { background-color:lightgray; }
-	
-	.table { margin-top:20px; font-size:14px; }
-	.table tr { border-bottom:1px solid lightgray; }
-	.table th { font-weight:normal; text-align:left; padding-left:15px; }
-	.table th:first-child { width:100px; background-color:rgb(248,248,248); vertical-align:middle; }
-	
-	.table th>button { padding:3px 10px; font-size:13px; }
-</style>
 </head>
 <script>
 	$(document).ready(function() {

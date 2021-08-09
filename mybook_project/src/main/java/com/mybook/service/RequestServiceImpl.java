@@ -63,5 +63,23 @@ public class RequestServiceImpl implements RequestService {
 	public String getRequestNameResult(String name) {
 		return requestDAO.getRequestNameResult(name);
 	}
+	
+	public boolean getRequestUpdate(RequestVO vo) {
+		int val = requestDAO.getRequestUpdate(vo);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean getRequestDelete(String rid) {
+		int val = requestDAO.getRequestDelete(rid);
+		boolean result = false;
+		if (val!=0) {
+			result = true;
+		}
+		return result;
+	}
 
 }

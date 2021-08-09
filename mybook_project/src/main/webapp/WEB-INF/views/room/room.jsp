@@ -14,75 +14,36 @@
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/modal.css" rel="stylesheet" >
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/room/room.css" rel="stylesheet" >
 <title>열람실 예약 | 라온 도서관</title>
-<style>	
-	.book { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .com  {	color:rgb(162,162,162); }	
-	
-	.left ul li:last-child a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.center p { float:left; padding:5px 0; }
-	.center p>span { color:rgb(170,93,11); }
-	
-	.seat { width:100%; display:inline-block; height:500px; margin-top:20px; }
-	 .seat_box { width:800px; display:inline-block; margin-top:20px; text-align:center; }
-	.seat_box #btn { 
-		border:1px solid lightgray;
-		width:40px; height:40px;
-		font-size:14px;
-	 }
-	 .seat_box .no { background-color:rgb(255,185,185); color:black; }
-	 .seat_box .yes { background-color:white; }
-	 .seat_box .no_x { background-color:lightgray; }
-	 .seat_box .choice { 
-	 	background-color:lightgray; 
-	 	color:white; 
-	 	border:none; 
-	 	display:inline-block; 
-	 	margin-top:50px;
-	 	padding:10px 20px;
-	 	border-radius:10px;
-	}
-	.choice:hover { color:rgb(46,88,202); }
-	
-	.number { font-size:18px; margin-bottom:5px; }
-	.start { margin-bottom:5px; }
-	.start>span { color:rgb(43,129,199); }
-	.end { color:gray; }
-	.end>span { color:rgb(188,188,188); }
-	
-	.app { 
-		font-size:14px; 
-		background-color:rgb(30,179,136); 
-		border:none; 
-		color:white; 
-		border-radius:4px; 
-		float:right;
-		margin:10px 0 15px 0;
-		text-decoration:none;
-	}
-	
-</style>
 </head>
 <script>
 	$(document).ready(function() {		
 		var number;
-		$("[id^=btn]").click(function() {
+		
+		
+		$("[id^=btn]").click(function() { //좌석 클릭 시
 			if (${result}) {
+				//페이지로드할 때 로그인한 회원의 열람실 예약 여부를 가져옴
+				//true이면 예약한 내역이 없으므로 선택 가능
 				$("[id^=btn]").css("border","1px solid lightgray");
 				$(this).css("border","2px solid");
 				$(".choice").css("background-color","rgb(43,129,199)")
 				$(".choice").attr("disabled",false);		
 				number = $(this).text();
 			}  else {
+				//선택 불가능
 				alert("이미 사용중인 좌석이 있습니다");
 			}
 		});		
 		
 		$(".choice").click(function() {				
 			if ("${now}" >= "18:00") {
+				//열람실 예약은 9시~18시로 제한
+				//현재 시간이 18시보다 이후이면~
 				alert("열람실 이용이 마감되어 예약이 불가능합니다");
 			} else {				
+				//현재 시간이 18시보다 이전이면 예약 모달창 띄우기
 				$("#modal").fadeIn(300);
 				$(".modal1").fadeIn(300);
 				$(".number").html("선택하신 좌석은 <strong style='color:rgb(43,129,199)'>"+number+"</strong> 번입니다");
@@ -90,8 +51,9 @@
 			
 		});
 		
-		$(".app").click(function() {
-			if ($("#time").val() >= "18:00" || $("#time").val() < "09:00") {
+		$(".app").click(function() { //예약 클릭 시
+			if ($("#time").val() >= "18:00" || $("#time").val() < "09:00") { 
+				//시간 선택 창이 9시~18시 사이가 아닐경우
 				alert("열람실 이용시간은 09:00~18:00 입니다");
 			} else {
 				var con_test = confirm("선택하신 좌석을 예약하시겠습니까?"); 
@@ -100,7 +62,7 @@
 	        		  $.ajax({
 			                type: "post",
 			                url: "room_proc.do",
-			                data:{number:number, time:time},
+			                data:{number:number, time:time},//해당 좌석 번호랑 예약시간 전달
 			                dataType: 'json',
 			                success: function (result) {
 			                   if (result) {

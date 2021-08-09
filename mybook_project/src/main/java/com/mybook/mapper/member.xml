@@ -8,7 +8,7 @@
 
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="com.mybook.vo.MemberVO">
-		insert into mybook_member values(#{id},#{pass},#{name},#{birth},#{email},#{hp},#{addr1},#{addr2},sysdate, null, null)
+		insert into mybook_member values(#{id},#{pass},#{name},#{birth},#{email},#{hp},#{addr1},#{addr2},sysdate,0, null, null)
 	</insert>
 	
 	<!-- 로그인 -->

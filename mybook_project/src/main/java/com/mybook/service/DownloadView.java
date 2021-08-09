@@ -18,19 +18,18 @@ public class DownloadView extends AbstractView {
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		File file = (File)model.get("downloadFile");
-		File file2 = (File)model.get("downloadFile2");
+		File file = (File)model.get("downloadFile"); //경로
+		File file2 = (File)model.get("downloadFile2"); //파일이름
         if(file != null) {
             String fileName = null;
             String userAgent = request.getHeader("User-Agent");
             System.out.print(file2.getName());
-            String ext = file2.getName().substring(file2.getName().lastIndexOf(".") + 1);
+            String ext = file2.getName().substring(file2.getName().lastIndexOf(".") + 1); //확장자
             String contentType ="image/"+ext;
-
             
             if(userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1){
                 fileName = URLEncoder.encode(file2.getName(), "utf-8").replaceAll("\\+", "%20");;
-            }else if(userAgent.indexOf("Chrome") > -1) {
+            } else if(userAgent.indexOf("Chrome") > -1) {
             	StringBuffer sb = new StringBuffer();
             	for(int i=0; i<file2.getName().length(); i++) {
             		char c = file2.getName().charAt(i);
@@ -51,25 +50,26 @@ public class DownloadView extends AbstractView {
             response.setHeader("Content-Transfer-Encoding", "binary");
             
             OutputStream out = response.getOutputStream();
-            FileInputStream fis = null;
+            FileInputStream fis = null;            
             try {
                 fis = new FileInputStream(file);
                 FileCopyUtils.copy(fis, out);
             } catch(Exception e){
                 e.printStackTrace();
-            }finally{
+            } finally{
                 if(fis != null){
                     try{
                         fis.close();
                     }catch(Exception e){
                     	e.printStackTrace();
                     }
-                }
-                
+                }                
                 if(out != null) {
                 	out.flush();
                 }
             }
+            
+            
             
         }
 	}

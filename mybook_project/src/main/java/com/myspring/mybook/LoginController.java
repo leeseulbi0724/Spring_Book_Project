@@ -93,6 +93,7 @@ public class LoginController {
 	@ResponseBody
     @RequestMapping(value = "/sendEmail.do", method = RequestMethod.POST)
      public void sendEmail(HttpServletRequest request) throws Exception {
+		//보낼 이메일과 인증번호를 Service로 전달
 		SendEmailService.sendEmail(request.getParameter("email"), request.getParameter("text"));
 	}
     
@@ -116,15 +117,16 @@ public class LoginController {
     @ResponseBody
 	 @RequestMapping(value = "/login_proc.do", method=RequestMethod.POST)
 	 public  boolean login_proc(HttpServletRequest request) {
-		 HttpSession session = request.getSession();
+    	
+		 HttpSession session = request.getSession(); //세션 생성
 		 
 		 MemberVO vo = new MemberVO();		 
 		 vo.setId(request.getParameter("id"));
 		 vo.setPass(request.getParameter("pass"));
 		 
-		 boolean result = MemberService.getLoginResult(vo);
+		 boolean result = MemberService.getLoginResult(vo); //로그인 성공여부
 		 
-		 if (result ) {
+		 if (result ) { //로그인 true이면 session_id라는 이름으로 로그인 아이디를 저장
 			 session.setAttribute("session_id", vo.getId());
 		 }
 		 

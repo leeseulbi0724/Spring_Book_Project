@@ -14,35 +14,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/request/request.css" rel="stylesheet" >
 <title>희망도서 신청 | 라온 도서관</title>
-<style>
-	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .book {	color:rgb(162,162,162); }
-	
-	.left ul li:nth-child(3) a { color:rgb(43,129,199); font-weight:bold; }	
-	
-	.search { margin:10px 0; text-align:right; }
-	.search p { float:left; }
-	.search span { color:rgb(170,93,11); }
-	
-	.write { 
-		background-color:rgb(109,171,239); color:white; float:left; 
-		font-size:14px; padding:2px 5px; margin-bottom:14px;
-	}
-	
-	.table tr:first-child th { background-color:rgb(248,248,248); border-top:1px solid lightgray; border-bottom:1px solid lightgray; }
-	.table tr:first-child th:nth-child(2) { width:600px; }
-	.table td:nth-child(2) { text-align:left; }
-	.table tr { border-top:1px solid rgb(238,238,238); }
-	.table td img { margin-left:5px; }
-	
-	.button>div { display:inline-block; }
-	.page-item { background-color:white; }
-	.pagination > .active > a.page-link, .pagination > .active > a:hover {  background-color:rgb(109,171,239); border:1px solid rgb(109,171,239); }
-	
-	.request_content { cursor:pointer; text-decoration:none; color:black; }
-
-</style>
 </head>
 <script>
 	$(document).ready(function() {

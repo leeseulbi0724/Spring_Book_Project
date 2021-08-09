@@ -164,13 +164,13 @@ public class BookController {
 	@RequestMapping(value="/search_proc.do", produces = "application/text; charset=utf8", method=RequestMethod.GET)
 	public String travel_proc(String search) {
 		System.out.print(search);
-		ArrayList<BookVO> list = BookService.getBookList(search);
+		ArrayList<BookVO> list = BookService.getBookList(search); //도서명을 Service로 전달
 		
 		JsonObject jdata = new JsonObject();
 		JsonArray jlist = new JsonArray();
 		Gson gson = new Gson();
 		
-		for(BookVO vo : list) {
+		for(BookVO vo : list) { //가져온 리스트의 데이터 꺼내기
 			JsonObject jobj = new JsonObject();
 			jobj.addProperty("bid", vo.getBid());
 			jobj.addProperty("bname", vo.getBname());
@@ -190,8 +190,7 @@ public class BookController {
 		
 		jdata.add("jlist", jlist);
 
-		return gson.toJson(jdata);
-		
+		return gson.toJson(jdata);		
 	}
 	
 	/**
@@ -319,7 +318,7 @@ public class BookController {
 	}
 	
 	/**
-	 * 좋아요 +
+	 * 좋아요 추가
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/heart_plus.do", method=RequestMethod.POST)
@@ -332,9 +331,9 @@ public class BookController {
 		vo.setId(id);
 		vo.setBid(bid);		
 	
-		//도서 +
+		//해당 도서의 좋아요 수를 +
 		boolean result = BookService.getBookHeartPlus(bid);
-		//heart 테이블 추가
+		//heart 테이블에 회원의 좋아요를 추가
 		if (result) {
 			total = BookService.getHeartPlus(vo);
 		}
@@ -342,6 +341,10 @@ public class BookController {
 		return total;
 	}
 	
+	
+	/**
+	 * 좋아요 해제
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/heart_minus.do", method=RequestMethod.POST)
 	public boolean heart_minus(HttpSession session, HttpServletRequest request) {
@@ -353,9 +356,9 @@ public class BookController {
 		vo.setId(id);
 		vo.setBid(bid);
 
-		//도서 -
+		//해당 도서의 좋아요 수를 -
 		boolean result = BookService.getBookHeartMinus(bid);
-		//heart 테이블 삭제
+		//heart 테이블에 회원의 좋아요를 삭제
 		if (result) {
 			total = BookService.getHeartMinus(vo);
 		}
@@ -400,6 +403,7 @@ public class BookController {
 		
 		return result;
 	}
+	
 	
 	/**
 	 * 후기 삭제

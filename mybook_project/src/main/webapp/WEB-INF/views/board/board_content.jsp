@@ -12,61 +12,8 @@
 <script src="https://rawgit.com/jackmoored/autosize/master/dist/autosize.min.js"></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
 <link href="http://localhost:9000/mybook/css/modal.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/board/board_content.css" rel="stylesheet" >
 <title>자유 게시판 | 라온 도서관</title>
-<style>	
-	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .book {	color:rgb(162,162,162); }
-	
-	.left ul li:nth-child(2) a { color:rgb(43,129,199); font-weight:bold; }
-
-	.sub { text-align:left; }
-	.first { border-bottom:1px solid lightgray; text-align:center; }
-	.p_title { font-size:23px; padding:10px; }
-	.p_id { font-weight:bold; margin-left:10px; text-align:right; }
-	.p_date { color:gray; margin-left:10px; margin-bottom:5px; text-align:right; }	
-	.sub textarea { background-color:white; width:100%; border:none; margin:5px; }
-	
-	.comment { border-top:1px solid lightgray; width:100%; padding:10px 0; margin-top:70px; }
-	.comment>p { font-weight:bold; font-size:20px; float:left; }
-	.comment>textarea { border:1px solid lightgray; margin-top:30px; width:900px; display:inline-block; float:left; }
-	.comment>button { 
-		display:inline-block; 
-		color:white;
-		border:none;
-		float:left; 
-		margin-top:45px; margin-left:10px;
-		background-color:rgb(109,171,239);
-		padding:5px 10px;
-	}
-	.comment>div:nth-child(2) { margin-top:50px; }
-	.comment>div.comment_div { border-bottom:1px solid lightgray; text-align:left; padding:10px 0; }
-	.comment_div img { margin-right:5px; }
-	.comment_div>p:nth-child(2), .comment_div>p:nth-child(3) { margin-left:35px; }
-	
-	.list, .update, .delete {
-		background-color:rgb(43,129,199); 
-		color:white;
-		float:right;
-		text-decoration:none;
-		margin-left:5px;
-	}	
-	p>a { color:lightgray; text-decoration:none; cursor:pointer; }
-	
-	.con>div { width:750px; }
-	.form-control { display:inline-block; width:700px; }
-	.com_update {
-		display:inline-block; 
-		background-color:#4fa9de; color:white; 
-		text-decoration:none;
-		padding:5px 10px;
-		border-radius:4px;
-		cursor:pointer;
-		margin-left:5px;
-		border:none;
-	}
-	
-	.reply { display:none; }
-</style>
 </head>
 <script>
 	$(document).ready(function() {	
@@ -78,8 +25,8 @@
 				$("#com_textarea").focus();
 			} else {
 				var comment = $("#com_textarea").val();
-				var bid = "${vo.bid}";
-				var id = "${vo.id}";
+				var bid = "${vo.bid}";  //해당 게시물 시퀀스
+				var id = "${vo.id}"; //현재 댓글쓰는 사람 아이디
 				 $.ajax({
 		                type: "post",
 		                url: "board_comment.do",
@@ -143,7 +90,7 @@
 		});
 		
 		$(".com_update").click(function() {
-			var cid = $(this).attr("id");
+			var cid = $(this).attr("id"); 
 			if ($("#comment_content").val() == "") {
 				alert("내용을 입력해주세요");
 				$("#comment_content").focus();

@@ -10,36 +10,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/board/board_update.css" rel="stylesheet" >
 <title>자유 게시판 | 라온 도서관</title>
-<style>	
-	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .book {	color:rgb(162,162,162); }
-
-	.left ul li:nth-child(2) a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.center { display:inline-block; width:1000px; height:500px; }
-	.title { height:100px; border-bottom:1px solid lightgray;}
-	.title h3 {
-		font-size:30px; 
-		font-weight:bold; 
-		float:left;
-		margin:30px 15px;
-	}
-	.title img { float:right; }	
-
-	.form-control { display:inline-block; margin-bottom:5px; font-size:14px; }
-	.textarea { height:500px; resize:none; }
-	
-	.up, .back { margin-top:20px; padding:3px10px; }
-	.up { background-color:rgb(109,171,239); color:white; }
-	.back { background-color:white; border:1px solid lightgray; }
-	.back:hover { background-color:lightgray; }
-	
-	form>div { text-align:left; }
-	.file_name, .sfile_name, .old_name { display:none; }
-	.minus { display:inline-block; margin-left:5px; border:1px solid lightgray; }
-	#file { width:970px; display:inline-block; background-color:white; }
-</style>
 </head>
 <script>
 	$(document).ready(function() {

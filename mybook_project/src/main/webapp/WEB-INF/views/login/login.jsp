@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
-<link rel="stylesheet" href="http://localhost:9000/mybook/css/login.css">
+<link rel="stylesheet" href="http://localhost:9000/mybook/css/login/login.css">
 <title>로그인 | 라온 도서관</title>
 </head>
  <script>
@@ -22,14 +22,14 @@
 	 });
 	 
 	 $("#login").click(function() {
-		 if ($("#id").val() == "") {
+		 if ($("#id").val() == "") { //아이디 창이 빈 값인지 확인
 			 alert("아이디를 입력해주세요");
 			 $("#id").focus();
-		 } else if ( $("#pass").val() == "") {
+		 } else if ( $("#pass").val() == "") { //비밀번호 창이 빈 값인지 확인
 			 alert("비밀번호를 입력해주세요");
 			 $("#pass").focus();
-		 } else {			
-			 login();
+		 } else { 
+			 login(); // 둘다 빈값이 아닐경우 login 함수 실행	
 		 }
 	 })
 	 
@@ -66,16 +66,16 @@
 	}
 	 
 	 function login() {
-		 var form1 = $("#form").serialize();
+		 var form1 = $("#form").serialize(); //form 데이터
 		 $.ajax({
              type: "post",
              url: "login_proc.do",
              data: form1,
              dataType: 'json',
              success: function (result) {
-                 if (result) {
+                 if (result) { //입력한 아이디와 비밀번호가 일치하면 index 페이지로 이동
                  	 location.replace("index.do");
-                 } else {
+                 } else { //입력한 아이디와 비밀번호가 일치하지 않으면 alert창 띄우기
                  	alert("아이디 또는 비밀번호가 틀립니다.");
                  }
              },
@@ -109,6 +109,9 @@
 	    }
 	    return unescape(cookieValue);
 	}
+	
+	
+	
 </script>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>

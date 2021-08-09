@@ -10,60 +10,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/notice/notice.css" rel="stylesheet" >
 <title>공지사항 | 라온 도서관</title>
-<style>	
-	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .book {	color:rgb(162,162,162); }
-	
-	.left ul li:first-child a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.center { display:inline-block; width:1000px; height:500px; }
-	.title { height:100px; border-bottom:1px solid lightgray;}
-	.title h3 {
-		font-size:30px; 
-		font-weight:bold; 
-		float:left;
-		margin:30px 15px;
-	}
-	.title img { float:right; }	
-	
-	.search { margin:10px 0; text-align:right; }
-	.search p { float:left; }
-	.search span { color:rgb(170,93,11); }
-	.form-select { 
-		width:100px; height:30px;
-		 display:inline-block; 
-		 border-radius:10px; 
-		 padding:0 10px; margin:0;
-		 font-size:14px;
-	}
-	.form-control {
-		width:200px; height:30px;
-		display:inline-block; font-size:14px;
-	}
-	.btn_search { font-size:14px; padding:2px 5px; }
-	
-	.table tr:first-child th { background-color:rgb(248,248,248); border-top:1px solid lightgray; border-bottom:1px solid lightgray; }
-	.table tr:first-child th:nth-child(2) { width:700px; }
-	.table td:nth-child(2) { text-align:left; }
-	.table tbody>tr { border-top:1px solid rgb(238,238,238); }
-	.table td>a { color:black; text-decoration:none; }
-	.table td>a:hover { color:rgb(10,88,202); }
-	
-	.table button {
-		background-color:rgb(109,171,239);
-		border:none;
-		font-size:13px;
-		border-radius:5px;
-		color:white;
-		cursor:default;
-	}
-	
-	.button>div { display:inline-block; }
-	.page-item { background-color:white; }
-	.pagination > .active > a.page-link, .pagination > .active > a:hover {  background-color:rgb(109,171,239); border:1px solid rgb(109,171,239); }
-	
-</style>
 </head>
 <body>
  <jsp:include page="../header.jsp"></jsp:include>

@@ -11,63 +11,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/search/search.css" rel="stylesheet" >
 <title>도서 대여 | 라온 도서관</title>
-<style>	
-	.book { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .com  {	color:rgb(162,162,162); }
-	.left ul li:first-child a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.search {  text-align:left; margin-top:20px; }
-	.search input { display:inline-block; width:500px; height:30px; font-size:14px; }
-	.search button { background-color:rgb(43,129,199); color:white; border:none; }
-	
-	.booklist { margin-top:20px; width:100%; height:400px; }
-	.book_div { border:1px solid lightgray; width:150px; height:210px; margin:5px; display:inline-block; background-size:95%; }
-	
-	 .book_div>div { 
-	 	width:150px; height:210px;
-	 	position:absolute; display:none; 
-	 	background-color: rgba( 0,0,0, 0.5 );
-	 	text-align:center;
-	 }
-	 .book_div>div>p {	color:white; }
-	 .book_div>div>p:first-child { margin-top:20px; }
-	 .book_div>div>p:nth-child(2) { margin-bottom:20px; }
-	  .book_div>div>div { position:absolute; bottom:0px; margin-bottom:20px; }
-	 .book_div>div>div>a {
-	 	text-decoration:none;	 	
-	 	padding:2px 5px;
-	 	border-radius:4px;	 
-	 }
-	  .book_div>div>div>a:first-child { margin-left:15px; }
-	 .rental { background-color:#4fa9de; color:white; cursor:pointer; }
-	 .detail { background-color:rgb(245,245,245); color:black; }
-	 
-	 .button { text-align:center; }
-	 #more_btn {
-		width:65px;
-		background-color:white;
-		border:2px solid lightgray;
-		border-radius:50px;
-		padding:10px;
-		color:lightgray;
-		font-size:15px;
-		text-align:center;
-		margin-top:50px;
-		cursor:pointer;
-		display:inline-block;
-	}
-	 #more_btn:hover {
-		border:2px solid #4fa9de;
-		color:#4fa9de;
-	}
-	button#more_btn>img { width:18px; }
-	button#more_btn>img:last-child { display:none; }
-	button#more_btn:hover img:first-child {	display:none; }
-	button#more_btn:hover img:last-child { display:inline-block; }
-	
-	.more_div { display:none; }
-</style>
 </head>
 <script>
 $(document).ready(function() {
@@ -107,7 +52,7 @@ function enterkey() {
 
 function search_ajax() {
 	var addListHtml="";
-    var search = $("#search_input").val();		
+    var search = $("#search_input").val(); //도서명
     $.ajax({
 		type:"GET",
 		url:"search_proc.do",
@@ -142,6 +87,9 @@ function search_ajax() {
 		}
 	}); 
 }
+
+
+
 </script>
 <body>
  <jsp:include page="../header.jsp"></jsp:include>
@@ -170,6 +118,9 @@ function search_ajax() {
 	 			<button id="search">검색</button>
 	 			<button id="all">전체</button>
 	 			<div class="booklist">
+	 			
+	 			
+	 			<!-- 0~11 도서만 먼저 보여주기 -->
 	 			<c:forEach var = "vo"  items="${list}" varStatus="status" begin="0" end="11">
 	 				<div class="book_div" style="background-image:url('http://localhost:9000/mybook/upload/${vo.bsfile}')">
 	 					<div>
@@ -181,7 +132,9 @@ function search_ajax() {
 		 					</div>					
 	 					</div>
 	 				</div>	
-	 			</c:forEach> 		
+	 			</c:forEach> 	
+	 			
+	 			<!-- 12~마지막 more버튼 클릭 시 보여주기 -->	
 	 			<c:forEach var = "vo"  items="${list}" varStatus="status" begin="12" end="${fn:length(list)-1}" >
 	 				<div class="book_div more_div" style="background-image:url('http://localhost:9000/mybook/upload/${vo.bsfile}')">
 	 					<div>
@@ -194,6 +147,10 @@ function search_ajax() {
 	 					</div>
 	 				</div>	
 	 			</c:forEach> 	
+	 			
+	 			
+	 			
+	 			
 	 			<div class="button">
 		 			<button type="button" id="more_btn">more
 						<img src="http://localhost:9000/mybook/images/bill_list_btn2.png">

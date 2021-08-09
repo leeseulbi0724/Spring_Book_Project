@@ -96,16 +96,17 @@ public class RoomController {
 		vo.setId(id);    vo.setSeat_number(number);
 		vo.setStart_time(start);
 		
-		String time[] = start.split(":");
-		if (Integer.parseInt(time[0]) >= 15) {
-			vo.setEnd_time("18:00");
-		} else {
-			vo.setEnd_time((Integer.parseInt(time[0])+3)+":"+time[1]);
+		String time[] = start.split(":"); //:로 문자열 자르기
+		if (Integer.parseInt(time[0]) >= 15) { //앞 숫자가 15 이후이면
+			vo.setEnd_time("18:00"); //18시로 저장
+		} else { 
+			//앞 숫자가 15 이전이면
+			vo.setEnd_time((Integer.parseInt(time[0])+3)+":"+time[1]); //해당 시간에서 +3시간 더하기
 		}
 		
-		result = RoomService.getRoomInsert(vo);
+		result = RoomService.getRoomInsert(vo); //room table에 회원 예약 내역 저장
 		if (result) {
-			result = RoomService.getRoomUpdate(number);
+			result = RoomService.getRoomUpdate(number); //좌석 테이블에 상태값 변경
 		}
 		
 		return result;

@@ -1,0 +1,92 @@
+@charset "UTF-8";
+	.book { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
+	.home, .com  {	color:rgb(162,162,162); }
+	
+	.left ul li:first-child a { color:rgb(43,129,199); font-weight:bold; }
+	
+	.detail { 
+		width:100%; height:350px; 
+		margin-top:20px;
+	}
+	.img { 
+		border:1px solid lightgray; 
+		display:inline-block;
+		width:200px; height:300px;
+		float:left;
+		margin-left:85px;
+	}
+	.text {
+		display:inline-block;
+		width:600px;
+		margin-left:30px;
+		float:left;
+		text-align:left;
+		margin-bottom:20px;
+	 }
+	 .book_title { border-bottom:1px solid; font-size:23px; text-align:left; margin-top:20px; }
+	 .book_heart { display:inline-block; float:right; }
+	.book_star { margin-bottom:5px; }
+	.book_text { color:gray; margin-bottom:20px; }
+	
+	.rental { 
+		background-color:#4fa9de; color:white; 
+		text-decoration:none;
+		padding:10px 20px;
+		border-radius:4px;
+		cursor:pointer;
+	}
+	.text button { 
+		float:right; 
+		border:1px solid lightgray;
+		background-color:white;
+		width:80px; 	height:80px;
+		margin-top:-10px;
+		border-radius:20px;
+		color:lightgray;
+	}
+	.text button>img { width:25%; height:25%; }
+	
+	.review { 
+		display:inline-block;
+		width:900px;
+	}
+	.review>p { font-weight:bold; font-size:23px; text-align:left; margin-left:10px; }
+	.review>p>button { 
+		font-size:14px; 
+		background-color:rgb(30,179,136); 
+		border:none; 
+		color:white; 
+		float:right; 
+		border-radius:4px; 
+	}
+	.review_box { width:100%; height:200px;  display:inline-block; border-top:1px solid; }
+	.review_text { 
+		width:100%; 
+		display:inline-block; 
+		border-bottom:1px solid lightgray; 
+		text-align:left;
+		padding:10px 20px;
+	 }
+	.review_text p:first-child { color:gray; }
+	.review_text strong { color:black; }	
+	.form-select { color:rgb(255,210,3); display:inline-block; width:130px; }
+	.form-control { display:inline-block; width:700px; }
+	.write, .update { 
+		display:inline-block; 
+		background-color:#4fa9de; color:white; 
+		text-decoration:none;
+		padding:5px 10px;
+		border-radius:4px;
+		cursor:pointer;
+		margin-left:5px;
+		border:none;
+	}
+	.con>div { width:750px; }
+	
+	.book_star>p { float:left; }
+	.star-rating { width:100px; float:left; margin-top:5px; margin-right:5px; }
+	.star-rating,.star-rating span { display:inline-block; height:18px; overflow:hidden; background:url("http://localhost:9000/mybook/images/re_star.png")no-repeat; }
+	.star-rating span{ background-position:left bottom; line-height:0; vertical-align:top; }
+	
+	.review_text a { text-decoration:none; color:lightgray; cursor:pointer; }
+	.review_text a:hover { text-decoration:underline; }

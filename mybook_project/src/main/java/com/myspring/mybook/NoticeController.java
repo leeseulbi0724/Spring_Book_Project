@@ -82,11 +82,14 @@ public class NoticeController {
 			mv.addObject("bell_list", bell_list);
 			mv.addObject("b_count", count);		
   		}
+  		
+  		
 		
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    
-	    if (search == null || search.equals("") || search.equals("null")) {			
+	    if (search == null || search.equals("") || search.equals("null")) {	
+	    	//검색 하기 전 리스트 페이징
 	    	 pageMaker.setTotalCount(NoticeService.getCountResult());
 	    	 ArrayList<NoticeVO> spcl_list = NoticeService.getSpclList();
 	    	 ArrayList<NoticeVO> normal_list = NoticeService.getNormalList(cri);
@@ -94,6 +97,7 @@ public class NoticeController {
 			 mv.addObject("normal_list", normal_list);
 			 mv.addObject("spcl_list", spcl_list);
 		} else {
+			//검색 후 리스트 페이징
 			ArrayList<NoticeVO> list = NoticeService.getNoticeSearchList(search);
 	    	pageMaker.setTotalCount(list.size());
 	    	list = NoticeService.getNoticeSearchList(search, cri);
@@ -102,8 +106,7 @@ public class NoticeController {
 		    mv.addObject("list", list);
 		}	 
 	    pageMaker.setTotalCount(NoticeService.getNormalCountResult());
-	        
-	   
+	    
 	    int count = NoticeService.getCountResult();
 	    mv.addObject("pageMaker", pageMaker);
 	    mv.addObject("total", count);
@@ -173,12 +176,16 @@ public class NoticeController {
 			//다음글 -- 공지
 			nvo = NoticeService.getNextNoticeSpcl(rno);			
 		}
+		if (vo.getNsfile()!= null) {
+			String ext = vo.getNsfile().substring(vo.getNsfile().lastIndexOf(".") + 1);
+			mv.addObject("ext", ext);
+		}
 		
 		mv.addObject("vo", vo);
 		mv.addObject("pvo", pvo);
 		mv.addObject("nvo", nvo);
 		mv.addObject("rno", rno);
-		mv.addObject("type", type);
+		mv.addObject("type", type);		
 		mv.setViewName("notice/notice_content");
 		
 		return mv;
@@ -187,16 +194,17 @@ public class NoticeController {
 	/**
 	 * 공지사항 파일 다운로드
 	 */
-	private static final String FILE_SERVER_PATH = "C:/dev/spring_workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/mybook_project/resources/upload";
+	private static final String FILE_SERVER_PATH = 
+			"C:/dev/spring_workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/mybook_project/resources/upload";
 	
 	@RequestMapping(value="/fileDownLoad.do",method=RequestMethod.GET)
 	public ModelAndView download(@RequestParam HashMap<Object, Object> params) {
 		ModelAndView mv = new ModelAndView();
-		String fileName = (String) params.get("fileName");
-		String fullPath = FILE_SERVER_PATH + "/" + fileName;
-		File file = new File(fullPath);		
+		String fileName = (String) params.get("fileName"); //파일이름
+		String fullPath = FILE_SERVER_PATH + "/" + fileName; //패스 + 파일이름
+		File file = new File(fullPath);	 //파일로 생성
 		
-		String name[] = fileName.split("_");
+		String name[] = fileName.split("_"); //다운로드 시 이름설정을 위해 "_"를 제외한 앞 이름을 꺼내기
 		String fullPath2 = name[1];
 		File file2 = new File(fullPath2);
 		

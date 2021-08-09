@@ -22,7 +22,7 @@ public class SendEmailServiceImpl implements SendEmailService {
 		
 		String host = "smtp.naver.com";
 		final String username = "tmfql4428";
-		final String password = "dltmfql0724";
+		final String password = "dlwjdghks0320";
 		int port = 465;
 		
 		String tomail = email; // 받는 사람 이메일

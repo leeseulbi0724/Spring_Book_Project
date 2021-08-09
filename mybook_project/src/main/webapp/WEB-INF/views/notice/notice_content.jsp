@@ -10,33 +10,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/notice/notice_content.css" rel="stylesheet" >
 <title>공지사항 | 라온 도서관</title>
-<style>	
-	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .book {	color:rgb(162,162,162); }
-
-	.left ul li:first-child a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.center { display:inline-block; width:1000px; }
-	.title { height:100px; border-bottom:1px solid lightgray;}
-	.title h3 {
-		font-size:30px; 
-		font-weight:bold; 
-		float:left;
-		margin:30px 15px;
-	}
-	.title img { float:right; }	
-	
-	.table { margin-top:30px; }
-	.table tr { border-bottom:1px solid lightgray; }
-	.button tr { border-top:1px solid lightgray; }
-	.table th { font-weight:normal; text-align:left; padding-left:15px; }
-	.table tr:first-child td, .button th:first-child { background-color:rgb(248,248,248); }
-	.table th:first-child { width:100px; }
-	.table td>textarea { width:100%; background-color:white; border:none; }
-	
-	th>a { text-decoration:none; color:black; }
-</style>
 </head>
 <script src="http://rawgit.com/jackmoored/autosize/master/dist/autosize.min.js"></script>
 <script>
@@ -99,7 +74,9 @@
 		 			<td colspan="2">
 		 				<textarea disabled style="resize: none;">${vo.ncontent }</textarea>
 		 				<c:if test = "${!empty vo.nsfile}">
-							<img src="http://localhost:9000/mybook/upload/${vo.nsfile }" width=80%>
+		 				 	<c:if test = "${ext ne 'hwp' }">
+								<img src="http://localhost:9000/mybook/upload/${vo.nsfile }" width=80%>
+							</c:if>
 						</c:if>		
 		 			</td>
 		 		</tr>

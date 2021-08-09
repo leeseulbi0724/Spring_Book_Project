@@ -35,16 +35,17 @@
 <script>   
  $(document).ready(function() {
     $("#send").click(function() {       
+    	 var email1 = $("#email1").val();
+         var email2 = $("#email2").val();
+         var name = $("#name").val();
+         var first = $("#first").val();
+         var last = $("#last").val();         
+         var id = $("#id").val();   
+         
+    	
        var number = Math.floor(Math.random() * 100000) + 100000;
           if(number>100000){ number = number - 10000; }
-          $("#text").val(number);      /* 난수로 생성된 인증번호를 hidden name : text 에 숨긴다 */      
-          
-       var email1 = $("#email1").val();
-       var email2 = $("#email2").val();
-       var name = $("#name").val();
-       var first = $("#first").val();
-       var last = $("#last").val();
-       var id = $("#id").val();   
+          $("#text").val(number);      /* 난수로 생성된 인증번호를 hidden name : text 에 숨긴다 */  
       
       if ( id == "" || id == null ) {
   	      alert("아이디를 입력해주세요");
@@ -65,7 +66,7 @@
     	  alert("이메일 주소를 입력해주세요");
     	  $("#email2").focus();    	 
       } else {
-      		var con_test = confirm("해당 이메일로 인증번호를 발송하시겠습니까?");   /* 문자를 보낼껀지 물어본다 */          
+      		var con_test = confirm("해당 이메일로 인증번호를 발송하시겠습니까?");        
           	if(con_test == true){   
                $.ajax({
                    url:"sendEmail.do",
@@ -77,12 +78,11 @@
                  success:function(){
                    alert("해당 이메일로 인증번호를 발송했습니다");
                    $("#userNum").focus();
-                   },
-                   error(){
-                      
-                   }
-                   
+                   },                   
                 });  
+               
+               
+               
           } else if(con_test == false) {
 	        	  $("#to").val("");
 	              $("#name").val("");

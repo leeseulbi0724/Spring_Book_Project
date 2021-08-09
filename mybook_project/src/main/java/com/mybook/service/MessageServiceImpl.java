@@ -19,7 +19,7 @@ public class MessageServiceImpl implements MessageService  {
 		Message coolsms = new Message("NCSJFUCQAI1QH5BO", "B1ME5UNO5EAUDZZNB8RYVDUAQKNIXZQE");
 
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("to", toNumber);
+		params.put("to", toNumber); //문자받을 휴대폰번호
 		params.put("from", "01093692489");
 		params.put("type", "SMS");
 		params.put("text", "[Laon] 인증번호 "+randomNumber+" 를 입력하세요.");

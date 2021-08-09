@@ -10,110 +10,22 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <link href="http://localhost:9000/mybook/css/modal.css" rel="stylesheet" >
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/search/content.css" rel="stylesheet" >
 <script src="http://localhost:9000/myjeju/js/jquery-3.6.0.min.js"></script>
 <title>상세 정보 | 라온 도서관</title>
-<style>	
-	.book { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .com  {	color:rgb(162,162,162); }
-	
-	.left ul li:first-child a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.detail { 
-		width:100%; height:350px; 
-		margin-top:20px;
-	}
-	.img { 
-		border:1px solid lightgray; 
-		display:inline-block;
-		width:200px; height:300px;
-		float:left;
-		margin-left:85px;
-	}
-	.text {
-		display:inline-block;
-		width:600px;
-		margin-left:30px;
-		float:left;
-		text-align:left;
-		margin-bottom:20px;
-	 }
-	 .book_title { border-bottom:1px solid; font-size:23px; text-align:left; margin-top:20px; }
-	 .book_heart { display:inline-block; float:right; }
-	.book_star { margin-bottom:5px; }
-	.book_text { color:gray; margin-bottom:20px; }
-	
-	.rental { 
-		background-color:#4fa9de; color:white; 
-		text-decoration:none;
-		padding:10px 20px;
-		border-radius:4px;
-		cursor:pointer;
-	}
-	.text button { 
-		float:right; 
-		border:1px solid lightgray;
-		background-color:white;
-		width:80px; 	height:80px;
-		margin-top:-10px;
-		border-radius:20px;
-		color:lightgray;
-	}
-	.text button>img { width:25%; height:25%; }
-	
-	.review { 
-		display:inline-block;
-		width:900px;
-	}
-	.review>p { font-weight:bold; font-size:23px; text-align:left; margin-left:10px; }
-	.review>p>button { 
-		font-size:14px; 
-		background-color:rgb(30,179,136); 
-		border:none; 
-		color:white; 
-		float:right; 
-		border-radius:4px; 
-	}
-	.review_box { width:100%; height:200px;  display:inline-block; border-top:1px solid; }
-	.review_text { 
-		width:100%; 
-		display:inline-block; 
-		border-bottom:1px solid lightgray; 
-		text-align:left;
-		padding:10px 20px;
-	 }
-	.review_text p:first-child { color:gray; }
-	.review_text strong { color:black; }	
-	.form-select { color:rgb(255,210,3); display:inline-block; width:130px; }
-	.form-control { display:inline-block; width:700px; }
-	.write, .update { 
-		display:inline-block; 
-		background-color:#4fa9de; color:white; 
-		text-decoration:none;
-		padding:5px 10px;
-		border-radius:4px;
-		cursor:pointer;
-		margin-left:5px;
-		border:none;
-	}
-	.con>div { width:750px; }
-	
-	.book_star>p { float:left; }
-	.star-rating { width:100px; float:left; margin-top:5px; margin-right:5px; }
-	.star-rating,.star-rating span { display:inline-block; height:18px; overflow:hidden; background:url("http://localhost:9000/mybook/images/re_star.png")no-repeat; }
-	.star-rating span{ background-position:left bottom; line-height:0; vertical-align:top; }
-	
-	.review_text a { text-decoration:none; color:lightgray; cursor:pointer; }
-	.review_text a:hover { text-decoration:underline; }
-</style>
 </head>
 <script>
-	$(document).ready(function() {		
+	$(document).ready(function() {			
+		
+		
 		$(".review_btn").click(function() {
-			if ("${session_id}" == "") {
-				location.replace("login.do");
-			} else if (${r_result}) {
+			if ("${session_id}" == "") { //세션에 저장된 아이디가 있는지 확인 (로그인 여부)
+				location.replace("login.do"); //없을경우 로그인 페이지로 이동
+			} else if (${r_result}) { 
+				//페이지 로드 할 때 로그인한 회원의 해당 도서 대여 여부를 가져옴
+				//도서대여를 한적이 없다면 (true이면)
 				$("#modal").fadeIn(300);
-				$(".modal1").fadeIn(300);
+				$(".modal1").fadeIn(300); //후기 작성할 수 있는 모달창 띄우기
 			} else {
 				alert("대여하신 도서만 후기를 작성하실 수 있습니다");
 			}
@@ -129,14 +41,16 @@
 			  $(".modal-con").fadeOut(300);
 		});
 		
-		$(".heart").click(function() {
+		$(".heart").click(function() { //좋아요 버튼 클릭 시
 			var bid = "${vo.bid}";
-			if ("${session_id}" == "") {
+			if ("${session_id}" == "") { //로그인 하지 않았을 경우 login 페이지로 이동
 				location.replace("login.do");
-			} else if (${h_result}) {
+			} else if (${h_result}) { 
+				//페이지 로드 할 때 로그인한 회원의 좋아요 버튼 클릭 여부를 받아옴
+				//좋아요가 클릭되어있으면 (true이면)
 				$.ajax({
 	                type: "post",
-	                url: "heart_minus.do",
+	                url: "heart_minus.do", //좋아요 해제
 	                data:{bid:bid},
 	                dataType: 'json',
 	                success: function (result) {
@@ -144,9 +58,10 @@
 	                },
 	            });
 			} else {
+				//좋아요가 클릭되어있지 않으면 (false이면)
 				$.ajax({
 	                type: "post",
-	                url: "heart_plus.do",
+	                url: "heart_plus.do", //좋아요 추가
 	                data:{bid:bid},
 	                dataType: 'json',
 	                success: function (result) {
@@ -163,14 +78,14 @@
 			}
 		});
 		
-		$(".write").click(function() {
-			if ($("#content").val() == "") {
+		$(".write").click(function() { //후기등록 버튼클릭 시
+			if ($("#content").val() == "") { 
 				alert("내용을 입력해주세요");
 				$("#content").focus();
 			} else {
-				var content=$("#content").val();
-				var star = $("#star").val();
-				var bid = "${vo.bid}";
+				var content=$("#content").val(); //내용
+				var star = $("#star").val(); //별점
+				var bid = "${vo.bid}"; //해당 도서의 시퀀스 값
 				$.ajax({
 	                type: "post",
 	                url: "review_upload.do",
@@ -186,14 +101,14 @@
 			}
 		});
 		
-		$(".update").click(function() {
+		$(".update").click(function() { //수정버튼 클릭 시
 			if ($("#rcontent").val() == "") {
 				alert("내용을 입력해주세요");
 				$("#rcontent").focus();
 			} else {
-				var content=$("#rcontent").val();
-				var star = $("#rstar").val();
-				var bid = "${rvo.bid}";
+				var content=$("#rcontent").val(); //수정 내용
+				var star = $("#rstar").val(); //수정 별점
+				var bid = "${rvo.bid}"; //해당 도서의 시퀀스 값
 				$.ajax({
 	                type: "post",
 	                url: "review_update.do",
@@ -209,10 +124,11 @@
 			}
 		});
 		
+		
 		$(".delete_btn").click(function() {
 			 var con_test = confirm("작성하신 후기를 삭제하시겠습니까?"); 
 	        	if(con_test == true){   		
-	        		var rid = $(this).attr("id");
+	        		var rid = $(this).attr("id"); //해당 후기의 시퀀스 값
 					$.ajax({
 		                type: "post",
 		                url: "review_delete.do",
@@ -227,6 +143,9 @@
 		            });
 				}
 		});
+		
+		
+		
 	});
 </script>
 <body>

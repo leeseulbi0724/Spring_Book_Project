@@ -64,5 +64,13 @@ public class RequestDAO {
 	public String getRequestNameResult(String name) {
 		return sqlSession.selectOne(namespace+".request_name", name);
 	}
+	
+	public int getRequestUpdate(RequestVO vo) {
+		return sqlSession.update(namespace+".request_update", vo);
+	}
+	
+	public int getRequestDelete(String rid) {
+		return sqlSession.delete(namespace+".request_delete", rid);
+	}
 
 }

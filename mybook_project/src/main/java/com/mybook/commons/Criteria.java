@@ -1,19 +1,16 @@
 package com.mybook.commons;
 
-public class Criteria {
-    
-    private int page;
-    private int perPageNum;
+public class Criteria {    
+    private int page; //페이지번호
+    private int perPageNum; //1페이지 당 보여줄 페이지 갯수
     
     public int getPageStart() {
         return (this.page-1)*perPageNum;
-    }
-    
+    }    
     public Criteria() {
         this.page = 1;
         this.perPageNum = 10;
-    }
-    
+    }    
     public int getPage() {
         return page;
     }
@@ -34,7 +31,6 @@ public class Criteria {
         } else {
             this.perPageNum = pageCount;
         }
-    }
-    
+    }    
 }
 

@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.two { border-bottom:2px solid rgb(43,129,199); }	
+	.one, .three, .four { border-bottom:2px solid lightgray; }
+	
+	.content { 
+		background-color:rgb(248,249,251); 
+		width:100%;
+		margin-bottom:-100px; 
+		border-top:1px solid lightgray;
+		text-align:center;
+	}
+	
+	#update, #cancle { margin:5px; padding:2px 10px; }
+	#update { background-color:#4fa9de; color:white; }
+	#update:hover { background-color:rgb(23,86,123); }
+	
+	.center { display:inline-block; width:800px; margin:50px 0; }
+	
+	.table { background-color:white; width:800px; }
+	.table th { font-weight:normal; text-align:left; border-top:1px solid lightgray; border-bottom:1px solid lightgray; }
+	.table th:first-child {
+		 font-weight:normal; 
+		 width:100px; 
+		 margin-bottom:10px; 		 
+		 background-color:rgb(247,248,249); 
+		 vertical-align:middle;		 
+	}
+	.table th a, .table th button { padding:1px 10px; font-size:14px; }
+	.form-control { width:200px; height:30px; font-size:14px; }
+	.table tr:nth-child(5) .form-select, .table tr:nth-child(6) .form-select  { width:100px; height:30px; display:inline-block; padding:0 5px; font-size:14px;  }
+	.table tr:nth-child(5) .form-control, .table tr:nth-child(6) .form-control { width:100px;  display:inline-block; }
+	.table tr:nth-child(7) button { margin-top:10px; }

@@ -14,54 +14,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <link href="http://localhost:9000/mybook/css/commons.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/board/board.css" rel="stylesheet" >
 <title>자유 게시판 | 라온 도서관</title>
-<style>
-	.com { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
-	.home, .book {	color:rgb(162,162,162); }
-	
-	.left ul li:nth-child(2) a { color:rgb(43,129,199); font-weight:bold; }
-	
-	.center { display:inline-block; width:1000px; height:500px; }
-	.title { height:100px; border-bottom:1px solid lightgray;}
-	.title h3 {
-		font-size:30px; 
-		font-weight:bold; 
-		float:left;
-		margin:30px 15px;
-	}
-	.title img { float:right; }	
-	
-	.search { margin:10px 0; text-align:right; }
-	.search p { float:left; }
-	.search span { color:rgb(170,93,11); }
-	.form-select { 
-		width:100px; height:30px;
-		 display:inline-block; 
-		 border-radius:10px; 
-		 padding:0 10px; margin:0;
-		 font-size:14px;
-	}
-	.form-control {
-		width:200px; height:30px;
-		display:inline-block; font-size:14px;
-	}
-	.btn_search, .btn_write { font-size:14px; padding:2px 5px; }
-	.write { background-color:rgb(109,171,239); color:white; float:left; }
-	
-	.table tr:first-child th { background-color:rgb(248,248,248); border-top:1px solid lightgray; border-bottom:1px solid lightgray; }
-	.table tr:first-child th:nth-child(2) { width:600px; }
-	.table td:nth-child(2) { text-align:left; }
-	.table tr { border-top:1px solid rgb(238,238,238); }
-	.table td>a { text-decoration:none; color:black; }
-	.table td>a:hover { color:rgb(10,88,202); }
-	
-	.button>div { display:inline-block; }
-	.page-item { background-color:white; }
-	.pagination > .active > a.page-link, .pagination > .active > a:hover {  background-color:rgb(109,171,239); border:1px solid rgb(109,171,239); }
-	
-	a>span { color:rgb(245,135,140); }
-	.new { margin-left:5px; }
-</style>
 </head>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>

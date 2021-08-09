@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+	.book { color:rgb(43,129,199); border-bottom:5px solid rgb(43,129,199); }
+	.home, .com  {	color:rgb(162,162,162); }
+	.left ul li:first-child a { color:rgb(43,129,199); font-weight:bold; }
+	
+	.search {  text-align:left; margin-top:20px; }
+	.search input { display:inline-block; width:500px; height:30px; font-size:14px; }
+	.search button { background-color:rgb(43,129,199); color:white; border:none; }
+	
+	.booklist { margin-top:20px; width:100%; height:400px; }
+	.book_div { border:1px solid lightgray; width:150px; height:210px; margin:5px; display:inline-block; background-size:95%; }
+	
+	 .book_div>div { 
+	 	width:150px; height:210px;
+	 	position:absolute; display:none; 
+	 	background-color: rgba( 0,0,0, 0.5 );
+	 	text-align:center;
+	 }
+	 .book_div>div>p {	color:white; }
+	 .book_div>div>p:first-child { margin-top:20px; }
+	 .book_div>div>p:nth-child(2) { margin-bottom:20px; }
+	  .book_div>div>div { position:absolute; bottom:0px; margin-bottom:20px; }
+	 .book_div>div>div>a {
+	 	text-decoration:none;	 	
+	 	padding:2px 5px;
+	 	border-radius:4px;	 
+	 }
+	  .book_div>div>div>a:first-child { margin-left:15px; }
+	 .rental { background-color:#4fa9de; color:white; cursor:pointer; }
+	 .detail { background-color:rgb(245,245,245); color:black; }
+	 
+	 .button { text-align:center; }
+	 #more_btn {
+		width:65px;
+		background-color:white;
+		border:2px solid lightgray;
+		border-radius:50px;
+		padding:10px;
+		color:lightgray;
+		font-size:15px;
+		text-align:center;
+		margin-top:50px;
+		cursor:pointer;
+		display:inline-block;
+	}
+	 #more_btn:hover {
+		border:2px solid #4fa9de;
+		color:#4fa9de;
+	}
+	button#more_btn>img { width:18px; }
+	button#more_btn>img:last-child { display:none; }
+	button#more_btn:hover img:first-child {	display:none; }
+	button#more_btn:hover img:last-child { display:inline-block; }
+	
+	.more_div { display:none; }

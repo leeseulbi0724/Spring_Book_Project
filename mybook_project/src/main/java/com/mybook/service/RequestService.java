@@ -16,5 +16,7 @@ public interface RequestService {
 	ArrayList<RequestVO> getRequestSearchList(String search, Criteria cri);
 	boolean getRequestBell(RequestVO vo);
 	String getRequestNameResult(String name);
+	boolean getRequestUpdate(RequestVO vo);
+	boolean getRequestDelete(String rid);
 
 }

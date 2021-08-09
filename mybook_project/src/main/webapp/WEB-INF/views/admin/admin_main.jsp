@@ -26,7 +26,7 @@
 	.top { width:1319.2px; height:45px; float:left; background-color:white; }
 	.top>ul { list-style:none; padding:0; margin:0; }
 	.top>ul>li { display:inline-block; padding:10px; font-size:14px; }
-	.top>ul>li.user:hover, .notice:hover, .board:hover, .request:hover, .book:hover { border-bottom:4px solid rgb(76,127,242); }	
+	.top>ul>li.user:hover, .notice:hover, .board:hover, .request:hover, .book:hover, .room:hover { border-bottom:4px solid rgb(76,127,242); }	
 	.top a { text-decoration:none; color:black; }
 	.logout { float:right; }
 	.logout a { font-size:12px; height:30px; color: #0d6efd; }
