@@ -51,8 +51,8 @@ public class RoomDAO {
 		return sqlSession.delete(namespace+".room_delete");
 	}
 	
-	public int getRoomDeleteResult() {
-		return sqlSession.update(namespace+".room_delete_result");
+	public int getRoomResetResult() {
+		return sqlSession.update(namespace+".room_reset_result");
 	}
 	
 	public int getRoomNoResult(String num) {

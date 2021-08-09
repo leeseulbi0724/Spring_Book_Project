@@ -10,12 +10,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <link href="http://localhost:9000/mybook/css/index/index.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
-<<!-- script src="http://localhost:9000/mybook/js/index/index.js" ></script>  -->
+<!-- script src="http://localhost:9000/mybook/js/index/index.js" ></script>  -->
 <title>라온 도서관</title>
 </head>
 <script>
-
-
 $(document).ready(function() {
 	$(".search_btn").click(function() {
 		if ($("#search").val() == "") {

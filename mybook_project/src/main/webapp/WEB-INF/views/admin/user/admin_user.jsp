@@ -38,6 +38,10 @@
 </head>
 <script>
  $(document).ready(function() {
+	 
+	 
+	 
+	 
 	 $("button[id=request]").click(function() {
 	    	var id = $(this).attr("name");   
 	    	var con_test = confirm("회원탈퇴 처리를 하시겠습니까?"); 
@@ -54,6 +58,8 @@
 	        });
 	 	}
  	});	 
+	 
+	 
 		
  })
 </script>

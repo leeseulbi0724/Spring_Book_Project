@@ -76,8 +76,8 @@ public class RoomServiceImpl implements RoomService {
 		return result;
 	}
 	
-	public boolean getRoomDeleteResult() {
-		int val = roomDAO.getRoomDeleteResult();
+	public boolean getRoomResetResult() {
+		int val = roomDAO.getRoomResetResult();
 		boolean result = false;
 		if (val!=0) {
 			result = true;

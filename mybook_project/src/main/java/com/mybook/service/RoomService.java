@@ -14,7 +14,7 @@ public interface RoomService {
 	boolean getRoomCancle(String id);
 	boolean getRoomUpdate2(String number);
 	boolean getRoomDelete ();
-	boolean getRoomDeleteResult();
+	boolean getRoomResetResult();
 	boolean getRoomNoResult(String num);
 	boolean getRoomYesResult(String num);
 	boolean getRoomIngResult();

@@ -16,11 +16,11 @@ public class MessageServiceImpl implements MessageService  {
 	@Override
 	public void sendMessage(String toNumber, String randomNumber) {
 
-		Message coolsms = new Message("NCSJFUCQAI1QH5BO", "B1ME5UNO5EAUDZZNB8RYVDUAQKNIXZQE");
+		Message coolsms = new Message("NCSNYJECEK4RWB6S", "5T0THPO5CVLM3UQIAQGJD0YIS40YFVAW");
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", toNumber); //문자받을 휴대폰번호
-		params.put("from", "01093692489");
+		params.put("from", "01041499765");
 		params.put("type", "SMS");
 		params.put("text", "[Laon] 인증번호 "+randomNumber+" 를 입력하세요.");
 		params.put("app_version", "test app 1.2"); // application name and version

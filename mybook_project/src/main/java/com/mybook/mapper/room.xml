@@ -41,18 +41,26 @@
 		update mybook_room_list set status=0 where seat_number=#{seat_number}
 	</update>
 	
+	
+	
+	<!-- room data 지우기 -->
 	<delete id="room_delete">
 		delete from mybook_room
 	</delete>
 	
-	<update id="room_delete_result">
+	<!-- 모든 사용좌석 status = 1 (사용중인좌석)을 0으로 변경 -->
+	<update id="room_reset_result">
 		update mybook_room_list set status=0 where status=1
 	</update>
 	
+	
+	
+	<!-- 사용불가 좌석은 status를 2로 설정 -->
 	<update id="room_no_result" parameterType="java.lang.String">
 		update mybook_room_list set status=2 where seat_number=#{num}
-	</update>
+	</update>	
 	
+	<!-- 사용불가 좌석 해제 / 사용가능 좌석은 status 0 -->
 	<update id="room_yes_result" parameterType="java.lang.String">
 		update mybook_room_list set status=0 where seat_number=#{num}
 	</update>

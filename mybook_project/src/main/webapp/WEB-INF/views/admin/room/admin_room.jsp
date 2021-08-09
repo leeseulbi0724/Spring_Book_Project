@@ -48,7 +48,7 @@
 		
 		
 		$("#reset").click(function() {
-			if (${result}) {
+			if (${result}) { //사용중인 좌석이 있는 없는지 페이지 로드 전에 미리 받아옴
 				alert("현재 사용중인 좌석이 없습니다");
 			} else {
 				var con_test = confirm("전체 좌석을 사용 해제하시겠습니까?"); 
@@ -67,11 +67,11 @@
 			}
 		});
 		
-		$("#write_no").click(function() {
+		$("#write_no").click(function() { //사용불가 좌석 등록하기
 			if ($("button[id=click]").length == 0) {
 				alert("좌석을 선택해주세요");
 			} else {
-				var number = $("button[id=click]").text();
+				var number = $("button[id=click]").text(); //좌석번호
 				var con_test = confirm("선택한 좌석을 변경하시겠습니까?"); 
 	        	if(con_test == true){   
 					 $.ajax({
@@ -89,8 +89,11 @@
 			}
 		});
 		
-		$(".x").click(function() {
-			var number = $(this).attr("name");
+		
+		
+		
+		$(".x").click(function() { //사용불가 좌석 해제 하기
+			var number = $(this).attr("name"); //좌석번호
 			var con_test = confirm("선택한 좌석을 사용좌석으로 변경하시겠습니까?"); 
         	if(con_test == true){   
 				 $.ajax({
@@ -104,7 +107,7 @@
 		                },
 	
 		           });	        		
-        	}
+        		}
 		});
 		
 	});

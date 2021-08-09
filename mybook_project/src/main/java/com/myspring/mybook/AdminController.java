@@ -500,6 +500,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	
 	/**
 	 * 반납 알림 DB
 	 */
@@ -509,10 +510,13 @@ public class AdminController {
 		String bid = request.getParameter("bid");
 		String id = request.getParameter("id");	
 		
-		boolean result = BookService.getRentalBell(id, bid);
+		boolean result = BookService.getRentalBell(id, bid); //알림테이블에 저장
 		
 		return result;
 	}
+	
+	
+	
 	
 	/**
 	 * 관리자 희망도서 관리
@@ -695,13 +699,14 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="/admin_room_reset.do", method=RequestMethod.GET)
 	public boolean admin_room_reset() {
-		boolean result = RoomService.getRoomDelete();
+		boolean result = RoomService.getRoomDelete(); //룸 테이블에서 정보 모두 delete
 		if (result) {
-			result = RoomService.getRoomDeleteResult();
+			result = RoomService.getRoomResetResult();
 		}
 		
 		return result;
 	}
+	
 	
 	/**
 	 * 열람실좌석 사용불가 DB

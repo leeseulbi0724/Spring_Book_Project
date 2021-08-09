@@ -62,19 +62,22 @@
 				$.ajax({
 					method:"GET",
 					url:"https://dapi.kakao.com/v3/search/book?target=title",
-					data:{query:$("#bname").val() },
+					data:{query:$("#bname").val() }, //도서명
 					headers:{Authorization:"KakaoAK 18270a8d7ab06d0e6f58f0a0a1a28cc0"},				
 					success : function(msg) {
-						var date = msg.documents[0].datetime.split("T");
-						$("#bdate").val(date[0]);
-						$("#bcontent").val(msg.documents[0].contents);
-						$(".img").append("<a href='"+msg.documents[0].thumbnail+"' target='_blank'>파일 다운로드</a>");
+						var date = msg.documents[0].datetime.split("T"); //출판일을 T를 기준으로 잘라서 앞글자만 가져옴
+						$("#bdate").val(date[0]); //출판일 저장
+						$("#bcontent").val(msg.documents[0].contents); //설명 저장
+						//사진 입력을 위한 다운로드로 미리보기 창을 열어 직접 이미지를 다운로드 할 수 있음
+						$(".img").append("<a href='"+msg.documents[0].thumbnail+"' target='_blank'>파일 다운로드</a>");						
 						$("#bfile").val(msg.documents[0].thumbnail);
 					}
 				})
 			
 		});
 	});
+	
+	
 </script>
 <body>
 <jsp:include page="../admin_main.jsp"></jsp:include>

@@ -68,7 +68,7 @@ $(document).ready(function() {
 			<button class="close">닫기</button>
 		</c:if>
 		<c:if test="${not empty id }">
-			<span>회원님의 아이디는 <strong>tmfql4428</strong> 입니다</span><br>
+			<span>회원님의 아이디는 <strong>${id }</strong> 입니다</span><br>
 			<button class="close">닫기</button>
 		</c:if>
 	</div>

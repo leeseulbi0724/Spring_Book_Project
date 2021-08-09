@@ -101,13 +101,14 @@ public class LoginController {
      * 아이디, 비밀번호 찾기 - 성공페이지
      */
     @RequestMapping(value = "/find_success.do", method = RequestMethod.GET)
-    public ModelAndView find_success(String type) {
+    public ModelAndView find_success(String type, String id) {
    	
 	   	ModelAndView mv = new ModelAndView();
 	   	
 	   	mv.setViewName("login/find_success");
 	   	mv.addObject("type", type);
-   	
+	   	mv.addObject("id", id);
+	   	
 		return mv;
 	}
     
@@ -138,11 +139,14 @@ public class LoginController {
 	  * 로그아웃 세션 종료
 	  */
 	 @RequestMapping(value = "/logout.do", method=RequestMethod.GET)
-	 public String logout(HttpServletRequest request) {
+	 public ModelAndView logout(HttpServletRequest request) {
+		 ModelAndView mv = new ModelAndView();
 		 HttpSession session = request.getSession();
 	     session.invalidate();
+	     
+	     mv.setViewName("redirect:/index.do");
 
-	     return "index";
+	     return mv;
 
 	 }
 	 

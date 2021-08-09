@@ -51,9 +51,11 @@
 </head>
 <script>
 	$(document).ready(function() {
+		
+		
 		$(".bell").click(function() {
-			var id = $(this).attr("name");
-			var bid = $(this).attr("id");
+			var id = $(this).attr("name"); //회원 아이디
+			var bid = $(this).attr("id"); //해당 도서 시퀀스
 			var con_test = confirm("반납 알림메세지를 보내겠습니까?"); 
         	if(con_test == true){   
 				 $.ajax({
@@ -71,6 +73,9 @@
 		            });	        		
         	}
 		});
+		
+		
+		
 	});
 </script>
 <body>

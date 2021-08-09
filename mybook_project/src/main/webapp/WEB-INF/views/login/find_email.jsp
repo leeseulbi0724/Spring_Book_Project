@@ -125,7 +125,7 @@
 					</li>
 					<li>
 						<label>주민등록번호</label>
-						<input type="text" placeholder="●●●●●●" class="form-control first" id="first" name="birth"> - <input type="text" placeholder="●" class="form-control last" id="last">●●●●●●
+						<input type="text" placeholder="●●●●●●" class="form-control first" id="first" name="birth"> - <input type="password" placeholder="●" class="form-control last" id="last">●●●●●●
 					</li>
 					<li>
 						<label>이메일</label>
@@ -161,7 +161,7 @@
 					</li>
 					<li>
 						<label>주민등록번호</label>
-						<input type="text" placeholder="●●●●●●" class="form-control first" id="first" name="birth"> - <input type="text" placeholder="●" class="form-control last" id="last">●●●●●●
+						<input type="text" placeholder="●●●●●●" class="form-control first" id="first" name="birth"> - <input type="password" placeholder="●" class="form-control last" id="last">●●●●●●
 					</li>
 					<li>
 						<label>이메일</label>
