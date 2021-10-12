@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.board { border-bottom:4px solid rgb(76,127,242); }
+	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
+	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
+	.center>p { float:right; margin-top:-35px; margin-right:20px; }
+	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
+	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }	
+	
+	.table { margin-top:30px; }
+	.table tr { border-bottom:1px solid lightgray; }
+	.button tr { border-top:1px solid lightgray; }
+	.table th { font-weight:normal; text-align:left; padding-left:15px; }
+	.table tr:first-child td, .button th:first-child { background-color:rgb(248,248,248); }
+	.table th:first-child { width:100px; }
+	.table td>textarea { width:100%; background-color:white; border:none; height:150px; }
+	
+	.comment { 
+		width:100%; height:200px; 
+		padding:10px 0; 
+		overflow:auto;
+		overflow-x:hidden;
+		border:1px solid lightgray;
+	}
+	.comment>textarea { border:1px solid lightgray; margin-top:30px; width:900px; display:inline-block; }
+	.comment>div.comment_div { border-bottom:1px solid lightgray; padding:10px 20px; }
+	
+	#file { margin-right:5px; color:black; text-decoration:none; font-size:14px; }
+	p>a { text-decoration:none; margin-left:5px; cursor:pointer; }
+	#delete { float:right; margin-top:10px; margin-right:10px; }
+	#list { margin-top:10px; margin-left:10px; }

@@ -10,31 +10,7 @@
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
-<style>
-	.user { border-bottom:4px solid rgb(76,127,242); }
-	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
-	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
-	.center p { float:right; margin-top:-35px; margin-right:20px; }
-	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }
-	
-	.search { float:right; margin:10px; }
-	#s_select { width:100px; display:inline-block; font-size:12px; border-radius:15px; }
-	#search_input {
-  		width:200px; display:inline-block; font-size:12px; border-radius:15px;
-	}
-	
-	tbody td:first-child { width:250px; }
-	tbody td:nth-child(2) { width:100px; }
-	tbody td { text-align:center; }
-	
-	.table { text-align:center; font-size:14px; }	
-	#request { margin:0; padding:0; font-size:13px; padding:0 10px; }
-	.button { text-align:center; margin-top:-80px; }
-	.button>div { display:inline-block; }
-	
-	#search_btn { padding:3px 10px; font-size:13px; }
-</style>
+<link href="http://localhost:9000/mybook/css/admin/user/admin_user.css" rel="stylesheet" >
 </head>
 <script>
  $(document).ready(function() {

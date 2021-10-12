@@ -11,45 +11,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
+<link href="http://localhost:9000/mybook/css/admin/book/admin_book_search.css" rel="stylesheet" >
 <title>도서 찾기 | 라온 도서관</title>
-<style>	
-	#contents { text-align:center; }
-	#contents>p {
-		font-weight:bold;
-		font-size:20px;	
-		margin-top:20px;
-	}
-	.form-control {
-		display:inline-block; width:300px; 
-		height:30px; font-size:14px;
-	}
-	.search {
-		margin-top:20px; padding:3px10px;
-		background-color:rgb(109,171,239); color:white;
-		border:1px solid lightgray; border-radius:4px;
-	}
-	.box { border-bottom:1px solid lightgray; display:inline-block; padding-bottom:10px; }
-	.img, .text { 		
-		display:inline-block; 
-		float:left; margin-top:20px;
-	}
-	.img { margin-left:75px; border:1px solid lightgray; }
-	.text { 
-		margin-left:10px; 
-		width:220px; 
-		text-align:left; 
-		margin-right:50px; 
-		font-size:13px; 
-	}
-	.text>p { margin:10px; }
-	.div button {
-		background-color:rgb(43,129,199); 
-		color:white;
-		margin-left:10px;
-		border:none;
-		border-radius:4px;
-	}
-</style>
 </head>
 <script>
 	$(document).ready(function() {

@@ -9,32 +9,7 @@
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
-<style>	
-	body { font-family:LG PC; }
-	.left {
-		background-color:rgb(65,66,70);
-		width:200px; height:750px;
-		text-align:center; font-size:13px; 
-		display:inline-block; float:left;
-	}
-	.left>ul { list-style:none; padding:0; margin:0; color:white; }
-	.logo { padding:10px 0; font-size:14px; font-weight:bold; }
-	.main { background-color:rgb(84,85,89);  padding:5px 0; }
-	.main a { text-decoration:none; color:white; }
-	.main a:hover { text-decoration:underline; color:white; }
-	
-	.top { width:1319.2px; height:45px; float:left; background-color:white; }
-	.top>ul { list-style:none; padding:0; margin:0; }
-	.top>ul>li { display:inline-block; padding:10px; font-size:14px; }
-	.top>ul>li.user:hover, .notice:hover, .board:hover, .request:hover, .book:hover, .room:hover { border-bottom:4px solid rgb(76,127,242); }	
-	.top a { text-decoration:none; color:black; }
-	.logout { float:right; }
-	.logout a { font-size:12px; height:30px; color: #0d6efd; }
-		
-	.center { width:1319.2px; height:705px; background-color:rgb(234,238,241); float:left; }	
-	
-	.modal { background-color : rgba(0,0,0, .7); }
-</style>
+<link href="http://localhost:9000/mybook/css/admin/admin_main.css" rel="stylesheet" >
 <script>
 	$(document).ready(function() {	
 		$("#ok").click(function() {

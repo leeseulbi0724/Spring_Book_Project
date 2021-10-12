@@ -8,34 +8,7 @@
 <title>공지사항 | Admin</title>
 <link rel="shortcut icon" type="image⁄x-icon" href="http://localhost:9000/mybook/images/icon.png">
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
-<style>
-	.notice { border-bottom:4px solid rgb(76,127,242); }
-	.center { width:1319.2px; height:705px; float:left; background-color:rgb(234,238,241);  }
-	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
-	.center p { float:right; margin-top:-35px; margin-right:20px; }
-	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.write_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
-	#list { float:left; margin-top:10px; }
-	#write, #reset { float:right; margin:10px 3px; font-size:12px; }
-	
-	.form-control { width:1000px; display:inline-block; }
-	#title, #nfile { font-size:14px; }
-	#select { width:100px; display:inline-block; float:left; font-size:14px; }
-	#content { height:300px; font-size:14px;  }
-	
-	div.box { display:inline-block; margin-top:30px; text-align:center; display:inline-block; width:1000px; }
-	
-	
-	.file { 
-		background-color:white; 
-		width:500px;
-		position:absolute;
-		margin-top:-25px;
-		text-align:left;
-		margin-left:75px;
-		font-size:13px;
-	}
-</style>
+<link href="http://localhost:9000/mybook/css/admin/notice/admin_notice_update.css" rel="stylesheet" >
 <script>
 $(document).ready(function() {
 	$("#write").click(function() {

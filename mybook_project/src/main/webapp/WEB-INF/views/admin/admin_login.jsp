@@ -9,28 +9,8 @@
 <link rel="shortcut icon" type="image⁄x-icon" href="http://localhost:9000/mybook/images/icon.png">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/admin/admin_login.css" rel="stylesheet" >
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js"></script>
-<style>
-	body { font-family:LG PC; }
-	 section { margin-top:180px; text-align:center; }
-	.background {
-		background-color:rgb(44,44,44);
-		width:100%;
-		height:350px; 		
-	 }
-	 section p { font-weight:bold; font-size:30px; display:inline-block; line-height:30px; }
-	 section img { margin-bottom:10px; }
-	 
-	 .background ul:first-child { text-align:center; padding-top:100px; display:inline-block; }
-	 .background input { width:60%; display:inline-block; height:30px;  }
-	 .background label { color:white; width:30%; text-align:left; margin:5px; }
-	 
-	  #login { width:250px; font-size:13px; height:30px;  }
-	  #main { font-size:13px; margin:80px 0 0 300px; }
-	  
-	  ul li { list-style:none; }
-	
-</style>
 <script>
 	$(document).ready(function() {
 		$("#login").click(function() {

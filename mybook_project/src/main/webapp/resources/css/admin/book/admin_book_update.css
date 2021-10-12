@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+	.book { border-bottom:4px solid rgb(76,127,242); }
+	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
+	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
+	.center p { float:right; margin-top:-35px; margin-right:20px; }
+	.center  a, .center span { font-size:12px; font-weight:normal; float:left; }
+	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
+	div.box { display:inline-block; margin-top:30px; text-align:center; display:inline-block; width:1000px; }
+	.table { margin-top:20px; font-size:14px; }
+	.table tr { border-bottom:1px solid lightgray; }
+	.table th { font-weight:normal; text-align:left; padding-left:15px; }
+	.table th:first-child { width:100px; background-color:rgb(248,248,248); vertical-align:middle; }
+	.table td>textarea { width:100%; background-color:white; border:none; height:100px; }
+	input[type=text] { height:30px; display:inline-block; }
+	input[type=file] { height:35px; }
+	
+	#write, #reset { float:right; margin:10px 3px; font-size:12px; }
+	#list { float:left; margin-top:10px; }
+	
+	.file { background-color:white; position:absolute; margin-top:-27px; margin-left:90px; width:500px; }

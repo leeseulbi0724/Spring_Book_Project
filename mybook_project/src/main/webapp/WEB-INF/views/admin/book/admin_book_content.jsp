@@ -10,67 +10,9 @@
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+<link href="http://localhost:9000/mybook/css/admin/book/admin_book_content.css" rel="stylesheet" >
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<style>
-	.book { border-bottom:4px solid rgb(76,127,242); }
-	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
-	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
-	.center>p { float:right; margin-top:-35px; margin-right:20px; }
-	.center>p>a, .center>p>span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
-	div.box { display:inline-block; margin-top:30px; text-align:center; width:1100px; margin-left:100px; }
-
-	.detail { 
-		width:900px; height:350px; 
-		margin-top:70px; margin-left:-130px;
-		display:inline-block; float:left;
-	}
-	.img { 
-		border:1px solid lightgray; 
-		display:inline-block;
-		width:200px; height:300px;
-		float:left;
-		margin-left:50px;
-	}
-	.text {
-		display:inline-block;
-		width:600px;
-		margin-left:30px;
-		float:left;
-		text-align:left;
-		margin-bottom:20px;
-	 }
-	 .book_title { border-bottom:1px solid; font-size:23px; text-align:left; margin-top:20px; }
-	 .book_heart { display:inline-block; float:right; }
-	.book_star { margin-bottom:5px; }
-	.book_text { color:gray; margin-bottom:20px; }
-	
-	.book_star>p { float:left; }
-	.star-rating { width:100px; float:left; margin-top:5px; margin-right:5px; }
-	.star-rating,.star-rating span { display:inline-block; height:18px; overflow:hidden; background:url("http://localhost:9000/mybook/images/re_star.png")no-repeat; }
-	.star-rating span{ background-position:left bottom; line-height:0; vertical-align:top; }
-	
-	#rental { margin:10px 0 10px 10px; font-size:12px; font-weight:normal; }
-	
-	.review { 
-		border:1px solid lightgray; 
-		display:inline-block; 
-		width:300px; height:300px; 
-		margin-top:70px; 
-		overflow:auto;
-		overflow-x:hidden; 
-	}	
-	.review_text { 
-		width:100%;
-		display:inline-block; 
-		border-bottom:1px solid lightgray; 
-		text-align:left;
-		padding:10px 20px;
-	 }
-	.review_text p:first-child { color:gray; }
-	.review_text strong { color:black; }	
-</style>
 </head>
 <body>
 <jsp:include page="../admin_main.jsp"></jsp:include>

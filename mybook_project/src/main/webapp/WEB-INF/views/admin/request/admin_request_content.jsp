@@ -11,26 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<style>
-	.request { border-bottom:4px solid rgb(76,127,242); }
-	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
-	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
-	.center p { float:right; margin-top:-35px; margin-right:20px; }
-	.center  p a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
-	div.box { display:inline-block; margin-top:30px; text-align:center; display:inline-block; width:1000px; }
-	.table { margin-top:20px; font-size:14px; }
-	.table tr { border-bottom:1px solid lightgray; }
-	.table th { font-weight:normal; text-align:left; padding-left:15px; }
-	.table th:first-child { width:100px; background-color:rgb(248,248,248); vertical-align:middle; }
-	.table td>textarea { width:100%; background-color:white; border:none; height:100px; }
-	input[type=text] { height:30px; display:inline-block; }
-	input[type=file] { height:35px; }
-	
-	#search { float:right; margin:5px 3px; font-size:12px; }
-	#write  { float:right; margin:10px 3px; font-size:12px; }
-	#list { float:left; margin-top:10px; }
-</style>
+<link href="http://localhost:9000/mybook/css/admin/request/admin_request_content.css" rel="stylesheet">
 </head>
 <script>
 	$(document).ready(function() {		

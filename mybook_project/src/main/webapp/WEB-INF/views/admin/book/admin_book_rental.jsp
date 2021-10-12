@@ -15,39 +15,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<style>
-	.book { border-bottom:4px solid rgb(76,127,242); }
-	.center { width:1319.2px; height:705px; float:left;  background-color:rgb(234,238,241); }
-	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
-	.center>p { float:right; margin-top:-35px; margin-right:20px; }
-	.center>p>a, .center>p>span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; text-align:center; }
-
-	.search { float:right; margin:10px; }
-	#s_select { width:100px; display:inline-block; font-size:12px; border-radius:15px; }
-	#search {
-		background-image : url('http://localhost:9000/homeproject/images/search.png'); 
-  		background-repeat:no-repeat;
-  		background-size: 20px;
-  		background-position:right;
-  		width:200px; display:inline-block; font-size:12px; border-radius:15px;
-	}
-	.table { text-align:center; font-size:14px; }	
-	table th:first-child { width:200px; }
-	table th:nth-child(2) { wdith:400px; }
-	table th:nth-child(3) { width:400px; }
-	table th:nth-child(4) { width:200px; }
-	table th:nth-child(5) { width:100px; }
-	table td { vertical-align:middle; }
-	table td>button.bell { margin:0; padding:0; font-size:13px; padding:0 10px; }
-	
-	#search_btn { padding:3px 10px; font-size:13px; }
-	
-	.button { text-align:center; margin-top:-80px; }
-	.button>div { display:inline-block; }
-	
-	
-</style>
+<link href="http://localhost:9000/mybook/css/admin/book/admin_book_rental.css" rel="stylesheet" >
 </head>
 <script>
 	$(document).ready(function() {

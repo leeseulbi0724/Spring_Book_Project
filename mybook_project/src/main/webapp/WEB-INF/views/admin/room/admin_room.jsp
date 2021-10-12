@@ -11,27 +11,7 @@
 <script src="http://localhost:9000/mybook/js/jquery-3.6.0.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
-<style>
-	.room { border-bottom:4px solid rgb(76,127,242); }
-	.center { width:1319.2px; height:705px; float:left;  }
-	.center h3 { font-weight:bold; margin:15px 20px; font-size:16px; }
-	.center p { float:right; margin-top:-35px; margin-right:20px; }
-	.center a, .center span { font-size:12px; font-weight:normal; float:left; }
-	.list_box { width:1275px; height:600px; background-color:white; margin-left:20px; }
-	
-	.seat { width:100%; display:inline-block; height:500px; margin-top:20px; text-align:center; }
-	 .seat_box { width:800px; display:inline-block; margin-top:20px; text-align:center; margin-top:60px; }
-	.seat_box button { 
-		border:1px solid lightgray;
-		width:40px; height:40px;
-		font-size:14px;
-	 }
-	 .seat_box .no { background-color:rgb(255,185,185); color:black; }
-	 .seat_box .x { background-color:lightgray; color:black; }
-	 .seat_box .yes { background-color:white; }
-	#write, #write_no, #reset { margin:10px 0 10px 10px; font-size:12px; font-weight:normal; float:left; }
-	#reset { float:right; margin-right:10px; }
-</style>
+<link href="http://localhost:9000/mybook/css/admin/room/admin_room.css" rel="stylesheet" >
 </head>
 <script>
 	$(document).ready(function() {
